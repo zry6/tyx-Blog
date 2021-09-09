@@ -66,4 +66,10 @@ public interface BlogDao {
 
     @Update("update t_blog set views=views+1 where id = #{id}")
     void updateViews(Long id);
+    @Select("select date_format(b.update_time,'%Y') as year from t_blog b where published=true group by year order by year desc")
+    List<String> findGroupYear();
+    @Select("select * from t_blog b where date_format(b.update_time,'%Y') = #{year} and published=true  order by update_time desc;;")
+    List<Blog> findBlogByYear(String year);
+    @Select("select count(*) from t_blog where  published=true")
+    Long count();
 }

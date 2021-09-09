@@ -1,5 +1,7 @@
 package com.zry.simpleblog.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.zry.simpleblog.entity.Blog;
 import com.zry.simpleblog.entity.Tag;
 import com.zry.simpleblog.service.BlogService;
 import com.zry.simpleblog.service.TagService;
@@ -25,14 +27,19 @@ public class TagShowController {
     @Resource
     private BlogService blogService;
     @GetMapping("/tags/{id}")
-    public String types(@PathVariable Long id, @RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum , Model model) {
+    public String tags(@PathVariable Long id, @RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum , Model model) {
         List<Tag> tags = tagService.listTagTop(10000);
         if (id == -1) {
             id = tags.get(0).getId();
         }
+        PageInfo pageInfo = blogService.listBlogByTagId(pageNum, 6, id);
+        List<Blog> blogList = pageInfo.getList();
+        for (Blog o : blogList) {
+            o.setTags(tagService.getTagsByBlogId(o.getId()));
+        }
         model.addAttribute("tags", tags);
-        model.addAttribute("pageInfo", blogService.listBlogByTagId(pageNum,6,id));
+        model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("activeTagId", id);
-        return "types";
+        return "tags";
     }
 }

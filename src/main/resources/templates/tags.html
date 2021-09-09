@@ -31,7 +31,6 @@
         <i class="sidebar icon"></i>
     </a>
 </nav>
-
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 <!--中间内容-->
 <div class="m-container-small m-padded-tb-4em ">
@@ -40,62 +39,64 @@
         <div class="ui top attached segment">
             <div class="ui middle aligned two column grid">
                 <div class="column">
-
-                    <h3 class="ui teal header">分类</h3>
+                    <h3 class="ui teal header">标签</h3>
                 </div>
                 <div class="right aligned column ">
-                    共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(tags)}"> 14 </h2>个
+                    共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(tags)}"> 14 </h2>
+                    个
                 </div>
             </div>
         </div>
         <div class="ui attached segment m-padded-tb-2em">
-            <a href="#"th:href="@{/tags/{id}(id=${tag.id})}" class="ui teal basic left pointing large label m-margin-tb-tiny" th:each="tag : ${tags}">
+            <a href="#" th:href="@{/tags/{id}(id=${tag.id})}"
+               class="ui  basic left pointing large label m-margin-tb-tiny"
+               th:classappend="${activeTagId==tag.id} ? 'teal'" th:each="tag : ${tags}">
                 <span th:text="${tag.name}">方法论</span>
-                <<div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
+                <div class="detail" th:text="${tag.blogCount}">23</div>
             </a>
         </div>
         <div class="ui top attached teal segment">
-            <div class="ui padded vertical  segment m-padded-tb-2em m-mobile--clear">
+            <div class="ui padded vertical  segment m-padded-tb-2em m-mobile--clear" th:each="blog : ${pageInfo.list}">
                 <div class="ui mobile reversed stackable grid">  <!--mobile reversed  手机反转-->
                     <div class="eleven wide column">
-                        <h3 class="ui header">牛市第三阶段</h3>
-                        <p class="m-text">滴哦是是你都i送i你都弄上那你nsdin第四卷第是
-                            是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄
-                            是你都i送i你都弄是你都i送i你都弄
+                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank"
+                                                 class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>
+                        <p class="m-text" th:text="|${blog.description}....|"> 滴哦是是你都i送i你都弄上那你nsdin第四卷第是
                         </p>
                         <div class="ui stackable grid">
                             <div class="row">
                                 <div class="eleven wide column">
                                     <div class="ui mini horizontal link list">
                                         <div class="item">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                            <img src="https://unsplash.it/100/100?image=1005"
+                                                 th:src="@{${blog.user.avatar}}" alt=""
                                                  class="ui avatar image">
                                             <!--在后面添加一些文字 content-->
                                             <div class="content">
-                                                <a class="header">
+                                                <a class="header" th:text="${blog.user.nickname}">
                                                     赵睿宇
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="item">
-                                            <i class="calendar icon"></i> 2021-10-01
+                                            <i class="calendar icon"></i> <span
+                                                th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2021-9-01</span>
                                         </div>
                                         <div class="item">
-                                            <i class="eye icon"></i> 220
+                                            <i class="eye icon"></i><span th:text="${blog.views}">220</span>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="right aligned five wide column">
-                                    <a href="#" class="ui teal basic label m-padded-03em">简直offer</a>
+                                    <a href="#" class="ui teal basic label m-padded-03em" th:text="${blog.type.name}">简直offer</a>
                                 </div>
-
-
                             </div>
-
                             <div class="row">
-                                <div class="column">
-                                    <a href="#" class="ui basic teal left pointing label m-padded-tb-mini">方法论</a>
+                                <div class="column" >
+                                    <a href="#" th:href="@{/tags/{id}(id=${tag.id})}"
+                                       class="ui  basic left pointing label m-padded-mini m-text-thin"
+                                       th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${blog.tags}"
+                                       th:text="${tag.name}">方法论</a>
                                 </div>
                             </div>
                         </div>
@@ -103,60 +104,8 @@
 
                     <div class="five wide column">
                         <a href="#" target="_parent">
-                            <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui padded vertical  segment m-padded-tb-2em m-mobile--clear">
-                <div class="ui mobile reversed stackable grid">  <!--mobile reversed  手机反转-->
-                    <div class="eleven wide column">
-                        <h3 class="ui header">牛市第三阶段</h3>
-                        <p class="m-text">滴哦是是你都i送i你都弄上那你nsdin第四卷第是
-                            是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄
-                            是你都i送i你都弄是你都i送i你都弄
-                        </p>
-                        <div class="ui stackable grid">
-                            <div class="row">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt=""
-                                                 class="ui avatar image">
-                                            <!--在后面添加一些文字 content-->
-                                            <div class="content">
-                                                <a class="header">
-                                                    赵睿宇
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calendar icon"></i> 2021-10-01
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i> 220
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="right aligned five wide column">
-                                    <a href="#" class="ui teal basic label m-padded-03em">简直offer</a>
-                                </div>
-
-
-                            </div>
-
-                            <div class="row">
-                                <div class="column">
-                                    <a href="#" class="ui basic teal left pointing label m-padded-tb-mini">方法论</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="five wide column">
-                        <a href="#" target="_parent">
-                            <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui rounded image">
+                            <img src="https://unsplash.it/800/450?image=1005" th:src="@{${blog.firstPicture}}" alt=""
+                                 class="ui rounded image">
                         </a>
                     </div>
                 </div>
@@ -164,11 +113,13 @@
         </div>
         <div class="ui bottom attached segment">
             <div class="ui middle aligned two column grid">
-                <div class="column">
-                    <a href="#" class="ui mini teal basic button">上一页</a>
+                <div class="column" th:if="${pageInfo.pageNum != 1}">
+                    <a href="#" th:href="@{'/tags/'+${activeTagId}(page=${page.number}-1)}"
+                       class="ui mini teal basic button ">上一页</a>
                 </div>
-                <div class="right aligned column ">
-                    <a href="#" class="ui mini teal basic button">下一页</a>
+                <div class="right aligned column " th:if="${!pageInfo.isLastPage}">
+                    <a href="#" th:href="@{'/tags/'+${activeTagId}(page=${page.number}-1)}"
+                       class="ui mini teal basic button ">下一页</a>
                 </div>
             </div>
         </div>

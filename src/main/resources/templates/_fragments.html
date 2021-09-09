@@ -60,28 +60,28 @@
             </div>
             <div class="three wide column">
                 <h4 class="ui inverted header">最新博客</h4>
-                <div class="ui inverted link list m-text-thin m-text-spaced">
-                    <a href="#" class="item">用户故事</a>
-                    <a href="#" class="item">用户故事</a>
-                    <a href="#" class="item">用户故事</a>
+                <div id="newBlog-container">
+                    <div class="ui inverted link list m-text-thin m-text-spaced" th:fragment="newBlogList">
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${newBlogs}" th:text="${blog.title}">用户故事</a>
+                    </div>
                 </div>
             </div>
             <div class="three wide column">
                 <h4 class="ui inverted header">联系我</h4>
                 <div class="ui inverted link list m-text-thin m-text-spaced">
-                    <a href="#" class="item">Email：1447051936@qq.com</a>
-                    <a href="#" class="item">QQ:1447051936</a>
+                    <a href="#" class="item" th:text="'Email:'+#{index.email}">Email：1447051936@qq.com</a>
+                    <a href="#" class="item" th:text="'QQ:'+#{index.QQ}">QQ:1447051936</a>
                 </div>
             </div>
             <div class="seven wide column">
                 <h4 class="ui inverted header">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity">
+                <p class="m-text-thin m-text-spaced m-opacity" th:text="#{index.blogDescription}">
                     这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...
                 </p>
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2021 rights reserved Newbie Zry</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2021 by Newbie Zry</p>
     </div>
 
 </footer>
@@ -93,6 +93,11 @@
     <script th:src="@{/lib/tocbot/tocbot.min.js}"></script>
     <script th:src="@{/lib/qrcode/qrcode.min.js}"></script>
     <script th:src="@{/lib/waypoint/jquery.waypoints.min.js}"></script>
+    <script>
+        $(function () {
+            $('#newBlog-container').load(/*[[@{/footer/newBlog}]]*/"/Blog/footer/newBlog");
+        });
+    </script>
 </th:block>
 </body>
 </html>

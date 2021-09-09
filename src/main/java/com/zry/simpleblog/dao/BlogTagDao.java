@@ -1,10 +1,7 @@
 package com.zry.simpleblog.dao;
 
 import com.zry.simpleblog.entity.Blog;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -17,6 +14,8 @@ import java.util.List;
 @Mapper
 public interface BlogTagDao {
 
+    @Results({@Result(property = "type.id", column = "type_id"),
+            @Result(property = "user.id", column = "user_id")})
     @Select("select * from t_blog where id in (select blogs_id from t_blog_tags where tags_id=#{tagId}) and published=true")
     List<Blog> queryBlogByTagId(Long tagId);
 

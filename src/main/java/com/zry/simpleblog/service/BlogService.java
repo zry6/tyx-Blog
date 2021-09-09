@@ -5,6 +5,7 @@ import com.zry.simpleblog.entity.Blog;
 import com.zry.simpleblog.vo.BlogQuery;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zry
@@ -27,6 +28,7 @@ public interface BlogService {
     void deleteBlog(Long id);
 
     List<Blog> listRecommendBlogTop(int count);
+    Map<String,List<Blog>> archiveBlog();
 
-
+    Long countBlog();
 }

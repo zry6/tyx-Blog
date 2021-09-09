@@ -542,7 +542,7 @@ h5,h6{font-size:1em;}
                         <h3 class="ui dividing header">评论</h3>
                         <div class="comment" th:each="comment : ${comments}">
                             <a class="avatar">
-                                <img src="https://unsplash.it/100/100?image=1005" th:src="@{${comment.avatar}}">
+                                <img src="https://unsplash.it/100/100?image=1005" th:src="@{${comment.avatar}}"  alt="">
                             </a>
                             <div class="content">
                                 <a class="author" >
@@ -562,7 +562,7 @@ h5,h6{font-size:1em;}
                             <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
                                 <div class="comment" th:each="reply : ${comment.replyComments}">
                                     <a class="avatar">
-                                        <img src="https://unsplash.it/100/100?image=1005" th:src="@{${reply.avatar}}">
+                                        <img src="https://unsplash.it/100/100?image=1005" th:src="@{${reply.avatar}}" alt="">
                                     </a>
                                     <div class="content">
                                         <a class="author" >
@@ -605,6 +605,12 @@ h5,h6{font-size:1em;}
                         <div class="ui left icon input">
                             <i class="mail icon"></i>
                             <input type="text" name="email" placeholder="邮箱" th:value="${session.User}!=null ? ${session.User.email}">
+                        </div>
+                    </div>
+                    <div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.User}==null">
+                        <div class="ui left icon input">
+                            <i class="image outline icon"></i>
+                            <input type="text" name="avatar" placeholder="头像地址..." >
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
@@ -670,7 +676,7 @@ h5,h6{font-size:1em;}
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2021 rights reserved Newbie Zry</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2021 by Newbie Zry</p>
     </div>
 
 </footer>
@@ -724,7 +730,7 @@ h5,h6{font-size:1em;}
         hasInnerContainers: true,
     });
 
-    var serurl = "http://localhost:8080";
+    var serurl = /*[[#{blog.serurl}]]*/"http://localhost:8080";
     var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
     var qrcode = new QRCode("wechat-qr", {
         // text: "http://jindo.dev.naver.com/collie",
@@ -773,6 +779,7 @@ h5,h6{font-size:1em;}
             "nickname": $("[name='nickname']").val(),
             "email": $("[name='email']").val(),
             "content": $("[name='content']").val(),
+            "avatar": $("[name='avatar']").val(),
         }, function (responseTxt, statusTxt, xhr) {
             $(window).scrollTo($('#comment-container'), 500);
             clearContent();

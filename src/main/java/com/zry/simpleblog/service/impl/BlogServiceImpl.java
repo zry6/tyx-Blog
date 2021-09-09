@@ -3,18 +3,20 @@ package com.zry.simpleblog.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zry.simpleblog.NotFoundException;
-import com.zry.simpleblog.util.MarkdownUtils;
-import com.zry.simpleblog.util.StringToList;
 import com.zry.simpleblog.dao.*;
 import com.zry.simpleblog.entity.Blog;
 import com.zry.simpleblog.service.BlogService;
+import com.zry.simpleblog.util.MarkdownUtils;
+import com.zry.simpleblog.util.StringToList;
 import com.zry.simpleblog.vo.BlogQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zry
@@ -88,7 +90,7 @@ public class BlogServiceImpl implements BlogService {
         PageInfo pageInfo = new PageInfo(setUserAndType(blogList));
         return pageInfo;
     }
-/**展示区域用tagId查blogList
+/**标签✌展示区域 分页查询 PageInfo 用tagId查blogList
  * @description
  * @title
  * @author zry
@@ -151,6 +153,21 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Blog> listRecommendBlogTop(int count) {
         return blogDao.listRecommendBlogTop(count);
+    }
+
+    @Override
+    public Map<String, List<Blog>> archiveBlog() {
+        List<String> years = blogDao.findGroupYear();
+        Map<String,List<Blog>> map = new HashMap<>();
+        for (String year : years) {
+            map.put(year,blogDao.findBlogByYear(year));
+        }
+        return map;
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogDao.count();
     }
 
 }

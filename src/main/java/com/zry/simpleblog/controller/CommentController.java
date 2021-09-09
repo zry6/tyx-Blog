@@ -29,14 +29,15 @@ public class CommentController {
     }
     @PostMapping("/comments")
     public String post(Comment comment, HttpSession session){
-        Long blogId = comment.getBlog().getId();
         String avatar = "/images/avatar/avatar1.png";
         User user = (User) session.getAttribute("User");
         if (user != null) {
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);
         } else {
-            comment.setAvatar(avatar);
+            if(comment.getAvatar().isEmpty()||comment.getAvatar()==null){
+                comment.setAvatar(avatar);
+            }
             comment.setAdminComment(false);
         }
         commentService.saveComment(comment);
