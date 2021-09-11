@@ -34,7 +34,7 @@
 
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 <!--中间内容-->
-<div class="m-container m-padded-tb-4em ">
+<div id="pointTop" class="m-container m-padded-tb-4em ">
     <div class="ui container">
         <div class="ui stackable grid">
             <div class="eleven wide column">
@@ -64,10 +64,11 @@
                     <div class="ui orange basic left pointing label m-margin-tb-tiny">SpringBoot</div>
                     <div class="ui orange basic left pointing label m-margin-tb-tiny">...</div>
                 </div>
-                <div class="ui bottom attached segment">
+                <div class="ui bottom attached segment center aligned">
 <!--                    <a href="#" class="ui circular icon button"><i class="gitee icon"></i></a>-->
-                    <a href="https://gitee.com/zhao--ruiyu/spring-boot-blog-master" target="_blank" class="ui circular icon button"><img src="static/images/gitee.png" th:src="@{/images/gitee.png}" width="12"></a>
+                    <a href="https://gitee.com/zhao--ruiyu/spring-boot-blog-master" target="_blank"  data-content="点击跳转gitee" data-position="bottom center" class="ui gitee circular icon button"><img src="static/images/gitee.png" th:src="@{/images/gitee.png}" width="12"></a>
                     <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+                    <a href="https://blog.csdn.net/qq_45802080" target="_blank" class="ui csdn circular icon button" data-content="点击跳转CSDN" data-position="bottom center"><i class="copyright outline icon"></i></a>
                     <a href="#" class="ui qq circular icon button" data-content="1447051936" data-position="bottom center"><i class="qq icon"></i></a>
                 </div>
 
@@ -132,7 +133,9 @@
 
         不过，通过使用 "switch" 参数，您能够规定只删除或只添加类。*/
     });
-$(".qq").popup();
+$(".qq").popup();$(".csdn").popup();
+$(".gitee").popup();
+
 </script>
 
 </html>

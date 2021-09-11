@@ -1,11 +1,65 @@
 /*<!--    ui    teal蓝色  header    -->*/
 body{
-    /*background-image: url("https://pic2.zhimg.com/80/v2-7ba604144747aec55216d41aa5fc5790_720w.jpg?source=1940ef5c");*/
+
+    background-image: url("https://pic2.zhimg.com/80/v2-7ba604144747aec55216d41aa5fc5790_720w.jpg?source=1940ef5c");
     /*苍穹灰*/
-    /*background-image: url("https://pic2.zhimg.com/80/v2-63a84dd240663f0f5cfe0b62709d7506_720w.jpg?source=1940ef5c");*/
+    background-image: url("https://pic2.zhimg.com/80/v2-63a84dd240663f0f5cfe0b62709d7506_720w.jpg?source=1940ef5c");
     /*纸棕*/
     background-image: url("https://pic2.zhimg.com/80/v2-adcd3dcb41f7153019b5aa1cd2187b67_720w.jpg?source=1940ef5c");
+    background-image: url("https://www.bleshi.com/resources/bg.jpg");
+    background-image: url("https://image.guiyunweb.com/2020/09/%E5%B0%81%E9%9D%A2%E5%9B%BE20200935_1600918678671.jpg");
+    background-image: url("https://yaoo.xin/bg1.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat:no-repeat;
 }
+/* common */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    /*border-radius: 10px;*/
+    background: #EDEDED;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    /*background-color: #5755D9;*/
+    background-color: #767676;
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%,rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+}
+body{
+background-color: #f8f9fa;
+font-weight: 400;
+/*color: #757575;*/
+cursor: url(/Blog/images/mouses/cur1.cur), default;
+}
+
+nav{
+    border-color: #1b1c1d !important;
+}
+/*m-back-grass*/
+.m-back-grass-small{
+    background: rgba(255,255,255,.15)!important;
+    border-radius: .28571429rem!important;
+}
+.m-back-grass{
+    background: rgba(255,255,255,.3)!important;
+    border-radius: .28571429rem!important;
+}
+.m-back-grass-deep{
+     background: rgb(255 255 255 / 70%)!important;
+     border-radius: .28571429rem!important;
+ }.m-back-grass-medium{
+     background: rgb(255 255 255 / 50%)!important;
+     border-radius: .28571429rem!important;
+ }
+
+  .m-border-radius{
+      border-radius: .28571429rem!important;
+  }
 /*--------------padded----------------*/
 .m-padded-03em{
     /*加重要级别 覆盖组件的样式*/
@@ -53,6 +107,9 @@ body{
     padding-right: 3em !important;
 }
 /*-------margin----------*/
+.m-mobile-top-15px{
+    margin-top: 15px;
+}
 .m-margin-top-small{
     margin-top:0.5em !important;
 }
@@ -68,6 +125,9 @@ body{
 }
 .m-margin-bottom-small{
     margin-bottom: 0.5em !important;
+}
+.m-margin-bottom{
+    margin-bottom: 1em !important;
 }
 /*--------text-------*/
 .m-text{
@@ -156,8 +216,29 @@ body{
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
-    .m-mobile--clear{
+    .m-mobile-clear{
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
+}
+
+.m-toTop {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #757575 !important;
+    box-shadow: 0 0 3px 0 rgb(0 0 0 / 12%), 0 3px 3px 0 rgb(0 0 0 / 24%);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    transition: all .1s ease-out;
+}
+.m-toTop i{
+    font-size: 24px;
+    margin-top: 9px !important;
+    margin-left: 3px !important;
+
 }

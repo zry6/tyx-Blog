@@ -34,41 +34,31 @@
 
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 <!--中间内容-->
-<div class="m-container-small m-padded-tb-4em ">
+<div id="pointTop" class="m-container-small m-padded-tb-4em ">
     <div class="ui container">
         <!-- header-->
-        <div class="ui top attached segment">
+        <div class="ui top attached segment m-border-radius animated flipInX">
             <div class="ui middle aligned two column grid">
                 <div class="column">
-
-                    <h3 class="ui teal header">分类</h3>
+                    <h3 class="ui header">分类</h3>
                 </div>
                 <div class="right aligned column ">
                     共<h2 class="ui orange header m-inline-block m-text-thin"> <span th:text="${#arrays.length(types)}">14</span> </h2>个
                 </div>
             </div>
         </div>
-        <div class="ui attached segment m-padded-tb-2em">
+        <div class="ui attached segment m-padded-tb-2em m-border-radius animated fadeIn">
                 <div class="ui labeled button m-margin-tb-tiny" tabindex="0" th:each="type : ${types}">
                     <a class="ui basic  button" th:href="@{/types/{id}(id=${type.id})}"  th:classappend="${type.id==activeTypeId} ? 'teal'">
-                        <i class="heart icon "></i> <span th:text="${type.name}">思考与感悟</span>
+                        <i class="heart icon " th:classappend="${type.id==activeTypeId} ? 'red'"></i> <span th:text="${type.name}">思考与感悟</span>
                     </a>
-                    <div class="ui basic left pointing label"  th:classappend="${type.id==activeTypeId} ? 'teal'">
+                    <div class="ui basic left pointing label">
                         <span th:text="${type.blogCount}">10,42</span>
                     </div>
                 </div>
-
-<!--            <div class="ui labeled button m-margin-tb-tiny" tabindex="0">-->
-<!--                <a class="ui basic blue button">-->
-<!--                    <i class="fork icon"></i> 讨厌-->
-<!--                </a>-->
-<!--                <div class="ui basic left pointing blue label">-->
-<!--                    1,048-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
-        <div class="ui top attached teal segment">
-            <div class="ui padded vertical  segment m-padded-tb-2em m-mobile--clear" th:each="blog : ${pageInfo.list}">
+        <div class="ui top attached segment m-border-radius animated fadeInUp">
+            <div class="ui padded  segment m-padded-tb-2em m-mobile-clear" th:each="blog : ${pageInfo.list}">
                 <div class="ui mobile reversed stackable grid">  <!--mobile reversed  手机反转-->
                     <div class="eleven wide column">
                         <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>
@@ -111,8 +101,8 @@
             </div>
 
         </div>
-        <div class="ui bottom attached segment">
-            <div class="ui middle aligned two column grid">
+        <div class="ui bottom attached segment" th:if="${pageInfo.total}>1">
+            <div class="ui middle aligned two column grid" >
                 <div class="column" th:if="${pageInfo.pageNum != 1}">
                     <a href="#" th:href="@{'/types/'+${activeTypeId}(page=${page.number}-1)}"  class="ui mini teal basic button ">上一页</a>
                 </div>

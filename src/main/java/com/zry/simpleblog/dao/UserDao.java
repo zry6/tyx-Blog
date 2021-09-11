@@ -16,6 +16,6 @@ public interface UserDao {
     @Select("select * from t_user where username=#{username}")
     User queryUserByUsername(String username);
 
-    @Select("select id,avatar,create_time,email,nickname,password,type,update_time,username from t_user where id=#{id}")
+    @Select("select id,avatar,create_time,email,nickname,type,update_time,username from t_user where id=#{id}")
     User queryUserById(Long id);
 }

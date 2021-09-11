@@ -32,10 +32,10 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(@RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum, Model model) {
-        model.addAttribute("pageInfo", blogService.listBlog(pageNum, 6));
+        model.addAttribute("pageInfo", blogService.listBlog(pageNum, 3));
         model.addAttribute("types", typeService.listTypeTop(6));
         model.addAttribute("tags", tagService.listTagTop(8));
-        model.addAttribute("recommendBlogs", blogService.listRecommendBlogTop(6));
+        model.addAttribute("recommendBlogs", blogService.listRecommendBlogTop(7));
         return "index";
     }
 
