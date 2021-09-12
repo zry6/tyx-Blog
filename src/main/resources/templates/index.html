@@ -33,73 +33,12 @@
     </a>
 </nav>
 <!--中间内容-->
-<div id="pointTop" class=" m-padded-tb-4em m-container ">
+<div id="pointTop" class=" m-padded-tb-4em m-container-normal ">
     <!--container 响应式的容器-->
     <div class="ui  container">
         <div class="ui ">
             <!--    左边部分-->
-<!--            <div class="five wide column">-->
-<!--                &lt;!&ndash;                分类&ndash;&gt;-->
-<!--                <div class="ui segment m-back-grass">-->
-<!--                    <div class="ui secondary segment m-card">-->
-<!--                        <div class="ui two column grid">-->
-<!--                            <div class="column">-->
-<!--                                <i class="idea icon"></i>分类-->
-<!--                            </div>-->
-<!--                            <div class="right aligned column ">-->
-<!--                                <a href="#" th:href="@{types/-1}">more<i class="angle double right icon"></i> </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="ui teal segment">-->
-<!--                        <div class="ui fluid vertical menu m-card">-->
-<!--                            <a href="#" th:href="@{/types/{id}(id=${type.id})}" th:each="type : ${types}" class="item m-card-mod">-->
-<!--                                &lt;!&ndash;在item 的后面随便加一段文字默认在右边 &ndash;&gt;-->
-<!--                                <span th:text="${type.name}">学习日志</span>-->
-<!--                                &lt;!&ndash;                                <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.blogs)}">13</div>&ndash;&gt;-->
-<!--                                <div class="ui teal basic left pointing label" th:text="${type.blogCount}">13</div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;                标签&ndash;&gt;-->
-<!--                <div class="ui segment m-margin-top-large m-back-grass">-->
-<!--                    <div class="ui secondary segment m-card">-->
-<!--                        <div class="ui two column grid">-->
-<!--                            <div class="column">-->
-<!--                                <i class="tags icon"></i>标签-->
-<!--                            </div>-->
-<!--                            <div class="right aligned column">-->
-<!--                                <a href="#" th:href="@{tags/-1}">more<i class="angle double right icon"></i> </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="ui teal segment m-card">-->
-<!--                        <a href="#" th:href="@{/tags/{id}(id=${tag.id})}"-->
-<!--                           class="ui teal basic left pointing label m-margin-tb-tiny m-card-mod" th:each="tag : ${tags}">-->
-<!--                            <span th:text="${tag.name}">方法论</span>-->
-<!--                            &lt;!&ndash;                            <div class="detail" th:text="${#arrays.length(tag.blogs)}">32</div>&ndash;&gt;-->
-<!--                            <div class="detail" th:text="${tag.blogCount}">32</div>-->
-<!--                        </a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;                最新推荐&ndash;&gt;-->
-<!--                &lt;!&ndash;     segment  这俩个有区别使用   segments         &ndash;&gt;-->
-<!--                <div class="ui segments m-margin-top-large m-card">-->
-<!--                    <div class="ui secondary segment">-->
-<!--                        <i class="bookmark icon"></i>最新推荐-->
-<!--                    </div>-->
-<!--                    <div class="ui segment m-card-mod" th:each="blog : ${recommendBlogs}">-->
-<!--                        <a href="#" target="" th:href="@{/blog/{id}(id=${blog.id})}" class="m-black m-text-thin "-->
-<!--                           th:text="${blog.title}">用户故事 (USer Story)</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;                二维码&ndash;&gt;-->
-<!--                &lt;!&ndash;                <h4 class="ui horizontal divider header m-margin-top-large">扫码关注我</h4>&ndash;&gt;-->
-<!--                &lt;!&ndash;                <div class="ui centered card" style="width: 11em;">&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <img src="../static/images/weixin.png" th:src="@{/images/weixin.png}" class="ui rounded image">&ndash;&gt;-->
-<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
-<!--            </div>-->
+
             <!--博客列表-->
             <div class="ten wide column  m-mobile-top-15px m-back-grass animated fadeIn">
                 <!-- header-->

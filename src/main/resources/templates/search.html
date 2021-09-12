@@ -108,7 +108,7 @@
                 <div class="column"th:if="${pageInfo.pageNum != 1}">
                     <a href="#"
                        th:href="@{/search?query={query}&pageNum={pageNum}(pageNum=${pageInfo.pageNum-1},query=${query})}"
-                       class="ui mini teal basic button ">上一页</a>
+                       class="ui mini teal basic button">上一页</a>
                 </div>
                 <div class="right aligned column " th:if="${!pageInfo.isLastPage}">
                     <a href="#"
@@ -167,7 +167,13 @@
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
-
+    $(".funIcon").click(function () {
+        $('.m-search').toggleClass('m-active');
+        $('.search.line').toggleClass('no');
+        $('.close').toggleClass('no');
+        $('#pointTop').toggleClass('no');
+        $('#footer').toggleClass('no');
+    });
 </script>
 </body>
 </html>

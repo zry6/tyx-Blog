@@ -212,11 +212,11 @@ nav {
 .m-inline-block {
     display: inline-block !important;
 }
-.m-container {
+.m-container-normal {
     max-width: 50em !important;
     margin: auto !important;
 }
-.m-container-normal {
+.m-container {
     max-width: 72em !important;
     margin: auto !important;
 }
