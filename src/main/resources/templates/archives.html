@@ -50,8 +50,8 @@
         </div>
         <div th:each="item : ${archiveMap}">
             <h2 class="ui center aligned header animated fadeInUp" th:text="${item.key}">2018</h2>
-            <div class="ui fluid vertical menu animated fadeInUpBig" >
-                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" class="item"  th:each="blog : ${item.value}">
+            <div class="ui fluid vertical menu animated fadeInUpBig " >
+                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" class="item m-card-mod"  th:each="blog : ${item.value}">
                 <span>
                     <i class="mini teal circle icon"></i> <span th:text="${blog.title}">关于可以练习的清单</span>
                     <div class="ui teal basic left pointing label m-padded-tb-mini" th:text="${#dates.format(blog.updateTime,'MMMdd')}">9月03</div>

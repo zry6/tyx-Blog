@@ -58,10 +58,9 @@
                 <br>
                 <br>
                 <br></div>
-            <div class="ui padded vertical segment m-padded-tb-large animated fadeInUp"
+            <div class="ui padded vertical segment m-padded-tb-large animated fadeInUp "
                  th:each="blog : ${pageInfo.list}">
-
-                <div class="ui middle aligned mobile reversed stackable grid">
+                <div class="ui middle aligned mobile reversed stackable grid m-card">
                     <div class="eleven wide column">
                         <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank"
                                                  class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>

@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="ui attached segment m-padded-tb-2em m-border-radius animated fadeIn">
-                <div class="ui labeled button m-margin-tb-tiny" tabindex="0" th:each="type : ${types}">
+                <div class="ui labeled button m-margin-tb-tiny m-card-mod" tabindex="0" th:each="type : ${types}">
                     <a class="ui basic  button" th:href="@{/types/{id}(id=${type.id})}"  th:classappend="${type.id==activeTypeId} ? 'teal'">
                         <i class="heart icon " th:classappend="${type.id==activeTypeId} ? 'red'"></i> <span th:text="${type.name}">思考与感悟</span>
                     </a>
@@ -58,7 +58,7 @@
                 </div>
         </div>
         <div class="ui top attached segment m-border-radius animated fadeInUp">
-            <div class="ui padded  segment m-padded-tb-2em m-mobile-clear" th:each="blog : ${pageInfo.list}">
+            <div class="ui padded  segment m-padded-tb-2em m-mobile-clear m-card" th:each="blog : ${pageInfo.list}">
                 <div class="ui mobile reversed stackable grid">  <!--mobile reversed  手机反转-->
                     <div class="eleven wide column">
                         <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>

@@ -49,14 +49,14 @@
         </div>
         <div class="ui attached segment m-padded-tb-2em m-border-radius animated fadeIn ">
             <a href="#" th:href="@{/tags/{id}(id=${tag.id})}"
-               class="ui  basic left pointing large label m-margin-tb-tiny"
+               class="ui  basic left pointing large label m-margin-tb-tiny m-card-mod"
                th:classappend="${activeTagId==tag.id} ? 'teal'" th:each="tag : ${tags}">
                 <span th:text="${tag.name}">方法论</span>
                 <div class="detail" th:text="${tag.blogCount}">23</div>
             </a>
         </div>
         <div class="ui top attached  segment  m-border-radius animated fadeInUp">
-            <div class="ui padded  segment m-padded-tb-2em m-mobile-clear" th:each="blog : ${pageInfo.list}">
+            <div class="ui padded  segment m-padded-tb-2em m-mobile-clear m-card" th:each="blog : ${pageInfo.list}">
                 <div class="ui mobile reversed stackable grid">  <!--mobile reversed  手机反转-->
                     <div class="eleven wide column">
                         <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank"

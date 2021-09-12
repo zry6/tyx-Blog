@@ -14,10 +14,10 @@
 </head>
 <body>
 
-<nav th:fragment="menu(n)"  class="ui inverted attached segment m-padded-tb-mini animated fadeInDown">
+<nav th:fragment="menu(n)"  class="m-padded-tb-mini animated fadeInDown m-back-grass-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
-            <h2 class="ui teal header item">Blog</h2>
+            <h2 class="ui teal header item">猫喵喵</h2>
             <a href="#" th:href="@{/}" class="nav_item item m-mobile-hide" th:classappend="${n == 1} ? 'active'"><i
                     class="home icon"></i>首页</a>
             <a href="#" th:href="@{/types/-1}" class="nav_item item m-mobile-hide"
@@ -30,7 +30,7 @@
                     class="clone icon"></i>归档</a>
             <a href="#" th:href="@{/about}" class="nav_item item m-mobile-hide" th:classappend="${n == 5} ? 'active'"><i
                     class="info icon"></i>关于我</a>
-            <div class="nav_item right item m-mobile-hide">
+            <div class="nav_item right item m-mobile-hide" style="background-color: rgb(0 0 0 / 70%);">
                 <form action="#" th:action="@{/search}" name="search">
                     <div class="ui icon inverted transparent  input">
                         <input type="text" name="query" placeholder="快来找你要的东东ヾ(≧▽≦*)o..." required="required" th:value="${query}">
