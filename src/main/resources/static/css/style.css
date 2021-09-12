@@ -9,7 +9,7 @@
     transition: .5s!important;
 }
 
-.m-search .icon {
+.m-search .funIcon,.s-icon {
     width: 67px!important;
     height: 67px!important;
     line-height: 67px!important;
