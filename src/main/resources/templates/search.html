@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../static/css/me.css">
 </head>
-<body>
+<body class="m-back-img2">
 
 <!--导航-->
 <nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
@@ -16,7 +16,7 @@
             <h2 class="ui teal header item">Blog</h2>
             <a href="#" class="active m-item item m-mobile-hide"><i class="mini home icon"></i>首页</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
-            <a href="#" class=" m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini clone icon"></i>归档</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
             <div class="right m-item item m-mobile-hide">
@@ -33,7 +33,7 @@
 </nav>
 
 <!--中间内容-->
-<div id="pointTop" class="m-container-small m-padded-tb-big">
+<div id="pointTop" class="m-container-small m-padded-tb-4em m-padded-top-best">
     <div class="ui container">
         <!--header-->
         <div class="ui top attached segment m-border-radius animated flipInX">
@@ -47,9 +47,8 @@
                 </div>
             </div>
         </div>
+        <div class="ui top attached segment m-border-radius  m-back-grass-deep animated fadeInUp">
 
-
-        <div class="ui top attached teal segment m-border-radius animated fadeIn">
             <div th:if="${pageInfo.total}==0">
                 <br>
                 <br>
@@ -58,50 +57,49 @@
                 <br>
                 <br>
                 <br></div>
-            <div class="ui padded vertical segment m-padded-tb-large animated fadeInUp "
-                 th:each="blog : ${pageInfo.list}">
-                <div class="ui middle aligned mobile reversed stackable grid m-card">
+            <div class="ui padded  segment m-padded-tb-2em m-mobile-clear m-card" th:each="blog : ${pageInfo.list}">
+                <div class="ui mobile reversed stackable grid">  <!--mobile reversed  手机反转-->
                     <div class="eleven wide column">
-                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank"
-                                                 class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>
-                        <p class="m-text" th:text="|${blog.description}......|">
-                            正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...</p>
+                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>
+                        <p class="m-text" th:text="|${blog.description}....|">滴哦是是你都i送i你都弄上那你nsdin第四卷第是
+                            是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄
+                            是你都i送i你都弄是你都i送i你都弄
+                        </p>
                         <div class="ui grid">
                             <div class="eleven wide column">
                                 <div class="ui mini horizontal link list">
                                     <div class="item">
-                                        <img src="https://unsplash.it/100/100?image=1005"
-                                             th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
-                                        <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">李仁密</a>
+                                        <img src="https://unsplash.it/100/100?image=1005" th:src="@{${blog.user.avatar}}" alt=""
+                                             class="ui avatar image">
+                                        <!--在后面添加一些文字 content-->
+                                        <div class="content">
+                                            <a class="header" th:text="${blog.user.nickname}">
+                                                赵睿宇
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="item">
-                                        <i class="calendar icon"></i><span
-                                            th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-01</span>
+                                        <i class="calendar icon" ></i> <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2021-9-01</span>
                                     </div>
                                     <div class="item">
-                                        <i class="eye icon"></i> <span th:text="${blog.views}">2342</span>
+                                        <i class="eye icon"></i> <span th:text="${blog.views}">220</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="right aligned five wide column">
-                                <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin"
-                                   th:text="${blog.type.name}">认知升级</a>
+                                <a href="#" class="ui teal basic label m-padded-03em" th:text="${blog.type.name}">简直offer</a>
                             </div>
                         </div>
                     </div>
-
                     <div class="five wide column">
                         <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
-                            <img src="https://unsplash.it/800/450?image=1005" th:src="@{${blog.firstPicture}}" alt=""
-                                 class="ui rounded image">
+                            <img src="https://unsplash.it/800/450?image=1005" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
                         </a>
                     </div>
-
                 </div>
             </div>
-        </div>
 
+        </div>
         <!--footer-->
         <div class="ui bottom attached segment" th:if="${pageInfo.total}>1">
             <div class="ui middle aligned two column grid">
@@ -124,6 +122,7 @@
 <br>
 <br>
 <!--底部footer-->
+
 <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
@@ -159,20 +158,15 @@
     </div>
 
 </footer>
-
+<!--/*/<th:block th:replace="_fragments::script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-
+<script th:src="@{/js/snowFall.js}"></script>
+<!--/*/</th:block>/*/-->
 <script>
-    $('.menu.toggle').click(function () {
-        $('.m-item').toggleClass('m-mobile-hide');
-    });
-    $(".funIcon").click(function () {
-        $('.m-search').toggleClass('m-active');
-        $('.search.line').toggleClass('no');
-        $('.close').toggleClass('no');
-        $('#pointTop').toggleClass('no');
-        $('#footer').toggleClass('no');
+    $("#menu_toggle").click(function () {
+        $(".nav_item").toggleClass('m-mobile-hide');
+        $(".nav_search").toggleClass('no');
     });
 </script>
 </body>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head >
+<head lang="en" th:replace="_fragments::head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>博客详情</title>
@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}"/>
     <link rel="stylesheet" href="../static/css/me.css " th:href="@{/css/me.css}"/>
 </head>
-<body>
+<body class="m-back-img3">
 <!--导航-->
-<nav  class="m-padded-tb-mini animated fadeInDown m-back-grass-small">
+<nav th:replace="_fragments :: menu(0)" class="m-padded-tb-mini animated fadeInDown m-back-grass-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
             <h2 class="ui teal header item">猫喵喵</h2>
@@ -30,7 +30,7 @@
                     class="clone icon"></i>归档</a>
             <a href="#" th:href="@{/about}" class="nav_item item m-mobile-hide" th:classappend="${n == 5} ? 'active'"><i
                     class="info icon"></i>关于我</a>
-            <div class="right m-item item m-mobile-hide">
+            <div class="nav_item right item m-mobile-hide">
                 <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
                     <div class="ui icon inverted transparent input m-margin-tb-tiny">
                         <input type="text" name="query" placeholder="Search...." th:value="${query}">
@@ -47,7 +47,7 @@
 </nav>
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 <!--中间内容-->
-<div id="waypoint" class="m-container-small m-padded-tb-4em ">
+<div id="waypoint" class="m-container-small m-padded-tb-4em m-padded-top-best m-mobile-top-15px">
     <div class="ui container">
         <div class="ui top attached segment ">
             <div class="ui horizontal link list animated flipInX">
@@ -496,27 +496,7 @@ h5,h6{font-size:1em;}
                 <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">方法论
                 </div>
             </div>
-            <!--赞赏-->
-            <!-- segment 加个basic就把边线去掉了  circular大圆角-->
-            <div class="ui center aligned basic segment" th:if="${blog.appreciation}">
-                <button id="payButton" class="ui orange basic circular button">赞赏</button>
-            </div>
-            <div class="ui payQR flowing popup transition hidden">
-                <div class="ui orange basic label">
-                    <div class="ui tiny images">
-                        <div class="ui images ">
-                            <div class="image ">
-                                <img class="ui rounded bordered image" src="../static/images/微信二维码1.png"
-                                     th:src="@{/images/weixin.png}">
-                            </div>
-                            <div class="image ">
-                                <img class="ui rounded bordered image" src="../static/images/微信二维码1.png"
-                                     th:src="@{/images/weixin.png}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <div class="ui attached positive message">
@@ -608,7 +588,7 @@ h5,h6{font-size:1em;}
                 <input type="hidden" name="blog.id" th:value="${blog.id}">
                 <input type="hidden" name="parentComment.id" value="-1">
                 <div class="field">
-                    <textarea name="content" placeholder="欢迎你的评论..."></textarea>
+                    <textarea name="content" placeholder="欢迎你的评论...注：若想使用QQ头像你可以输入像这样一个网址 https://tenapi.cn/qqimg/?qq=123456"></textarea>
                 </div>
                 <div class="fields">
                     <div class="field m-mobile-wide m-margin-bottom-small">
@@ -635,7 +615,12 @@ h5,h6{font-size:1em;}
                         <button id="commentpost-btn" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布
                         </button>
                     </div>
+
                 </div>
+                <div>
+                    <a>https://tenapi.cn/qqimg/?qq=123456</a>
+                </div>
+
             </div>
         </div>
     </div>
@@ -644,7 +629,7 @@ h5,h6{font-size:1em;}
 <div id="toolbar" class="m-fixed m-bottom-right m-padded" style="display: none">
     <div class="ui vertical icon buttons ">
         <button id="toc-but" type="button" class="ui teal button">目录</button>
-        <a href="#comment-container" class="ui teal button">留言</a>
+        <button id="to_comment" th:if="${blog.commentable}"  class="ui teal button">留言</button>
         <button id="wechat" class="ui icon button"><i class="weixin icon"></i></button>
         <button id="toTop_but" class="ui icon button"><i class="chevron up icon "></i></button>
     </div>
@@ -713,19 +698,10 @@ h5,h6{font-size:1em;}
 
     $("#menu_toggle").click(function () {
         $(".nav_item").toggleClass('m-mobile-hide');
-        /*    //定义和用法$(selector).toggleClass(class,switch)
-                toggleClass() 对设置或移除被选元素的一个或多个类进行切换。
-
-        该方法检查每个元素中指定的类。如果不存在则添加类，如果已设置则删除之。这就是所谓的切换效果。
-
-        不过，通过使用 "switch" 参数，您能够规定只删除或只添加类。*/
+        $(".nav_search").toggleClass('no');
     });
 
-    $("#payButton").popup({
-        popup: $(".payQR.popup"),
-        on: 'click',
-        position: 'bottom center'
-    });
+
     $("#toc-but").popup({
         popup: $("#toc-container.popup"),
         on: 'click',
@@ -764,7 +740,9 @@ h5,h6{font-size:1em;}
     $("#toTop_but").click(function () {
         $(window).scrollTo(0, 300);
     });
-
+    $("#to_comment").click(function () {
+        $(window).scrollTo(document.getElementById('comment-form'));
+    });
     var waypoint = new Waypoint({
         element: document.getElementById('waypoint'),
         handler: function (direction) {

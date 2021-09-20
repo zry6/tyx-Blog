@@ -34,7 +34,7 @@ public class TypeController {
     public ModelAndView typeList(@RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum) {
 
         ModelAndView mv = new ModelAndView();
-        PageInfo pageInfo = typeService.listType(pageNum, 5);
+        PageInfo pageInfo = typeService.listType(pageNum, 6);
         mv.addObject("pageInfo", pageInfo);
         mv.setViewName("admin/types");
         return mv;

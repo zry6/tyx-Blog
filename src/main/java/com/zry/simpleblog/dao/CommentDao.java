@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Mapper
 public interface CommentDao {
-    @Delete("delete from t_comment where blog_id=#{blogId}")
+    @Delete("SET FOREIGN_KEY_CHECKS = 0;delete from t_comment where blog_id=#{blogId};SET FOREIGN_KEY_CHECKS = 1;")
     int deleteComment(Long blogId);
 
     @Results({@Result(property = "blog.id", column = "blog_id"),
@@ -35,4 +35,8 @@ public interface CommentDao {
             @Result(property = "parentComment.id", column = "parent_comment_id")})
     @Select("select * from t_comment where parent_comment_id=#{id}")
     List<Comment> getReplyComments(Long id);
+    @Results({@Result(property = "blog.id", column = "blog_id"),
+            @Result(property = "parentComment.id", column = "parent_comment_id")})
+    @Select("select * from t_comment where blog_id=(select id from t_blog where title=#{title}) and parent_comment_id is NULL ORDER BY create_time ASC")
+    List<Comment> findByBlogTitleAndParentCommentNull(String title);
 }

@@ -32,7 +32,7 @@ public class TagController {
     public ModelAndView tagList(@RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum) {
 
         ModelAndView mv = new ModelAndView();
-        PageInfo pageInfo = tagService.listTag(pageNum, 5);
+        PageInfo pageInfo = tagService.listTag(pageNum, 6);
         mv.addObject("pageInfo",pageInfo);
         mv.setViewName("admin/tags");
         return mv;

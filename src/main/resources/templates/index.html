@@ -8,44 +8,52 @@
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}"/>
 </head>
 <body>
-<!--导航-->
-<nav th:replace="_fragments::menu(1)"
-     class="ui inverted attached segment m-padded-tb-mini m-shadow-small animated fadeInDown">
-    <div class="ui container">
-        <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
-            <h2 class="ui teal header item">Blog</h2>
-            <a href="#" class="active nav_item item m-mobile-hide"><i class="home icon"></i>首页</a>
-            <a href="#" class="nav_item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-            <a href="#" class="nav_item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-            <a href="#" class="nav_item item m-mobile-hide"><i class="clone icon"></i>归档</a>
-            <a href="#" class="nav_item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
-            <div class="nav_item right item m-mobile-hide">
-                <div class="ui icon inverted transparent  input">
-                    <input type="text" placeholder="Search...">
-                    <i class="search link icon"></i>
+<div class="m-header m-back-img4">
+    <nav th:replace="_fragments::menu(1)"
+         class="ui inverted attached segment m-padded-tb-mini m-shadow-small animated fadeInDown">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
+                <h2 class="ui teal header item">Blog</h2>
+                <a href="#" class="active nav_item item m-mobile-hide"><i class="home icon"></i>首页</a>
+                <a href="#" class="nav_item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+                <a href="#" class="nav_item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+                <a href="#" class="nav_item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+                <a href="#" class="nav_item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
+                <div class="nav_item right item m-mobile-hide">
+                    <div class="ui icon inverted transparent  input">
+                        <input type="text" placeholder="Search...">
+                        <i class="search link icon"></i>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
-    <a href="#" id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
-        <i class="sidebar icon"></i>
-    </a>
-</nav>
+        <a href="#" id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+    <header id="header">
+        <div class="hero-box d-flex justify-content-center align-items-center flex-column">
+            <h1 id="heading" class="mt-5 text-white"style="font-size: 4rem;">
+                猫喵喵のBlog</h1>
+            <h3 id="subheading" class="text-white d-flex">我回来<span style="color: rgb(29, 223, 163);">是为了</span><span style="color: rgb(251, 150, 51);">那些回不来的人</span></h3>
+        </div>
+    </header>
+</div>
+
 <!--中间内容-->
-<div id="pointTop" class=" m-padded-tb-4em m-container-normal ">
+<div id="pointTop" class=" m-padded-tb-4em m-padded-top-best m-container-normal ">
     <!--container 响应式的容器-->
     <div class="ui  container">
-        <div class="ui ">
             <!--    左边部分这部分已删除-->
 
             <!--博客列表-->
-            <div class="ten wide column  m-mobile-top-15px m-back-grass animated fadeIn">
+            <div class="ten wide column  m-mobile-top-15px animated fadeIn">
                 <!-- header-->
-                <div class="ui top attached segment">
+                <div class="ui top segment">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <h3 class="ui teal header">博客</h3>
+                            <h3 class="ui teal header">文章</h3>
                         </div>
                         <div class="right aligned column ">
                             共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${pageInfo.getTotal()}">
@@ -54,17 +62,19 @@
                     </div>
                 </div>
                 <!--content 博客列表的中间内容 -->
-                <div class="ui attached segment m-border-radius">
-                    <div class="ui padded segment m-padded m-card" th:each="blog : ${pageInfo.list}">
+                <div class="m-border-radius">
+                    <div class="ui padded segment  m-card" th:each="blog : ${pageInfo.list}">
                         <div class="five wide column m-margin-bottom">
                             <a href="#" th:href="@{/blog/{id}(id=${blog.id})}">
                                 <img src="https://unsplash.it/800/450?image=1005" width=""
                                      th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
+
                             </a>
+                            <h1 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" class="m-black"
+                                                     th:text="${blog.title}">你真的理解什么是财富自由吗？</a></h1>
                         </div>
                         <div class="eleven wide column">
-                            <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" class="m-black"
-                                                     th:text="${blog.title}">你真的理解什么是财富自由吗？</a></h3>
+
                             <p class="m-text" th:text="|${blog.description}......|">滴哦是是你都i送i你都弄上那你nsdin第四卷第是
                                 是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄
                                 是你都i送i你都弄是你都i送i你都弄
@@ -104,19 +114,17 @@
                 <!-- footer-->
                 <div class="ui bottom attached segment" th:if="${pageInfo.total}>1">
                     <div class="ui middle aligned two column grid">
-                        <div class="column" th:if="${pageInfo.pageNum != 1}">
-                            <a href="#" th:href="@{/(pageNum=${pageInfo.pageNum-1})}"
-                               class="ui mini teal basic button ">上一页</a>
+                        <div class="column">
+                            <a href="#" th:href="@{/(pageNum=${pageInfo.pageNum-1})}"  th:unless="${pageInfo.isIsFirstPage}"
+                               class="ui blue  button ">上一页</a>
                         </div>
-                        <div class="right aligned column " th:if="${!pageInfo.isLastPage}">
+                        <div class="right aligned column " >
                             <a href="#" th:href="@{/(pageNum=${pageInfo.pageNum+1})}"
-                               class="ui mini teal basic button ">下一页</a>
+                               th:unless="${pageInfo.isLastPage}" class="ui blue  button ">下一页</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
     </div>
 
 </div>
@@ -172,6 +180,7 @@
 
     $("#menu_toggle").click(function () {
         $(".nav_item").toggleClass('m-mobile-hide');
+        $(".nav_search").toggleClass('no');
         /*    //定义和用法$(selector).toggleClass(class,switch)
                 toggleClass() 对设置或移除被选元素的一个或多个类进行切换。
 

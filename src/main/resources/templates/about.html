@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../static/css/me.css">
 </head>
-<body>
+<body class="m-back-img5">
 <!--导航-->
-<nav th:replace="_fragments::menu(5)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="_fragments::menu(6)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
             <h2 class="ui teal header item">Blog</h2>
@@ -27,25 +27,30 @@
 
         </div>
     </div>
-    <a href="#" id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
-        <i class="sidebar icon"></i>
+        <a href="#" id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
+            <i class="sidebar icon"></i>
     </a>
 </nav>
 
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 <!--中间内容-->
-<div id="pointTop" class="m-container m-padded-tb-4em ">
+<div id="pointTop" class="m-container m-padded-tb-4em m-padded-top-best">
     <div class="ui container">
         <div class="ui stackable grid">
             <div class="eleven wide column">
-                <img src="https://unsplash.it/800/600?image=1005" alt="" class="ui rounded image">
+                <img src="https://pic2.zhimg.com/80/v2-f20b725c007d2fd0044ccd2fa5b4ea53_720w.jpg?source=1940ef5c" th:src="@{/images/v2-f20b725c007d2fd0044ccd2fa5b4ea53_720w.jpg}" style="max-height:500px;" alt="" class="ui rounded image">
+                <div>
+                    <h2>生活就是这样</h2>
+                    <h1>不到最后一刻，永远不知道下一块是什么<span style="color: rgb(48,223,29);">味</span><span style="color: rgb(87,29,223);">道</span>。</h1>
+                </div>
+
             </div>
             <div class="five wide column m-card-mod">
                 <div class="ui top attached segment">
                     <div class="ui header">关于我</div>
                 </div>
                 <div class="ui attached segment">
-                    <p class="m-text">赵睿宇，一个在读大学生。时间过得好快呀，已经大三了。自己却还是个菜鸟。。后知后觉，开始干干干！！！</p>
+                    <p class="m-text" th:text="#{index.blogDescription}">猫喵喵，一个在读大学生。时间过得好快呀，已经大三了。自己却还是个菜鸟。。后知后觉，开始干干干！！！</p>
                     <p class="m-text">热爱编程，打磨编程技术。</p>
                 </div>
                 <div class="ui attached segment">
@@ -126,6 +131,7 @@
 <script type="text/javascript">
     $("#menu_toggle").click(function () {
         $(".nav_item").toggleClass('m-mobile-hide');
+        $(".nav_search").toggleClass('no');
         /*    //定义和用法$(selector).toggleClass(class,switch)
                 toggleClass() 对设置或移除被选元素的一个或多个类进行切换。
 

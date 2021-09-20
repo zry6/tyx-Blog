@@ -21,7 +21,7 @@ public interface BlogService {
     PageInfo listBlogByTagId(int pageNum, int i, Long tagId);
 
     Blog getAndConvert(Long id);
-    void saveBlog(Blog blog) throws Exception;
+    void saveBlog(Blog blog) ;
 
     Blog getBlog(Long id);
 
@@ -31,4 +31,6 @@ public interface BlogService {
     Map<String,List<Blog>> archiveBlog();
 
     Long countBlog();
+
+    Blog getBlogByTitle(String 留言板);
 }

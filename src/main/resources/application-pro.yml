@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /Blog
-  port: 8081
+  port: 8080
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,13 +10,13 @@ spring:
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
-
   #spring jpa.hibernate.ddl  对比字段的映射如果不一样及更新。生产环境下设置为none
   #spring  show-sql 控制台输出sql语句  启用 SQL 语句的日志记录
   jpa:
     hibernate:
       ddl-auto: none
     show-sql: true
+    open-in-view: false
 #日志级别改为warn
 logging:
   level:
@@ -27,3 +27,4 @@ logging:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+

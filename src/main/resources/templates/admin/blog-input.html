@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
 </head>
 
-<body>
+<body class="m-back-img5">
 <!--导航-->
 <nav th:replace="admin/_fragments::menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
@@ -148,8 +148,10 @@
             <div class="required field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">首图</label>
-                    <input type="text" name="firstPicture" th:value="${blog.firstPicture}" placeholder="首图引用地址">
+                    <input type="text" name="firstPicture" th:value="${blog.firstPicture}" placeholder="首图引用地址 https://tenapi.cn/acg">
+
                 </div>
+                <a>https://tenapi.cn/acg"</a>
             </div>
             <div class="required field">
                 <textarea name="description" th:text="${blog.description}" placeholder="博客描述..." maxlength="100"></textarea>

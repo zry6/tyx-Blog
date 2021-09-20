@@ -52,7 +52,7 @@ public interface BlogDao {
 
     @Update("update t_blog SET appreciation=#{appreciation},commentable=#{commentable},content=#{content},description=#{description}," +
             "first_picture=#{firstPicture},flag=#{flag},published=#{published},recommend=#{recommend},share_statement=#{shareStatement}," +
-            "title=#{title},update_time=#{updateTime},views=#{views},type_id=#{type.id},user_id=#{user.id} where id=#{id}")
+            "title=#{title},update_time=#{updateTime},type_id=#{type.id} where id=#{id}")
     Boolean updateBlog(Blog blog);
 
     @Delete("delete from t_blog where id=#{id}")
@@ -72,4 +72,6 @@ public interface BlogDao {
     List<Blog> findBlogByYear(String year);
     @Select("select count(*) from t_blog where  published=true")
     Long count();
+    @Select("select * from t_blog where  title=#{title}")
+    Blog getBlogByTitle(String title);
 }

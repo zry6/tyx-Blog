@@ -126,8 +126,9 @@ public class BlogServiceImpl implements BlogService {
             blog.setViews(0); //浏览次数
             blogDao.save(blog);//这里blogId从数据库拿来了就有了
         } else {
-            blogTagDao.deleteBlogTag(blog.getId());//删除修改前的存在
+//            blogTagDao.deleteBlogTag(blog.getId());//删除修改前的存在
             blogDao.updateBlog(blog);
+            blogTagDao.deleteBlogTag(blog.getId());
         }
         if (blog.getTagIds() != null && !blog.getTagIds().isEmpty()) {
             List<Long> tagIds = StringToList.convertToList(blog.getTagIds());
@@ -141,7 +142,13 @@ public class BlogServiceImpl implements BlogService {
         blog.setUser(userDao.queryUserById(blog.getUser().getId()));
         return blog;
     }
-
+    @Override
+    public Blog getBlogByTitle(String title) {
+        Blog blog=blogDao.getBlogByTitle(title);
+        String content = blog.getContent();
+        blog.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return blog;
+    }
     @Transactional
     @Override
     public void deleteBlog(Long id) {
@@ -169,5 +176,7 @@ public class BlogServiceImpl implements BlogService {
     public Long countBlog() {
         return blogDao.count();
     }
+
+
 
 }

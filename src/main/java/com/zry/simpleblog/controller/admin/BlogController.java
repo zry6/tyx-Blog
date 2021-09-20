@@ -68,7 +68,7 @@ public class BlogController {
                                BlogQuery blog) {
         ModelAndView mv = new ModelAndView();
         //初始化分类，查询所有分类
-        mv.addObject("pageInfo", blogService.listBlog(pageNum, 5, blog));
+        mv.addObject("pageInfo", blogService.listBlog(pageNum, 6, blog));
         mv.setViewName("admin/blogs :: blogList");
         return mv;
     }
@@ -116,6 +116,7 @@ public class BlogController {
      * @param blog attributes session
      * @return REDIRECT_LIST
      */
+
     @PostMapping("/blogs")
     public String post(Blog blog,RedirectAttributes attributes, HttpSession session) {
         blog.setUser((User) session.getAttribute("User"));
@@ -125,6 +126,7 @@ public class BlogController {
             attributes.addFlashAttribute("message", "操作成功");
             blogService.saveBlog(blog);
         } catch (Exception e) {
+            System.out.println("=====e:"+e);
             attributes.addFlashAttribute("message", "操作失败");
         }
         return REDIRECT_LIST;

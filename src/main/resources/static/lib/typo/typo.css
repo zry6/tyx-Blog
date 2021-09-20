@@ -33,11 +33,19 @@
 /*audio, canvas, video {*/
 /*  display: inline-block;*/
 /*}*/
+.typo{
+  color: #444;
+  font-family: microsoft yahei;
+  line-height: 24px;
+  font-size: 14.5px;
+}
 .typo p{
   font-size: 16px;
-  font-weight: 300;
-  line-height: 1.8;
+  font-weight: 450;
+  line-height: 24px;
   text-align: justify;
+  margin: 25px 0;
+  position: relative;
 /*  两端对齐*/
 }
 
@@ -137,7 +145,7 @@
 
 /* 让链接在 hover 状态下显示下划线 */
 .typo a {
-  color: #1abc9c;
+  color: #ff4e6a;
 }
 
 .typo a:hover {
@@ -145,7 +153,7 @@
 }
 
 .typo a {
-  border-bottom: 1px solid #1abc9c;
+  border-bottom: 1px solid #ff4e6a;
 }
 
 .typo a:hover {

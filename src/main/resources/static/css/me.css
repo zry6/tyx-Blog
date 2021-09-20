@@ -1,18 +1,6 @@
 /*<!--    ui    teal蓝色  header    -->*/
-
-body {
-    /*background-image: url("https://pic2.zhimg.com/80/v2-7ba604144747aec55216d41aa5fc5790_720w.jpg?source=1940ef5c");*/
-    /*!*苍穹灰*!*/
-    /*background-image: url("https://pic2.zhimg.com/80/v2-63a84dd240663f0f5cfe0b62709d7506_720w.jpg?source=1940ef5c");*/
-    /*!*纸棕*!*/
-    /*background-image: url("https://pic2.zhimg.com/80/v2-adcd3dcb41f7153019b5aa1cd2187b67_720w.jpg?source=1940ef5c");*/
-    background-image: url("https://www.bleshi.com/resources/bg.jpg");
-    background-image: url("https://image.guiyunweb.com/2020/09/%E5%B0%81%E9%9D%A2%E5%9B%BE20200935_1600918678671.jpg");
-    background-image: url("/Blog/images/background/bg1.jpg");
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+body, input, select, textarea, .friends-ctx {
+    font-family: "Roman-55", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Serif SC", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", sans-serif !important;
 }
 
 html {
@@ -21,8 +9,8 @@ html {
 
 /* common */
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 6px;
+    width: 6px;
+    height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -40,14 +28,14 @@ html {
 }
 
 body {
-    background-color: #f8f9fa;
+    background-color: #121212;
     font-weight: 400;
     /*color: #757575;*/
     cursor: url(/Blog/images/mouses/cur1.cur), default;
 }
 
-nav {
-    border-color: #1b1c1d !important;
+a {
+    text-decoration: none !important;
 }
 
 /*m-back-grass*/
@@ -55,9 +43,8 @@ nav {
     background: rgba(255, 255, 255, .15) !important;
     border-radius: .28571429rem !important;
 }
-
 .m-back-grass {
-    background: rgba(255, 255, 255, .3) !important;
+    background: rgb(0 0 0 / 50%) !important;
     border-radius: .28571429rem !important;
 }
 
@@ -79,11 +66,14 @@ nav {
     -webkit-box-shadow: 0 0.25rem 1rem rgba(48, 55, 66, 0.15) !important;
     box-shadow: 0 4px 16px rgba(48, 55, 66, 0.15) !important;
     transition: all .5s cubic-bezier(.215, .61, .355, 1) !important;
+    border-radius: .5571429rem !important;
 }
-.m-card-mod{
+
+.m-card-mod {
     transition: all .5s cubic-bezier(.215, .61, .355, 1) !important;
 }
-.m-card:hover, .m-card-mod:hover{
+
+.m-card:hover, .m-card-mod:hover {
     box-shadow: 0 16px 32px 0 rgba(48, 55, 66, 0.15) !important;
     transform: translate(0, -5px) !important;
     transition: all .5s cubic-bezier(.215, .61, .355, 1) !important;
@@ -130,6 +120,9 @@ nav {
     padding-top: 4em !important;
     padding-bottom: 4em !important;
 }
+.m-padded-top-best {
+    padding-top: 10em !important;
+}
 
 .m-padded-tb-massive {
     padding-top: 5em !important;
@@ -167,7 +160,6 @@ nav {
     margin-top: 0.3em !important;
     margin-bottom: 0.3em !important;
 }
-
 .m-margin-bottom-small {
     margin-bottom: 0.5em !important;
 }
@@ -212,10 +204,12 @@ nav {
 .m-inline-block {
     display: inline-block !important;
 }
+
 .m-container-normal {
     max-width: 50em !important;
     margin: auto !important;
 }
+
 .m-container {
     max-width: 72em !important;
     margin: auto !important;
@@ -232,6 +226,11 @@ nav {
     z-index: 1 !important;
 }
 
+.m-fixed-w {
+    position: fixed !important;
+    width: 100%;
+    z-index: 1 !important;
+}
 .m-bottom-right {
     bottom: 10% !important;
     right: 0 !important;

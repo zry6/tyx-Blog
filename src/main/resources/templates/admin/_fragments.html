@@ -11,6 +11,7 @@
           th:href="@{/lib/editormd/css/editormd.min.css}"/>
     <link rel="stylesheet" href="../static/lib/animate/animate.min.css" th:href="@{/lib/animate/animate.min.css}">
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/css/stylecss" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -62,7 +63,8 @@
                 <h4 class="ui inverted header">最新博客</h4>
                 <div id="newBlog-container">
                     <div class="ui inverted link list m-text-thin m-text-spaced" th:fragment="newBlogList">
-                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${newBlogs}" th:text="${blog.title}">用户故事</a>
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item"
+                           th:each="blog : ${newBlogs}" th:text="${blog.title}">用户故事</a>
                     </div>
                 </div>
             </div>
@@ -91,7 +93,9 @@
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
     <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
     <script>
-        $('#newBlog-container').load(/*[[@{/footer/newBlog}]]*/"/Blog/footer/newBlog");
+        $(function () {
+            $('#newBlog-container').load(/*[[@{/footer/newBlog}]]*/"/Blog/footer/newBlog");
+        });
     </script>
 </th:block>
 
