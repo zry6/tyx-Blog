@@ -59,7 +59,7 @@ public class UserController {
         User user = userService.checkUser(username);
         user.setPassword(null);
         session.setAttribute("User",user);
-        mv.setViewName("redirect:/admin/index");
+        mv.setViewName("redirect:/admin/");
         return mv;
     }
 

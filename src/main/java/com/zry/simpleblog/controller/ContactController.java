@@ -3,10 +3,8 @@ package com.zry.simpleblog.controller;
 import com.zry.simpleblog.entity.Blog;
 import com.zry.simpleblog.entity.Comment;
 import com.zry.simpleblog.entity.User;
-import com.zry.simpleblog.service.BlogService;
-import com.zry.simpleblog.service.CommentService;
-import com.zry.simpleblog.service.TagService;
-import com.zry.simpleblog.service.TypeService;
+import com.zry.simpleblog.service.*;
+import com.zry.simpleblog.util.MyEmailUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +30,8 @@ public class ContactController {
     private TypeService typeService;
     @Resource
     private TagService tagService;
+    @Resource
+    private EmailService emailService;
     @GetMapping("/guestbook")
     public String comments(Model model){
         Blog blog = blogService.getBlogByTitle("留言板");
@@ -61,6 +61,8 @@ public class ContactController {
             comment.setAdminComment(false);
         }
         commentService.saveComment(comment);
+        MyEmailUtils.commentSendEmail(comment, commentService, blogService, emailService);
         return "redirect:/contacts/"+comment.getBlog().getId();
     }
+
 }

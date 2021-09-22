@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /Blog
-  port: 7001
+  port: 80
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,7 +17,19 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
+  mail:
+    host: smtp.qq.com
+    username: 1447051936@qq.com
+    password: jrptdnbezxfjhfid
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          starttls:
+            enable: true
 logging:
   level:
     root: info
@@ -28,3 +40,5 @@ logging:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+#    email设置

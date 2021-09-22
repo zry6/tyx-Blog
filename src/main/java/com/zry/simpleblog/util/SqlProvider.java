@@ -23,6 +23,9 @@ public class SqlProvider {
             if (blog.isRecommend()) {
                 WHERE("recommend = " + blog.isRecommend());
             }
+            if (blog.getUserId()!=null && blog.getUserId()!=0){
+                WHERE("user_id = " + blog.getUserId());
+            }
             ORDER_BY("update_time desc");
 //            desc
         }}.toString();

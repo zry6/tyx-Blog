@@ -82,7 +82,8 @@
             <h2 class="ui center aligned header" th:text="${blog.title}">两年练习生的长长短短</h2>
             <br>
             <div id="content" th:utext="${blog.content}"
-                 class="js-toc-content typo typo-selection m-padded-lr-responsive m-padded-tb-2em">
+                 class="js-toc-content typo typo-selection m-padded-lr-responsive m-padded-tb-2em" style="
+    word-wrap: break-word;">
                 <h2 id="tagline" class="serif">一致化浏览器排版效果，构建最适合中文阅读的网页排版</h2>
 
                 <ol id="table">
@@ -509,6 +510,9 @@ h5,h6{font-size:1em;}
                         <li>发表时间：<span
                                 th:text="${#dates.format(blog.createTime,'yyyy-MM-dd HH:mm')}">2021-8-27 07：48</span>
                         </li>
+                        <li>更新时间：<span
+                                th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2021-8-27 07：48</span>
+                        </li>
                         <li th:if="${blog.shareStatement}">版权声明：自由转载-非商用-保持署名- (创意共享3.0)</li>
                     </ui>
                 </div>
@@ -540,12 +544,12 @@ h5,h6{font-size:1em;}
                                     <span class="date"
                                           th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
                                 </div>
-                                <div class="text" th:text="${comment.content}">
+                                <div class="text"  th:text="${comment.content}">
                                     How artistic!
                                 </div>
                                 <div class="actions">
                                     <a class="reply" data-commentid="1" data-commentnickname="Matt"
-                                       th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}"
+                                       th:attr="data-commentid=${comment.id},data-commentemail=${comment.email},data-commentnickname=${comment.nickname}"
                                        onclick="reply(this)">回复</a>
                                 </div>
                             </div>
@@ -572,7 +576,7 @@ h5,h6{font-size:1em;}
                                         </div>
                                         <div class="actions">
                                             <a class="reply" data-commentid="1" data-commentnickname="Matt"
-                                               th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}"
+                                               th:attr="data-commentid=${reply.id},data-commentemail=${reply.email},data-commentnickname=${reply.nickname}"
                                                onclick="reply(this)">回复</a>
                                         </div>
                                     </div>
@@ -587,6 +591,7 @@ h5,h6{font-size:1em;}
             <div id="comment-form" class="ui form">
                 <input type="hidden" name="blog.id" th:value="${blog.id}">
                 <input type="hidden" name="parentComment.id" value="-1">
+                <input type="hidden" name="parentComment.email" value="-1">
                 <div class="field">
                     <textarea name="content" placeholder="欢迎你的评论...注：若想使用QQ头像你可以输入像这样一个网址 https://tenapi.cn/qqimg/?qq=123456"></textarea>
                 </div>
@@ -772,6 +777,7 @@ h5,h6{font-size:1em;}
     function postData() {
         $("#comment-container").load(/*[[@{/comments}]]*/"", {
             "parentComment.id": $("[name='parentComment.id']").val(),
+            "parentComment.email": $("[name='parentComment.email']").val(),
             "blog.id": $("[name='blog.id']").val(),
             "nickname": $("[name='nickname']").val(),
             "email": $("[name='email']").val(),
@@ -786,14 +792,17 @@ h5,h6{font-size:1em;}
     function clearContent() {
         $("[name='content']").val('');
         $("[name='parentComment.id']").val(-1);
+        $("[name='parentComment.email']").val('');
         $("[name='content']").attr("placeholder", "欢迎你的评论...");
     }
 
     function reply(obj) {
         var commentId = $(obj).data("commentid");
+        var commentEmail = $(obj).data("commentemail");
         var commentNickname = $(obj).data("commentnickname");
         $("[name='content']").attr("placeholder", "@" + commentNickname).focus();
         $("[name='parentComment.id']").val(commentId);
+        $("[name='parentComment.email']").val(commentEmail);
         $(window).scrollTo($('#comment-form'), 500);
     }
 

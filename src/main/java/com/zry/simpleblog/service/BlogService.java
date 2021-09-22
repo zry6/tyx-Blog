@@ -32,5 +32,5 @@ public interface BlogService {
 
     Long countBlog();
 
-    Blog getBlogByTitle(String 留言板);
+    Blog getBlogByTitle(String title);
 }

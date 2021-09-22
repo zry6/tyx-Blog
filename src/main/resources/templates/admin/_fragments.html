@@ -20,7 +20,8 @@
     <div class="ui container">
         <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
             <h2 class="ui teal header item">后台管理</h2>
-            <a href="#" th:href="@{/admin/blogs}" class=" nav_item item m-mobile-hide" th:classappend="${n == 1} ? 'active'"><i class="home icon"></i>博客</a>
+            <a href="#" th:href="@{/admin/}" class=" nav_item item m-mobile-hide" th:classappend="${n == 0} ? 'active'"><i class="home icon"></i>管理首页</a>
+            <a href="#" th:href="@{/admin/blogs}" class=" nav_item item m-mobile-hide" th:classappend="${n == 1} ? 'active'"><i class="book icon"></i>博客</a>
             <a href="#" th:href="@{/admin/types}" class="nav_item item m-mobile-hide" th:classappend="${n == 2} ? 'active'"><i class="idea icon"></i>分类</a>
             <a href="#" th:href="@{/admin/tags}" class="nav_item item m-mobile-hide" th:classappend="${n == 3} ? 'active'"><i class="tags icon"></i>标签</a>
             <div class="nav_item right dropdown  menu m-mobile-hide">
@@ -83,7 +84,7 @@
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2021 by Newbie Zry</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2021.9.10 by Newbie Zry</p>
     </div>
 
 </footer>

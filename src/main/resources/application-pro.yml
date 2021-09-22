@@ -1,30 +1,42 @@
 server:
   servlet:
     context-path: /Blog
-  port: 8080
+  port: 80
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql:///simpleblog?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     #    allowMultiQueries 允许多查询
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
-  #spring jpa.hibernate.ddl  对比字段的映射如果不一样及更新。生产环境下设置为none
+
+  #spring jpa.hibernate.ddl  对比字段的映射如果不一样及更新。
   #spring  show-sql 控制台输出sql语句  启用 SQL 语句的日志记录
   jpa:
     hibernate:
       ddl-auto: none
     show-sql: true
-    open-in-view: false
-#日志级别改为warn
+  mail:
+    host: smtp.qq.com
+    username: 1447051936@qq.com
+    password: jrptdnbezxfjhfid
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          starttls:
+            enable: true
 logging:
   level:
-    root: warn
+    root: info
     com.zry: info
   file:
-    name: log/blog-pro.log
+    name: log/blog-dev.log
+
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-

@@ -2,7 +2,11 @@ package com.zry.simpleblog.controller;
 
 import com.zry.simpleblog.entity.Comment;
 import com.zry.simpleblog.entity.User;
+import com.zry.simpleblog.service.BlogService;
 import com.zry.simpleblog.service.CommentService;
+import com.zry.simpleblog.service.EmailService;
+import com.zry.simpleblog.util.MyEmailUtils;
+import jdk.nashorn.internal.runtime.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +19,18 @@ import javax.servlet.http.HttpSession;
 /**
  * @author zry
  * @ClassName CommentController.java
- * @Description TODO
+ * @Description
  * @createTime 2021年09月06日
  */
+@Logger
 @Controller
 public class CommentController {
     @Resource
     private CommentService commentService;
+    @Resource
+    private EmailService emailService;
+    @Resource
+    private BlogService blogService;
     @GetMapping("/comments/{blogId}")
     public String comments(@PathVariable Long blogId, Model model){
         model.addAttribute("comments",commentService.listCommentByBlogId(blogId));
@@ -41,6 +50,7 @@ public class CommentController {
             comment.setAdminComment(false);
         }
         commentService.saveComment(comment);
+        MyEmailUtils.commentSendEmail(comment, commentService, blogService, emailService);
         return "redirect:/comments/"+comment.getBlog().getId();
     }
 

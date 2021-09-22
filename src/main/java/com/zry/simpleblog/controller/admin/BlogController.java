@@ -47,8 +47,10 @@ public class BlogController {
      */
     @GetMapping("/blogs")
     public ModelAndView blogs(@RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum,
-                              BlogQuery blog) {
+                              BlogQuery blog,HttpSession session) {
         ModelAndView mv = new ModelAndView();
+        User user = (User) session.getAttribute("User");
+        blog.setUserId(user.getId());
         //初始化分类，查询所有分类
         mv.addObject("types", typeService.listType());
         mv.addObject("pageInfo", blogService.listBlog(pageNum, 5, blog));

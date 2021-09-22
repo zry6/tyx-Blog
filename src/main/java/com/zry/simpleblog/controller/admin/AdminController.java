@@ -15,9 +15,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @GetMapping({"/index","/"})
+    @GetMapping("/")
     public String index(HttpSession session){
-        Object user = session.getAttribute("User");
         return "admin/index";
     }
 }
