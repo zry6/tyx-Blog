@@ -34,9 +34,10 @@ spring.datasource.driver-class-name 属性为 com.mysql.jdbc.Driver
 application-dev.yml开发环境。
 application-pro.yml为生产环境。
 
-#### 。。。。。
+#### 效果图
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0913/181019_6f536d41_9428709.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0924/101457_a55bc6f2_9428709.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0924/160003_2634eba2_9428709.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0924/101541_1cf3fff7_9428709.png "屏幕截图.png")
 #### 致谢
 项目开发过程中参考了很多大佬的博客，还有B站李仁密博客视频。
