@@ -31,6 +31,8 @@ spring.datasource.driver-class-name 属性为 com.mysql.jdbc.Driver
 就可以启动项目了。
 
 #### 使用说明
+因为我一开始跟着学的时候没有设置留言板，导致后面添加的时候就不方便。所以我直接用t_blog表存放留言板数据了。。
+（🤣这点不是很好，应该将他分离出来。）
 application-dev.yml开发环境。
 application-pro.yml为生产环境。
 
