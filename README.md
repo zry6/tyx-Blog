@@ -1,7 +1,7 @@
 # spring-boot-blog-master
 
 #### 介绍
-一个简单 的个人博客系统（基于小而美博客）
+一个简单 的个人博客系统（基于李仁密小而美博客）
 本项目长期维护。
 
 #### 软件架构
@@ -38,5 +38,6 @@ application-pro.yml为生产环境。
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0913/181019_6f536d41_9428709.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0924/101457_a55bc6f2_9428709.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0924/101541_1cf3fff7_9428709.png "屏幕截图.png")
-#### 参与贡献
+#### 致谢
+项目开发过程中参考了很多大佬的博客，还有B站李仁密博客视频。
 
