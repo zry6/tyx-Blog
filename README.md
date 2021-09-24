@@ -1,17 +1,24 @@
 # spring-boot-blog-master
 
 #### 介绍
-一个简单 的个人博客系统（小而美博客）
+一个简单 的个人博客系统（基于小而美博客）
 
 #### 软件架构
 pom.xml
-    jdk 1.8
-    springboot 2.5.4
-    shiro  1.7.1
-    mybatis 2.2.0
-    druid 1.2.6
-    pagehelper 1.3.1
+    
+    前端
+    核心框架：
 
+        thymeleaf
+        UI框架：semantic-ui框架(感觉这个框架快完蛋了)
+        css动画 Animate
+        markdown
+    后端
+        核心框架：SpringBoot 2.5.4
+        安全框架：shiro  1.7.1
+        Token 认证：jwt
+        持久层框架：Mybatis 2.2.0
+        java版本：JDK8
 #### 安装教程
 
 在application.yml文件修改数据库密码和用户名
@@ -29,6 +36,7 @@ application-pro.yml为生产环境。
 
 #### 。。。。。
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0913/181019_6f536d41_9428709.png "屏幕截图.png")
-
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0924/101457_a55bc6f2_9428709.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0924/101541_1cf3fff7_9428709.png "屏幕截图.png")
 #### 参与贡献
 
