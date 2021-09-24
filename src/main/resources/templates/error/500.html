@@ -90,4 +90,20 @@
 
 <!--</footer>-->
 </body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script>
+  $(".funIcon").click(function () {
+    $('.m-search').toggleClass('m-active');
+    $('.search.line').toggleClass('no');
+    $('.close').toggleClass('no');
+    $('#pointTop').toggleClass('no');
+    $('#footer').toggleClass('no');
+    $('#header').toggleClass('no');
+    $('#myhkplayer').removeClass('show');
+  });
+  $("#menu_toggle").click(function () {
+    $(".nav_item").toggleClass('m-mobile-hide');
+    $(".nav_search").toggleClass('no');
+  });
+</script>
 </html>

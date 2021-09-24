@@ -13,11 +13,13 @@
 
 .m-back-img4 {
     background-image: url("/Blog/images/background/bg4.jpg");
-}.m-back-img5 {
+}
+
+.m-back-img5 {
     background-image: url("https://tenapi.cn/acg?2");
 }
 
-.m-back-img1, .m-back-img2, .m-back-img3,.m-back-img5 {
+.m-back-img1, .m-back-img2, .m-back-img3, .m-back-img5 {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
@@ -155,10 +157,24 @@
     background: -mos-linear-gradient(#101420, #121212);
     background: linear-gradient(#2b256b00, #121212);
 }
+
 /*留言板样式*/
-.m-font-size{
-    font-size: 1.3em!important;
+.m-font-size {
+    font-size: 1.3em !important;
 }
-.m-font-color{
-     color: goldenrod!important;
- }
+
+.m-font-color {
+    color: goldenrod !important;
+}
+
+#footer {
+    background: rgb(255 255 255 / 22%) !important;
+    border-radius: .88571429rem !important;
+    width: 100%;
+    transition: all .5s !important;
+}
+
+#footer:hover {
+    transition: all .5s !important;
+    background: rgb(255 255 255 / 50%) !important;
+}

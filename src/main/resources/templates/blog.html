@@ -566,7 +566,7 @@ h5,h6{font-size:1em;}
                                                  th:if="${reply.adminComment}">博主
                                             </div>
                                             &nbsp;<span th:text="|@ ${reply.parentComment.nickname}|" class="m-teal">@ 小白</span>
-                                        </a>
+                                        </a>+
                                         <div class="metadata">
                                             <span class="date"
                                                   th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
@@ -593,20 +593,20 @@ h5,h6{font-size:1em;}
                 <input type="hidden" name="parentComment.id" value="-1">
                 <input type="hidden" name="parentComment.email" value="-1">
                 <div class="field">
-                    <textarea name="content" placeholder="欢迎你的评论...注：若想使用QQ头像你可以输入像这样一个网址 https://tenapi.cn/qqimg/?qq=123456"></textarea>
+                    <textarea  name="content" placeholder="评论千万条，友善第一条      注：若想使用QQ头像你可以输入像这样一个网址 https://tenapi.cn/qqimg/?qq=123456"></textarea>
                 </div>
                 <div class="fields">
                     <div class="field m-mobile-wide m-margin-bottom-small">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
                             <input type="text" name="nickname"
-                                   th:value="${session.User}!=null ? ${session.User.nickname}" placeholder="姓名">
+                                   th:value="${session.User}!=null ? ${session.User.nickname}" placeholder="昵称(必填)">
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
                         <div class="ui left icon input">
                             <i class="mail icon"></i>
-                            <input type="text" name="email" placeholder="邮箱"
+                            <input type="text" name="email" placeholder="邮箱(将保密)"
                                    th:value="${session.User}!=null ? ${session.User.email}">
                         </div>
                     </div>
@@ -797,6 +797,7 @@ h5,h6{font-size:1em;}
     }
 
     function reply(obj) {
+        $('#myhkplayer').removeClass('show');
         var commentId = $(obj).data("commentid");
         var commentEmail = $(obj).data("commentemail");
         var commentNickname = $(obj).data("commentnickname");
@@ -807,7 +808,7 @@ h5,h6{font-size:1em;}
     }
 
     //评论表单验证
-    $('.ui.form').form({
+    $('#comment-form').form({
         fields: {
             title: {
                 identifier: 'content',

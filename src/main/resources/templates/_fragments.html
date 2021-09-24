@@ -19,7 +19,7 @@
 <nav th:fragment="menu(n)" class="animated fadeInDown m-back-grass m-fixed-w">
     <div class="ui container">
         <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
-            <h2 class="ui teal header item">猫喵喵</h2>
+            <h2 class="ui teal header item">筱筱客栈</h2>
             <a href="#" th:href="@{/}" class="nav_item item m-mobile-hide" th:classappend="${n == 1} ? 'active'"><i
                     class="home icon"></i>首页</a>
             <a href="#" th:href="@{/types/-1}" class="nav_item item m-mobile-hide"
@@ -59,21 +59,28 @@
 
         </div>
     </div>
-    <span  id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
+    <span id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
         <i class="sidebar icon"></i>
     </span>
 </nav>
 <!--底部footer-->
 <footer id="footer" th:fragment="footer" class="ui container ">
-    <!--    居中--><div class="ui center aligned container m-padded-tb-1em">
-        <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright &copy; 2021.9.10 by <a src="#" th:src="@{/}">猫喵喵</a></p>
+    <div >
+        <div class="ui center aligned container m-font-size">本站😉已运行✌[<span id="span_dt_dt" ></span> ]
+        </div>
+        <!--    居中-->
+        <div class="ui center aligned container m-padded-tb-1em">
+            <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright &copy; 2021.9.10 by <span>猫喵喵</span>
+            </p>
+        </div>
+
+        <div th:if="${blog}==null" id="toolbar" class="m-fixed m-bottom-right m-padded" style="display: none">
+            <a id="comment_toTop" class="m-toTop">
+                <i class="ui angle up icon"></i>
+            </a>
+        </div>
     </div>
 
-    <div th:if="${blog}==null" id="toolbar" class="m-fixed m-bottom-right m-padded" style="display: none">
-        <a id="comment_toTop" class="m-toTop">
-            <i class="ui angle up icon"></i>
-        </a>
-    </div>
 </footer>
 <th:block th:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
@@ -84,10 +91,11 @@
     <script th:src="@{/lib/qrcode/qrcode.min.js}"></script>
     <script th:src="@{/lib/waypoint/jquery.waypoints.min.js}"></script>
     <script th:src="@{/js/snowFall.js}"></script>
-<!--    网易云歌单 by : https://wp.gxnas.com/5786.html-->
-    <script src="https://myhkw.cn/player/js/player.js"  id="myhk" key="demo" m="1"></script>
+    <script th:src="@{/js/showTime.js}"></script>
+    <!--    网易云歌单 by : https://wp.gxnas.com/5786.html-->
+    <script src="https://myhkw.cn/player/js/player.js" id="myhk" key="demo" m="1"></script>
     <script>
-
+        show_date_time();
         $(".funIcon").click(function () {
             $('.m-search').toggleClass('m-active');
             $('.search.line').toggleClass('no');
@@ -95,6 +103,7 @@
             $('#pointTop').toggleClass('no');
             $('#footer').toggleClass('no');
             $('#header').toggleClass('no');
+            $('#myhkplayer').removeClass('show');
         });
         //
         // $(function () {
