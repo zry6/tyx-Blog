@@ -25,7 +25,7 @@ public class MyEmailUtils {
         }
 
         email.setSubject("猫喵喵博客回复提示在文章【"+blog.getTitle()+"】中【"+comment.getNickname()+"】评论了您快去看看吧~");
-        email.setText(comment.getContent()+"【Ta的邮箱:"+comment.getEmail()+"】文章链接url：http://1.117.229.251/Blog/blog/"+comment.getBlog().getId());
+        email.setText(comment.getContent()+"【Ta的邮箱:"+comment.getEmail()+"】文章链接url：http://1.117.229.251/blog/"+comment.getBlog().getId());
         emailService.sendMail(email);
     }
 }

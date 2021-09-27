@@ -71,7 +71,8 @@
         </div>
         <div class="ui attached segment">
             <!-- fluid 让整个自适应-->
-            <img src="../static/images/男人背影图.jpg" th:src="@{${blog.firstPicture}}" class="ui fluid rounded image">
+            <img src="../static/images/男人背影图.jpg" th:src="@{${blog.firstPicture}}" style="min-height: 300px;"
+                 class="ui fluid rounded image">
         </div>
 
         <div class="ui  attached padded segment">
@@ -544,7 +545,7 @@ h5,h6{font-size:1em;}
                                     <span class="date"
                                           th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
                                 </div>
-                                <div class="text"  th:text="${comment.content}">
+                                <div class="text" th:text="${comment.content}">
                                     How artistic!
                                 </div>
                                 <div class="actions">
@@ -592,10 +593,24 @@ h5,h6{font-size:1em;}
                 <input type="hidden" name="blog.id" th:value="${blog.id}">
                 <input type="hidden" name="parentComment.id" value="-1">
                 <input type="hidden" name="parentComment.email" value="-1">
+                <input type="hidden" name="avatar" value="-1" th:value="${session.User}!=null ? ${session.User.avatar}">
                 <div class="field">
-                    <textarea  name="content" placeholder="评论千万条，友善第一条      注：若想使用QQ头像你可以输入像这样一个网址 https://tenapi.cn/qqimg/?qq=123456"></textarea>
+                    <textarea name="content"
+                              placeholder="评论千万条，友善第一条"></textarea>
                 </div>
                 <div class="fields">
+                    <div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.User}==null">
+                        <div class="ui left icon input">
+                            <img id="avatar" class="ui mini circular image" style="margin: 5px 0px;"
+                                 th:src="${session.User} ? @{${session.User.avatar}} : @{/images/avatar/avatar1.png}">
+                            <div class="ui left icon input" th:if="!${session.User}">
+
+                                <i class="qq icon"></i>
+                                <input id="QQ" type="text" name="qq"
+                                       placeholder="输入qq号自动获取昵称头像">
+                            </div>
+                        </div>
+                    </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
@@ -610,22 +625,17 @@ h5,h6{font-size:1em;}
                                    th:value="${session.User}!=null ? ${session.User.email}">
                         </div>
                     </div>
-                    <div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.User}==null">
-                        <div class="ui left icon input">
-                            <i class="image outline icon"></i>
-                            <input type="text" name="avatar" placeholder="头像地址...">
-                        </div>
-                    </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
                         <button id="commentpost-btn" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布
                         </button>
                     </div>
 
                 </div>
-                <div>
-                    <a>https://tenapi.cn/qqimg/?qq=123456</a>
-                </div>
 
+                <div class="ui error message">
+                    <div class="header">输入错误</div>
+                    <p>你只能用指定的邮箱注册</p>
+                </div>
             </div>
         </div>
     </div>
@@ -634,7 +644,7 @@ h5,h6{font-size:1em;}
 <div id="toolbar" class="m-fixed m-bottom-right m-padded" style="display: none">
     <div class="ui vertical icon buttons ">
         <button id="toc-but" type="button" class="ui teal button">目录</button>
-        <button id="to_comment" th:if="${blog.commentable}"  class="ui teal button">留言</button>
+        <button id="to_comment" th:if="${blog.commentable}" class="ui teal button">留言</button>
         <button id="wechat" class="ui icon button"><i class="weixin icon"></i></button>
         <button id="toTop_but" class="ui icon button"><i class="chevron up icon "></i></button>
     </div>
@@ -833,6 +843,28 @@ h5,h6{font-size:1em;}
                 }]
             }
         }
+    });
+
+
+    //#QQ失去焦点  取 #QQ值  请求返回josn ->  name=avatar  #nickname
+    // 失去焦点
+    $('#QQ').blur(function () {
+        var QQ = $("#QQ").val();
+        $.ajax({
+            url: "https://api.usuuu.com/qq/" + QQ,
+            type: "GET",
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                var avatarUrl = result["data"].avatar;
+                $("[name='nickname']").val(result["data"].name);
+                $("[name='avatar']").val(avatarUrl);
+                //头像显示
+                $("#avatar").attr('src', avatarUrl);
+            },error(){
+                $("#avatar").attr('src', /*[[@{/images/avatar/2.png}]]*/"");
+            }
+        });
     });
 </script>
 

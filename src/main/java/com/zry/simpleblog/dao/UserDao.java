@@ -3,6 +3,7 @@ package com.zry.simpleblog.dao;
 import com.zry.simpleblog.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * @author zry
@@ -16,6 +17,9 @@ public interface UserDao {
     @Select("select * from t_user where username=#{username}")
     User queryUserByUsername(String username);
 
-    @Select("select id,avatar,create_time,email,nickname,type,update_time,username from t_user where id=#{id}")
+    @Select("select * from t_user where id=#{id}")
     User queryUserById(Long id);
+
+    @Update("update t_user set username=#{username} ,password=#{password},nickname=#{nickname},email=#{email},update_time=#{updateTime} where id = #{id}")
+    Boolean updateUser(User user);
 }

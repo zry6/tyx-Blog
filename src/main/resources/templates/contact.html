@@ -49,11 +49,11 @@
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 
 
-<div class="ui container m-padded-top-best" style="opacity: 0.9;">
-    <div class="ui container">
-        <div class="ui stackable grid m-padded-tb-4em ">
+<div class="m-padded-top-best" style="opacity: 0.9;">
+    <div class=" ui container">
+        <div class=" ui stackable grid m-padded-tb-4em ">
             <!--中间内容-->
-            <div id="waypoint" class="eleven wide column m-container animated fadeIn">
+            <div id="waypoint" class="ui eleven wide column m-container animated fadeIn stickyed">
                 <div class="ui container">
                     <div class="ui  padded segment">
                         <!--   内容-->
@@ -603,14 +603,27 @@ h5,h6{font-size:1em;}
                             <input type="hidden" name="blog.id" th:value="${blog.id}">
                             <input type="hidden" name="parentComment.id" value="-1">
                             <input type="hidden" name="parentComment.email" value="-1">
+                            <input type="hidden" name="avatar" value="-1" th:value="${session.User}!=null ? ${session.User.avatar}">
                             <div class="field">
                                 <textarea name="content" placeholder="快留下你的足迹..."></textarea>
                             </div>
                             <div class="ui fields ">
+                                <div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.User}==null">
+                                    <div class="ui left icon input">
+                                        <img id="avatar" class="ui mini circular image" style="margin: 5px 0px;"
+                                             th:src="${session.User} ? @{${session.User.avatar}} : @{/images/avatar/avatar1.png}">
+                                        <div class="ui left icon input" th:if="!${session.User}">
+
+                                            <i class="qq icon"></i>
+                                            <input id="QQ" type="text" name="qq"
+                                                   placeholder="输入qq号自动获取昵称头像">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="field m-mobile-wide m-margin-bottom-small">
                                     <div class="ui left icon input">
                                         <i class="user icon"></i>
-                                        <input type="text" name="nickname"
+                                        <input  type="text" name="nickname"
                                                th:value="${session.User}!=null ? ${session.User.nickname}"
                                                placeholder="昵称(必填)">
                                     </div>
@@ -623,26 +636,24 @@ h5,h6{font-size:1em;}
                                     </div>
                                 </div>
                             </div>
-                            <div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.User}==null">
-                                <div class="ui left icon input">
-                                    <i class="image outline icon"></i>
-                                    <input type="text" name="avatar"
-                                           placeholder="头像地址...注：若想使用QQ头像你可以输入像这样一个网址 https://tenapi.cn/qqimg/?qq=123456">
-                                </div>
-                            </div>
+
+
                             <div class="field m-mobile-wide m-margin-bottom-small">
                                 <button id="commentpost-btn" class="ui teal button m-mobile-wide"><i
                                         class="edit icon"></i>发布
                                 </button>
                             </div>
-                            <a>https://tenapi.cn/qqimg/?qq=123456</a>
+
+                            <div class="ui error message">
+                                <div class="header">输入错误</div>
+                                <p>你只能用指定的邮箱注册</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--右边的top-->
-
-            <div class="five wide column">
+            <div class="ui rail five wide column ">
                 <!--分类-->
                 <div class="ui segments  m-card">
                     <div class="ui secondary segment">
@@ -658,10 +669,12 @@ h5,h6{font-size:1em;}
                     </div>
                     <div class="ui teal segment">
                         <div class="ui fluid vertical menu">
-                            <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item m-card"
+                            <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank"
+                               class="item m-card"
                                th:each="type : ${types}">
                                 <span th:text="${type.name}">学习日志</span>
-                                <div class="ui teal basic left pointing label" th:text="${type.blogCount}">13</div>
+                                <div class="ui teal basic left pointing label" th:text="${type.blogCount}">13
+                                </div>
                             </a>
                             <!--/*-->
                             <a href="#" class="item">
@@ -688,7 +701,6 @@ h5,h6{font-size:1em;}
                         </div>
                     </div>
                 </div>
-
                 <!--标签-->
                 <div class="ui segments m-margin-top-large  m-card">
                     <div class="ui secondary segment">
@@ -713,7 +725,7 @@ h5,h6{font-size:1em;}
                 </div>
 
                 <!--最新推荐-->
-                <div class="ui segments m-margin-top-large  m-card">
+                <div class=" ui sticky segments m-margin-top-large  m-card">
                     <div class="ui secondary segment ">
                         <i class="bookmark icon"></i>最新推荐
                     </div>
@@ -727,13 +739,15 @@ h5,h6{font-size:1em;}
             </div>
         </div>
     </div>
+
+
 </div>
 
 
 <div id="toolbar" class="m-fixed m-bottom-right m-padded " style="display: none">
     <div class="ui vertical icon buttons ">
         <button id="to_comment" class="ui teal button">留言</button>
-            <button id="toTop_but" class="ui icon button"><i class="chevron up icon "></i></button>
+        <button id="toTop_but" class="ui icon button"><i class="chevron up icon "></i></button>
     </div>
 </div>
 
@@ -745,7 +759,6 @@ h5,h6{font-size:1em;}
 
 </div>
 
-<br>
 <!--底部footer-->
 <footer th:replace="_fragments::footer" class="ui inverted vertical segment m-padded-tb-massive">
     <!--    居中-->
@@ -797,7 +810,11 @@ h5,h6{font-size:1em;}
 <script src="../static/lib/waypoint/jquery.waypoints.min.js"></script>
 <!--/*/</th:block>/*/-->
 <script th:inline="javascript">
-
+    //当内容滚动时，粘性内容将自身固定到浏览器视口
+    $('.ui.sticky')
+        .sticky({
+            context: '.stickyed'
+        });
 
     $("#menu_toggle").click(function () {
         $(".nav_item").toggleClass('m-mobile-hide');
@@ -903,6 +920,28 @@ h5,h6{font-size:1em;}
             }
         }
     });
+
+
+    //#QQ失去焦点  取 #QQ值  请求返回josn ->  name=avatar  #nickname
+        // 失去焦点
+    $('#QQ').blur(function() {
+        var QQ = $("#QQ").val();
+        $.ajax({
+            url : "https://api.usuuu.com/qq/"+QQ,
+            type: "GET",
+            dataType: "json",
+            success : function(result) {
+                var avatarUrl = result["data"].avatar;
+                $("[name='nickname']").val(result["data"].name);
+                $("[name='avatar']").val(result["data"].avatar);
+                //头像显示
+                $("#avatar").attr('src', avatarUrl);
+            },error(){
+                $("#avatar").attr('src', /*[[@{/images/avatar/2.png}]]*/"");
+            }
+        });
+    });
+
 </script>
 
 </html>

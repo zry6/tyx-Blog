@@ -11,4 +11,6 @@ import com.zry.simpleblog.entity.User;
 public interface UserService {
 
     User checkUser(String username);
+
+    User updateUser(User user);
 }

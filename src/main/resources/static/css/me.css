@@ -31,7 +31,7 @@ body {
     background-color: #121212;
     font-weight: 400;
     /*color: #757575;*/
-    cursor: url(/Blog/images/mouses/cur1.cur), default;
+    cursor: url(/images/mouses/cur1.cur), default;
 }
 
 a {
@@ -169,7 +169,9 @@ a {
 .m-margin-bottom {
     margin-bottom: 1em !important;
 }
-
+.m-margin-auto{
+    margin: auto !important;
+}
 /*--------text-------*/
 .m-text {
     font-weight: 350 !important;
@@ -289,6 +291,10 @@ a {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
+    .ui.sticky{
+        display: none !important;
+    }
+
 }
 
 .m-toTop {
@@ -311,4 +317,19 @@ a {
     margin-top: 9px !important;
     margin-left: 3px !important;
 
+}
+/*输入框固定*/
+#comment-form input{
+    min-height: 45px;
+}
+
+/*头像旋转*/
+@keyframes turnZ{
+    0%{transform:rotateZ(0deg);}
+    100%{transform:rotateZ(360deg);}
+}
+.m-rotate:hover{
+    animation-name:turnZ;
+    animation-duration:0.8s;
+    animation-iteration-count:1;
 }

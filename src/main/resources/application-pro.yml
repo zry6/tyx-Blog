@@ -1,6 +1,4 @@
 server:
-  servlet:
-    context-path: /Blog
   port: 80
 spring:
   datasource:
@@ -35,7 +33,7 @@ logging:
     root: info
     com.zry: info
   file:
-    name: log/blog-dev.log
+    name: log/blog-pro.log
 
 mybatis:
   configuration:

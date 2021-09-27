@@ -1,6 +1,4 @@
 server:
-  servlet:
-    context-path: /Blog
   port: 80
 spring:
   datasource:

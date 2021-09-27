@@ -4,8 +4,10 @@ import com.zry.simpleblog.dao.UserDao;
 import com.zry.simpleblog.entity.User;
 import com.zry.simpleblog.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @author zry
@@ -22,5 +24,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public User checkUser(String username) {
         return userDao.queryUserByUsername(username);
+    }
+
+    @Transactional
+    @Override
+    public User updateUser(User user) {
+        user.setUpdateTime(new Date());
+        if ( userDao.updateUser(user)){
+            return userDao.queryUserById(user.getId());
+        }else{
+            return null;
+        }
+
     }
 }

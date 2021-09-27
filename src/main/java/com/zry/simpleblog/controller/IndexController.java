@@ -33,9 +33,6 @@ public class IndexController {
     @GetMapping("/")
     public String index(@RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum, Model model) {
         model.addAttribute("pageInfo", blogService.listBlog(pageNum, 4));
-//        model.addAttribute("types", typeService.listTypeTop(6));
-//        model.addAttribute("tags", tagService.listTagTop(8));
-//        model.addAttribute("recommendBlogs", blogService.listRecommendBlogTop(7));
         return "index";
     }
 
@@ -60,6 +57,6 @@ public class IndexController {
     @GetMapping("/footer/newBlog")
     public String newBlogs(Model model){
         model.addAttribute("newBlogs",blogService.listRecommendBlogTop(3));
-        return "_fragments :: newBlogList";
+        return "admin/_fragments :: newBlogList";
     }
 }
