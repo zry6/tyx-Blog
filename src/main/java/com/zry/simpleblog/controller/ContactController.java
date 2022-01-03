@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -42,9 +43,15 @@ public class ContactController {
         return "contact";
     }
 
+//    @GetMapping("/contacts/{id}")
+//    public String contact( @PathVariable Long id,Model model){
+//        model.addAttribute("comments",commentService.listCommentByBlogId(id));
+//        return "contact :: commentList";
+//    }
+//
     @GetMapping("/contacts/{id}")
-    public String contact( @PathVariable Long id,Model model){
-        model.addAttribute("comments",commentService.listCommentByBlogId(id));
+    public String contact(@RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum, @PathVariable Long id, Model model){
+        model.addAttribute("comments",commentService.listCommentByBlogId(pageNum,  5, id));
         return "contact :: commentList";
     }
 

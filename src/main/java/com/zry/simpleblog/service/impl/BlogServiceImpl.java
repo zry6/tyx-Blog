@@ -105,7 +105,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getAndConvert(Long id) {
-        Blog blog = blogDao.queryBlog(id);
+        Blog blog = blogDao.queryBlogPublished(id);
         if (blog == null){
             throw new NotFoundException("博客不存在");
         }

@@ -82,7 +82,7 @@ public class UserController {
         } else {
             attributes.addFlashAttribute("message", "请将信息完善");
         }
-        return "admin/user";
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/user/{id}/input")

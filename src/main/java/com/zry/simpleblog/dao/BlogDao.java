@@ -50,6 +50,14 @@ public interface BlogDao {
     @Select("select t_blog.* ,t_type.name as type_name from t_blog , t_type where t_blog.id = #{id} and t_blog.type_id=t_type.id")
     Blog queryBlog(Long id);
 
+
+    @Results({@Result(property = "type.id", column = "type_id"),
+            @Result(property = "type.name", column = "type_name"),
+            @Result(property = "user.id", column = "user_id")})
+    @Select("select t_blog.* ,t_type.name as type_name from t_blog , t_type where t_blog.id = #{id} and t_blog.published=true and t_blog.type_id=t_type.id")
+    Blog queryBlogPublished(Long id);
+
+
     @Update("update t_blog SET appreciation=#{appreciation},commentable=#{commentable},content=#{content},description=#{description}," +
             "first_picture=#{firstPicture},flag=#{flag},published=#{published},recommend=#{recommend},share_statement=#{shareStatement}," +
             "title=#{title},update_time=#{updateTime},type_id=#{type.id} where id=#{id}")

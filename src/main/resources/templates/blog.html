@@ -47,7 +47,7 @@
 </nav>
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 <!--中间内容-->
-<div id="waypoint" class="m-container-small m-padded-tb-4em m-padded-top-best m-mobile-top-15px">
+<div id="waypoint"  style="max-width: 65em;" class="m-container-small m-padded-tb-4em m-padded-top-best m-mobile-top-15px">
     <div class="ui container">
         <div class="ui top attached segment ">
             <div class="ui horizontal link list animated flipInX">
@@ -599,7 +599,7 @@ h5,h6{font-size:1em;}
                               placeholder="评论千万条，友善第一条"></textarea>
                 </div>
                 <div class="fields">
-                    <div class="field m-mobile-wide m-margin-bottom-small" th:if="${session.User}==null">
+                    <div class="field m-mobile-wide m-margin-bottom-small">
                         <div class="ui left icon input">
                             <img id="avatar" class="ui mini circular image" style="margin: 5px 0px;"
                                  th:src="${session.User} ? @{${session.User.avatar}} : @{/images/avatar/avatar1.png}">
@@ -626,7 +626,7 @@ h5,h6{font-size:1em;}
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
-                        <button id="commentpost-btn" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布
+                        <button id="commentpost-btn" class="ui blue button m-mobile-wide"><i class="edit icon"></i>发布
                         </button>
                     </div>
 
@@ -640,7 +640,7 @@ h5,h6{font-size:1em;}
         </div>
     </div>
 </div>
-<br>
+
 <div id="toolbar" class="m-fixed m-bottom-right m-padded" style="display: none">
     <div class="ui vertical icon buttons ">
         <button id="toc-but" type="button" class="ui teal button">目录</button>
@@ -807,7 +807,6 @@ h5,h6{font-size:1em;}
     }
 
     function reply(obj) {
-        $('#myhkplayer').removeClass('show');
         var commentId = $(obj).data("commentid");
         var commentEmail = $(obj).data("commentemail");
         var commentNickname = $(obj).data("commentnickname");

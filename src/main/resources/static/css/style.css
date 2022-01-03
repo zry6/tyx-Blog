@@ -2,23 +2,21 @@
 .m-back-img1 {
     background-image: url("/images/background/bg1.jpg");
 }
-
 .m-back-img2 {
     background-image: url("/images/background/bg2.jpg");
 }
-
 .m-back-img3 {
     background-image: url("/images/background/bg3.jpg");
 }
-
 .m-back-img4 {
     background-image: url("/images/background/bg4.jpg");
 }
-
-.m-back-img5 {
+.m-back-img6 {
     background-image: url("https://tenapi.cn/acg?2");
 }
-
+.m-back-img5{
+    background-image: url("https://tva1.sinaimg.cn/large/9bd9b167gy1g2qkp66akxj21hc0u01kx.jpg");
+}
 .m-back-img1, .m-back-img2, .m-back-img3, .m-back-img5 {
     background-attachment: fixed;
     background-position: center;
@@ -177,4 +175,10 @@
 #footer:hover {
     transition: all .5s !important;
     background: rgb(255 255 255 / 50%) !important;
+}
+
+#blogArchives {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 780px;
 }

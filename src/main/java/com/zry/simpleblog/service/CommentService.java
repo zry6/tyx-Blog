@@ -1,5 +1,6 @@
 package com.zry.simpleblog.service;
 
+import com.github.pagehelper.PageInfo;
 import com.zry.simpleblog.entity.Comment;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface CommentService {
     List<Comment> listCommentByBlogId(Long id);
-
+    PageInfo listCommentByBlogId(int pageNum, int i, Long blogId);
     Boolean saveComment(Comment comment);
     int deleteComment(Long BlogId);
 }

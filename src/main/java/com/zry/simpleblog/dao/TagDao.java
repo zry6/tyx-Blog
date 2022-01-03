@@ -37,7 +37,7 @@ public interface TagDao {
     List<Long> getTagIdByBlogId(Long blog_id);
 
     @Select("select id,name, count(*) as blogCount from" +
-            "(select t_blog_tags.blogs_id,t_tag.* from t_tag ,t_blog_tags where t_tag.id=t_blog_tags.tags_id) tb " +
+            "(select t_blog_tags.blogs_id,t_tag.* from t_tag ,t_blog_tags,t_blog where t_tag.id=t_blog_tags.tags_id and t_blog_tags.blogs_id=t_blog.id and t_blog.published=true ) tb " +
             "GROUP BY id  ORDER BY blogCount DESC  LIMIT #{count};")
     List<Tag> listTagTop(int count);
 

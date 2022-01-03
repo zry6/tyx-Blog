@@ -1,5 +1,7 @@
 package com.zry.simpleblog.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zry.simpleblog.dao.CommentDao;
 import com.zry.simpleblog.entity.Comment;
 import com.zry.simpleblog.service.CommentService;
@@ -28,6 +30,15 @@ public class CommentServiceImpl implements CommentService {
         combineChildren(comments);
         return comments;
 //        return eachComment(comments);
+    }
+
+    @Override
+    public PageInfo listCommentByBlogId(int pageNum, int i, Long blogId) {
+        PageHelper.startPage(pageNum, i);
+        List<Comment> comments = commentDao.findByBlogIdAndParentCommentNull(blogId);
+        combineChildren(comments);
+        PageInfo pageInfo = new PageInfo(comments);
+        return pageInfo;
     }
 
     @Transactional

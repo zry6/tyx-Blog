@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="../static/lib/typo/typo.css" th:href="@{/lib/typo/typo.css}"/>
     <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}"/>
     <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}"/>
-    <link rel="stylesheet" href="../static/css/me.css " th:href="@{/css/me.css}"/>
-    <link rel="stylesheet" href="../static/css/style.css " th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}"/>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
 </head>
 <body>
@@ -71,7 +71,7 @@
 
 
 </nav>
-<!--底部footer-->
+<!--底部footer--><br><br><br>
 <footer id="footer" th:fragment="footer">
     <meting-js
             server="netease"
@@ -85,10 +85,14 @@
     </div>
     <!--    居中-->
     <div class="ui center aligned container m-padded-tb-small">
-        <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright &copy; 2021.9.10 by <span>猫喵喵</span>
+        <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright © 2021-2022 听宇轩. All rights reserved.
         </p>
+        <div>
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=2021028184" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="http://www.beian.gov.cn/img/ico.ico" style="float:left;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff1c04;">豫ICP备 2021028184号</p></a>
+        </div>
     </div>
-
+<br>
+<br>
     <div th:if="${blog}==null" id="toolbar" class="m-fixed m-bottom-right m-padded" style="display: none">
         <a id="comment_toTop" class="m-toTop">
             <i class="ui angle up icon"></i>
@@ -111,7 +115,7 @@
     <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
     <!-- require MetingJS -->
     <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
+<!--    <script src="https://raw.github.com/defunkt/jquery-pjax/master/jquery.pjax.js" th:src="@{/js/jquery.pjax.js}"></script>-->
 
     <script>
         show_date_time();
