@@ -6,12 +6,9 @@
 我的网站：  http://www.tyux.top/
 
 #### 软件架构
-    
-    前端
-    核心框架：
-
-        thymeleaf
-        UI框架：semantic-ui框架(感觉这个框架快完蛋了)
+    基于thymeleaf模板
+    前端 
+        UI框架：semantic-ui框架
         css动画 Animate
         markdown
     后端
@@ -19,6 +16,7 @@
         安全框架：shiro  1.7.1
         持久层框架：Mybatis 2.2.0
         java版本：JDK8
+
 #### 安装教程
 在application.yml文件修改数据库密码和用户名
 
