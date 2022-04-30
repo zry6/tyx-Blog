@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>博客管理</title>
+    <link rel="icon" href="/images/logo.ico"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../css/me.css">
+    <link rel="stylesheet" href="../lib/animate/animate.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="m-back-img1">
+<!--导航-->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small animated fadeInDown">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
+            <h2 class="ui teal header item">后台管理</h2>
+            <a href="/" class=" nav_item item m-mobile-hide"><i class="coffee icon"></i>博客首页</a>
+            <a href="/admin/index.html" class=" nav_item item m-mobile-hide "><i class="home icon"></i>管理首页</a>
+            <a href="/admin/blog-s.html" class=" nav_item item m-mobile-hide"><i class="book icon"></i>博客</a>
+            <a href="/admin/type-s.html" class="nav_item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="/admin/tag-s.html" class="nav_item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <div class="nav_item right dropdown  menu m-mobile-hide">
+                <div class="ui dropdown item">
+                    <div class="text" >
+                        <img id="avatar" class="ui avatar image" src="/images/avatar/zry.jpg" alt="">
+                        <span id="nickname">猫喵喵</span>
+                    </div>
+
+                    <i class="dropdown icon"></i>
+                    <div class="menu element-ui dialog" style="z-index: 999 !important;">
+                        <a href="/admin/user.html" class="item">个人信息</a>
+                        <a href="logout"  class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!--导航-->
+
+<!--top attached 完整拼接成一个相连区域 bottom attached-->
+<!--中间内容-->
+<div class="m-padded-tb-4em m-container-small ">
+
+    <div class="ui container">
+        <div class="ui success large message">
+            <h2>Hi,</h2>
+            <p id="nickname2"> 赵睿宇，欢迎登录！</p>
+        </div>
+        <div style="height: 400px;">
+            <img src="https://tenapi.cn/acg" class="ui rounded bordered fluid image">
+        </div>
+
+    </div>
+
+</div>
+<br>
+<br>
+<!--底部footer-->
+<footer class="ui inverted vertical segment m-padded-tb-massive">
+    <!--    居中-->
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../../images/weixin.png"
+                             class="ui rounded image" alt="" width="110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">联系我</h4>
+                <div class="ui inverted link list m-text-thin m-text-spaced">
+                    <a href="#" class="item">Email：1447051936@qq.com</a>
+                    <a href="#" class="item">QQ:1447051936</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">Blog</h4>
+                <p class="m-text-thin m-text-spaced m-opacity">
+                    这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...
+                </p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2021-2022 听宇轩. All rights reserved.</p>
+        <div>
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41142102000072"
+               style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
+                    src="http://www.beian.gov.cn/img/ico.ico" style="float:left;">
+                <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff1c04;">豫ICP备
+                    2021028184号</p></a>
+        </div>
+    </div>
+
+</footer>
+</body>
+<!-- jquery -->
+<script src="../js/jquery-3.6.0.min.js"></script>
+<!-- jquery-validator -->
+<script type="text/javascript" src="../jquery-validation/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../jquery-validation/localization/messages_zh.min.js"></script>
+<!-- semantic-ui-->
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<!-- layer -->
+<script type="text/javascript" src="../lib/layer/layer.js"></script>
+<!--comment.js-->
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript">
+
+    $(".ui.dropdown").dropdown({
+        on: "hover"
+    });
+
+    $("#menu_toggle").click(function () {
+        $(".nav_item").toggleClass('m-mobile-hide');
+    });
+
+    $(function () {
+        getUserInfo();
+     });
+    // ajax会自动带上同源的cookie，不会带上不同源的cookie
+    // 可以通过前端设置withCredentials为true，
+    // 后端设置Header的方式来让ajax自动带上不同源的cookie，
+    // 但是这个属性对同源请求没有任何影响， 会被自动忽略。
+    // function getUserInfo() {
+    //     $.ajax({
+    //         url: "/userInfoByTicket",
+    //         type: "GET",
+    //         success: function (data) {
+    //             layer.closeAll();
+    //             if (data.code === 200) {
+    //                 $('#nickname').text(data.obj.nickname);
+    //                 $('#nickname2').text(data.obj.nickname);
+    //                 $('#avatar').attr('src',data.obj.avatar);
+    //             } else {
+    //                 layer.msg(data.message);
+    //             }
+    //         },
+    //         error: function () {
+    //             console.log("error");
+    //             layer.closeAll();
+    //         }
+    //     });
+    //
+    //     // $("#captchaImg").attr("src", "/seckill/captcha?goodsId=" + $("#goodsId").val() + "&time" + new Date());
+    // }
+</script>
+
+</html>

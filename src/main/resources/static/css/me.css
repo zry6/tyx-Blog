@@ -1,0 +1,341 @@
+/*<!--    ui    teal蓝色  header    -->*/
+body, input, select, textarea, .friends-ctx {
+    font-family: "Roman-55", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Serif SC", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", sans-serif !important;
+}
+
+html {
+    scroll-behavior: smooth !important;
+}
+
+/* common */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    /*border-radius: 10px;*/
+    background: #EDEDED;
+
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    /*background-color: #5755D9;*/
+    background-color: #767676;
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+}
+
+body {
+    font-weight: 400;
+    /*color: #757575;*/
+    cursor: url(/images/mouses/cur1.cur), default;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/*m-back-grass*/
+.m-back-grass-small {
+    background: rgba(255, 255, 255, .15) !important;
+    border-radius: .28571429rem !important;
+}
+.m-back-grass {
+    background: rgb(0 0 0 / 50%) !important;
+    border-radius: .28571429rem !important;
+}
+
+.m-back-grass-deep {
+    background: rgb(255 255 255 / 70%) !important;
+    border-radius: .28571429rem !important;
+}
+
+.m-back-grass-medium {
+    background: rgb(255 255 255 / 50%) !important;
+    border-radius: .28571429rem !important;
+}
+
+.m-border-radius {
+    border-radius: .28571429rem !important;
+}
+
+.m-card {
+    -webkit-box-shadow: 0 0.25rem 1rem rgba(48, 55, 66, 0.15) !important;
+    box-shadow: 0 4px 16px rgba(48, 55, 66, 0.15) !important;
+    transition: all .5s cubic-bezier(.215, .61, .355, 1) !important;
+    border-radius: .5571429rem !important;
+}
+
+.m-card-mod {
+    transition: all .5s cubic-bezier(.215, .61, .355, 1) !important;
+}
+
+.m-card:hover, .m-card-mod:hover {
+    box-shadow: 0 16px 32px 0 rgba(48, 55, 66, 0.15) !important;
+    transform: translate(0, -5px) !important;
+    transition: all .5s cubic-bezier(.215, .61, .355, 1) !important;
+}
+
+/*--------------padded----------------*/
+.m-padded-03em {
+    /*加重要级别 覆盖组件的样式*/
+    padding: 0.3em !important;
+}
+
+.m-padded {
+    /*加重要级别 覆盖组件的样式*/
+    padding: 1em !important;
+}
+
+.m-padded-tb-mini {
+    /*加重要级别 覆盖组件的样式*/
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+}
+
+.m-padded-tb-tiny {
+    padding-top: 0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+
+.m-padded-tb-small {
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+}
+
+.m-padded-tb-1em {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+}
+
+.m-padded-tb-2em {
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+}
+
+.m-padded-tb-4em {
+    padding-top: 4em !important;
+    padding-bottom: 4em !important;
+}
+.m-padded-top-best {
+    padding-top: 7em !important;
+}
+.m-padded-top {
+    padding-top: 2em !important;
+}
+.m-padded-tb-best {
+    padding-top: 9em !important;
+    padding-bottom: 9em !important;
+}
+.m-padded-tb-massive {
+    padding-top: 5em !important;
+    padding-bottom: 5em !important;
+}
+
+.m-padded-tb-huge {
+    padding-top: 3em !important;
+    padding-bottom: 3em !important;
+}
+.m-padded-b-best {
+    padding-bottom: 9em !important;
+}
+.m-padded-lr-responsive {
+    padding-left: 3em !important;
+    padding-right: 3em !important;
+}
+
+/*-------margin----------*/
+.m-mobile-top-15px {
+    margin-top: 15px;
+}
+
+.m-margin-top-small {
+    margin-top: 0.5em !important;
+}
+
+.m-margin-top {
+    margin-top: 1em !important;
+}
+
+.m-margin-top-large {
+    margin-top: 2em !important;
+}
+
+.m-margin-tb-tiny {
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+}
+.m-margin-bottom-small {
+    margin-bottom: 0.5em !important;
+}
+
+.m-margin-bottom {
+    margin-bottom: 1em !important;
+}
+.m-margin-auto{
+    margin: auto !important;
+}
+/*--------text-------*/
+.m-text {
+    font-weight: 350 !important;
+    letter-spacing: 1px !important;
+    line-height: 1.8;
+}
+
+.m-text-thin {
+    font-weight: 300 !important;
+}
+
+.m-text-spaced {
+    letter-spacing: 1px !important;
+}
+
+.m-text-lined {
+    line-height: 1.8;
+}
+
+/*--------------opacity-----------*/
+
+.m-opacity {
+    opacity: 0.8 !important;
+}
+
+.m-opacity-tiny {
+    opacity: 0.6 !important;
+}
+
+.m-opacity-not {
+    opacity: 1 !important;
+}
+
+/*-------display-------*/
+.m-inline-block {
+    display: inline-block !important;
+}
+
+.m-container-normal {
+    max-width: 50em !important;
+    margin: auto !important;
+}
+
+.m-container {
+    max-width: 80em !important;
+    margin: auto !important;
+}
+
+.m-container-small {
+    max-width: 60em !important;
+    margin: auto !important;
+}
+
+/*--------position--------*/
+.m-fixed {
+    position: fixed !important;
+    z-index: 1 !important;
+}
+
+.m-fixed-w {
+    position: fixed !important;
+    width: 100%;
+    z-index: 1 !important;
+}
+.m-bottom-right {
+    bottom: 10% !important;
+    right: 0 !important;
+}
+
+/*-------m-shadow----------*/
+/*适配浏览器  所以有两个*/
+.m-shadow-small {
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/*------color-----*/
+.m-black {
+    color: rgba(0, 0, 0, 0.77) !important;
+}
+
+.m-teal {
+    color: #00B5AD !important;
+}
+
+/*-------opacity-------*/
+.m-top-right {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+}
+
+/*    */
+.m-mobile-show {
+    display: none !important;
+}
+
+/*媒体查询*/
+@media screen and (max-width: 768px) {
+    .m-mobile-hide {
+        display: none !important;
+    }
+
+    .m-mobile-show {
+        display: block !important;
+    }
+
+    .m-mobile-wide {
+        width: 100% !important;
+    }
+
+    .m-padded-lr-responsive {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .m-mobile-clear {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .ui.sticky{
+        display: none !important;
+    }
+
+}
+
+.m-toTop {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #757575 !important;
+    box-shadow: 0 0 3px 0 rgb(0 0 0 / 12%), 0 3px 3px 0 rgb(0 0 0 / 24%);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    transition: all .1s ease-out;
+}
+
+.m-toTop i {
+    font-size: 24px;
+    margin-top: 9px !important;
+    margin-left: 3px !important;
+
+}
+/*输入框固定*/
+#comment-form input{
+    min-height: 45px;
+}
+
+/*头像旋转*/
+@keyframes turnZ{
+    0%{transform:rotateZ(0deg);}
+    100%{transform:rotateZ(360deg);}
+}
+.m-rotate:hover{
+    animation-name:turnZ;
+    animation-duration:0.8s;
+    animation-iteration-count:1;
+}

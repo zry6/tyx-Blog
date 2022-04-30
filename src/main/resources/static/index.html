@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>猫喵喵~Blog</title>
+    <link rel="icon" href="./images/logo.ico"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="./lib/animate/animate.min.css"/>
+    <link rel="stylesheet" href="./css/me.css"/>
+    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+</head>
+<body class="m-back-img5">
+
+<nav  class="animated fadeInDown m-back-grass m-fixed-w">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
+            <h2 class="ui white header item">猫喵喵~Blog</h2>
+            <a href="/" class="nav_item item m-mobile-hide"><i
+                    class="home icon"></i>首页</a>
+            <a href="/types/-1" class="nav_item item m-mobile-hide"
+            ><i class="idea icon"></i>分类</a>
+            <a href="/tags/-1" class="nav_item item m-mobile-hide">
+                <i class="tags icon"></i>标签</a>
+            <a href="/archives" class="nav_item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a href="/guestbook" class="nav_item item m-mobile-hide">
+                <i class="comments outline icon"></i>留言板</a>
+            <a href="/about" class="nav_item item m-mobile-hide"><i
+                    class="info icon"></i>关于我</a>
+            <div class=" m-mobile-hide m-search">
+                <i class="search line icon funIcon"></i>
+                <i class="close line icon funIcon no "></i>
+                <form content="m-mobile-show" action="#" th:action="@{/search}" name="search">
+                    <div class="m-form">
+                        <input type="text" name="query" placeholder="快来找你要的东东ヾ(≧▽≦*)o" required="required">
+                        <i onclick="document.forms['search'].submit()" class="search link icon s-icon"></i>
+                    </div>
+                </form>
+            </div>
+            <div class="nav_search right item no">
+                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                    <div class="ui icon inverted transparent input m-margin-tb-tiny">
+                        <input id="query" type="text" name="query" placeholder="Search...." >
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <span id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
+        <i class="sidebar icon"></i>
+    </span>
+</nav>
+
+<!--中间内容-->
+<div class="m-container animated fadeIn   m-padded-top-best">
+    <!--container 响应式的容器-->
+    <div class="ui  container">
+        <div class=" ui stackable grid">
+            <!--左边博客列表-->
+            <div id="blogDiv" class="eleven wide column blogDiv  ">
+                <!--header-->
+                <div class="ui top attached segment  m-back-grass-deep  animated flipInX ">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <h3 class="ui teal header">博客</h3>
+                        </div>
+                        <div class="right aligned column">
+                            共 <h2 class="ui orange header m-inline-block m-text-thin">39</h2> 篇
+                        </div>
+                    </div>
+                </div>
+                <!--content-->
+                <div class="ui attached  segment m-back-grass-deep">
+                    <div class="ui padded  segment m-padded-tb-2em m-mobile-clear m-card">
+                        <div class="ui middle aligned mobile reversed stackable grid">
+                            <div class="eleven wide column">
+                                <h3 class="ui header"><a href="/blog/53" target="_blank" class="m-black">ZooKeeper</a>
+                                </h3>
+                                <!--<p class="m-text" th:text="|${blog.description}......|">1正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...</p>-->
+                                <p class="m-text"><a href="/blog/53" data-pjax="" class="m-black">Zookeeper
+                                    分布式服务框架是Apache Hadoop
+                                    的一个子项目，它主要是用来解决分布式应用中经常遇到的一些数据管理问题，如：分布式注册中心，分布式锁，统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理等等......</a>
+                                </p>
+                                <div class="ui grid">
+                                    <div class="eleven wide column">
+                                        <div class="ui mini horizontal link list">
+                                            <div class="item">
+                                                <img src="http://cdn.xiongsihao.com/avatar.png" alt=""
+                                                     class="ui avatar image">
+                                                <div class="content"><a href="#" class="header">管理员</a></div>
+                                            </div>
+                                            <div class="item">
+                                                <i class="calendar icon"></i><span>2021-02-12</span>
+                                            </div>
+                                            <div class="item">
+                                                <i class="eye icon"></i> <span>4245</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="right aligned four wide column">
+                                        <a href="#" target="_blank"
+                                           class="ui teal basic label m-padded-tiny m-text-thin">java框架</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="four wide column">
+                                <a href="/blog/53" target="_blank">
+                                    <img src="http://cdn.xiongsihao.com/blogFirstPicture53.jpg" alt=""
+                                         class="ui rounded image">
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--footer-->
+                <div class="ui bottom attached segment">
+                    <div class="ui middle aligned two column grid">
+                        <div class="left aligned column">
+                            <a href="/?page=1" data-pjax="" class="ui mini teal basic button">下一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a href="/?page=1" data-pjax="" class="ui mini teal basic button">下一页</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--    右部分top-->
+            <div class="four wide column">
+                <div class="four wide column">
+                    <div class="ui top attached segment">
+                        <div class="ui attached segment center aligned">
+                            <img class="ui  circular tiny image" src="./images/avatar/zry.jpg" style="display: inline;" >
+                            <p class=" m-text animated flipInX" style="color: rgb(223,29,29);">不忘归期</p>
+                        </div>
+                    </div>
+                    <div class="ui bottom attached segment center aligned">
+                        <a href="https://gitee.com/zhao--ruiyu/spring-boot-blog-master" target="_blank" data-content="点击跳转gitee" data-position="bottom center" class="ui gitee circular icon button"><img src="/images/gitee.png" width="12"></a>
+                        <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+                        <a href="https://blog.csdn.net/qq_45802080" target="_blank" class="ui csdn circular icon button" data-content="点击跳转CSDN" data-position="bottom center"><i class="copyright outline icon"></i></a>
+                        <a href="#" class="ui qq circular icon button" data-content="1447051936" data-position="bottom center"><i class="blue qq icon"></i></a>
+                    </div>
+                </div>
+                <!--分类-->
+                <div id="typeDiv" class="ui segments classify animated flipInX ">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="idea icon"></i>分类
+                            </div>
+                            <div class="right aligned column">
+                                <a href="types/-1" data-pjax="">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui teal segment">
+                        <div id="typeList"  class="ui fluid vertical menu">
+                            <a href="/types/3" data-pjax="" class="item">
+                                <span>java基础</span>
+                                <div class="ui teal basic left pointing label">6</div>
+                            </a>
+                            <a href="/types/6" data-pjax="" class="item">
+                                <span>数据库</span>
+                                <div class="ui teal basic left pointing label">5</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--标签-->
+                <div id="tagDiv" class="ui segments m-margin-top-large tagDiv animated flipInX">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="tags icon"></i>标签
+                            </div>
+                            <div class="right aligned column">
+                                <a href="tags/-1" data-pjax="">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui teal segment">
+                        <a href="/tags/36" data-pjax="" class="ui teal basic left pointing label m-margin-tb-tiny">
+                            <span>基础知识</span>
+                            <div class="detail">7</div>
+                        </a>
+                        <a href="/tags/9" data-pjax="" class="ui teal basic left pointing label m-margin-tb-tiny">
+                            <span>spring</span>
+                            <div class="detail">5</div>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!--最新推荐-->
+                <div id="recommendDiv" class="ui segments m-margin-top-large recommendDiv animated flipInX">
+                    <div class="ui secondary segment ">
+                        <i class="bookmark icon"></i>最新推荐
+                    </div>
+                    <div class="ui segment">
+                        <a href="/blog/53" data-pjax="" class="m-black m-text-thin">ZooKeeper</a>
+                    </div>
+                </div>
+
+                <!--二维码-->
+                <h4 class="ui horizontal divider header m-margin-top-large">扫码加好友</h4>
+                <div class="ui centered card" style="width: 11em">
+                    <img src="./images/weixin.png" alt="" class="ui rounded image">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--底部footer-->
+<footer id="" class="ui inverted vertical segment m-padded-tb-massive ">
+    <!--    居中-->
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="./images/weixin.png" class="ui rounded image"
+                             alt="" width="110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <div class="ui inverted link list m-text-thin m-text-spaced">
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">联系我</h4>
+                <div class="ui inverted link list m-text-thin m-text-spaced">
+                    <a href="#" class="item">Email：1447051936@qq.com</a>
+                    <a href="#" class="item">QQ:1447051936</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">Blog</h4>
+                <p class="m-text-thin m-text-spaced m-opacity">
+                    这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...
+                </p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+    </div>
+
+    <div class="ui center aligned container m-font-size">本站😉已运行✌[<span id="span_dt_dt"></span> ]
+    </div>
+    <!--    居中-->
+    <div class="ui center aligned container m-padded-tb-small">
+        <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright © 2021-2022 听宇轩 , All rights reserved.
+        </p>
+        <div>
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41142102000072"
+               style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
+                    src="http://www.beian.gov.cn/img/ico.ico" style="float:left;">
+                <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff1c04;">豫ICP备
+                    2021028184号</p></a>
+        </div>
+    </div>
+    <meting-js
+            server="netease"
+            type="playlist"
+            id="6859965088"
+            mini="true"
+            artist="rainymood"
+            fixed="true">
+    </meting-js>
+</footer>
+</body>
+<script src="./js/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script src="./lib/layer/layer.js"></script>
+<script src="./js/snowFall.js"></script>
+<script src="./js/showTime.js"></script>
+<!--comment.js-->
+<script type="text/javascript" src="./js/common.js"></script>
+<!-- require APlayer -->
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        init();
+    });
+
+    function init(){
+        show_date_time();
+        setUser();
+        setTypes();
+        setTags();
+    }
+    function setUser() {
+
+    }
+
+    function setTypes() {
+        $.ajax({
+            url: "/types/blogCount",
+            type: "GET",
+            success: function (data) {
+                layer.closeAll();
+                if (data.code === 200) {
+                    console.info(data.obj);
+                } else {
+                    layer.msg(data.message);
+                }
+            },
+            error: function (obj) {
+                layer.closeAll();  layer.msg("error，也许您的网络有问题");
+            }
+        });
+    }
+    function setTags() {
+        $.ajax({
+            url: "/tags/blogCount",
+            type: "GET",
+            success: function (data) {
+                layer.closeAll();
+                if (data.code === 200) {
+                    console.info(data.obj);
+                } else {
+                    layer.msg(data.message);
+                }
+            },
+            error: function (obj) {
+                layer.closeAll();  layer.msg("error，也许您的网络有问题");
+            }
+        });
+    }
+</script>
+
+</html>

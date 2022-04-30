@@ -1,0 +1,8 @@
+server:
+  port: 8080
+# 应用名称
+spring:
+  application:
+    name: SimpleBlog2
+  profiles:
+    active: pro

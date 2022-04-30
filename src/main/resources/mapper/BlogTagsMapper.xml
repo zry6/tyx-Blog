@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zry.mapper.BlogTagsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zry.entity.BlogTags">
+        <id column="id" property="id" />
+        <result column="blogs_id" property="blogsId" />
+        <result column="tags_id" property="tagsId" />
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" >
+        insert into `t_blog_tags` (blogs_id,tags_id) values
+        <foreach item="tagId" collection="tagList" separator=",">
+            (#{blogId},#{tagId})
+        </foreach>
+    </insert>
+    
+
+</mapper>

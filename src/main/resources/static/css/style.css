@@ -1,0 +1,184 @@
+/*定义特殊样式*/
+.m-back-img1 {
+    background-image: url("/images/background/bg1.jpg");
+}
+.m-back-img2 {
+    background-image: url("/images/background/bg2.jpg");
+}
+.m-back-img3 {
+    background-image: url("/images/background/bg3.jpg");
+}
+.m-back-img4 {
+    background-image: url("/images/background/bg4.jpg");
+}
+.m-back-img6 {
+    background-image: url("https://tenapi.cn/acg?2");
+}
+.m-back-img5{
+    background-image: url("/images/background/bg-img.jpg");
+}
+.m-back-img1, .m-back-img2, .m-back-img3, .m-back-img5 {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/*搜索框样式*/
+.m-search {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 61px !important;
+    height: 61px !important;
+    background-color: #670090 !important;
+    transition: .5s !important;
+}
+
+.m-search .funIcon, .s-icon {
+    width: 61px !important;
+    height: 61px !important;
+    line-height: 63px !important;
+    font-size: 30px !important;
+    color: #fff !important;
+    text-align: center !important;
+    cursor: pointer !important;
+}
+
+
+.m-search.m-active {
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+.m-form {
+    position: absolute;
+    top: 50% !important;
+    right: 10% !important;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.m-form input {
+    background: transparent !important;
+    color: #fff !important;
+    border: none;
+    border-bottom: 4px solid #fff !important;
+    outline: none !important;
+    font-size: 40px !important;
+    padding: 10px 0 !important;
+}
+
+.m-search.m-active .m-form {
+    display: block;
+}
+
+.m-form input::placeholder {
+    color: #fff;
+}
+
+.no {
+    display: none !important;
+}
+
+/*heard 首页大图*/
+.m-header {
+    min-height: 800px;
+}
+
+.m-header {
+    position: relative !important;
+    text-align: center !important;
+    /* background: #000000 no-repeat fixed center center; */
+    background-size: cover !important;
+    margin-bottom: 2rem;
+    -o-object-fit: cover !important;
+    object-fit: cover !important;
+    background-position-x: center !important;
+    background-position-y: center !important;
+    /* background-attachment: fixed; */
+}
+
+.lazy.loaded {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.hero-box {
+    height: 45rem;
+}
+
+.hero-box {
+    text-shadow: 0 0.1875rem 0.3125rem #1c1f21;
+}
+
+.hero-box {
+    position: relative;
+    height: 35rem;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.justify-content-center {
+    justify-content: center !important;
+}
+
+.flex-column {
+    flex-direction: column !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.mt-5 {
+    margin-top: 3rem !important;
+}
+
+/*模糊边界*/
+#header::after {
+    content: '';
+    width: 100%;
+    height: 10%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: -webkit-linear-gradient(#101420, #121212);
+    background: -o-linear-gradient(#101420, #121212);
+    background: -moz-linear-gradient(#101420, #121212);
+    background: -mos-linear-gradient(#101420, #121212);
+    background: linear-gradient(#2b256b00, #121212);
+}
+
+/*留言板样式*/
+.m-font-size {
+    font-size: 1.3em !important;
+}
+
+.m-font-color {
+    color: goldenrod !important;
+}
+
+#footer {
+    background: rgb(255 255 255 / 22%) !important;
+    border-radius: .88571429rem !important;
+    width: 100%;
+    transition: all .5s !important;
+}
+
+#footer:hover {
+    transition: all .5s !important;
+    background: rgb(255 255 255 / 50%) !important;
+}
+
+#blogArchives {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 780px;
+}

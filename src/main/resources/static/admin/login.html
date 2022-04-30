@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../images/logo.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客管理登录</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../css/me.css">
+    <link rel="stylesheet" href="../lib/animate/animate.min.css">
+    <link rel="stylesheet" href="../css/me.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="m-back-img1">
+<br>
+<br>
+<br>
+<div class="m-container-small m-padded-tb-massive" style="max-width: 30em !important;">
+    <div class="ur container">
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui teal image header">
+                    <div class="content">
+                        管理后台登录
+                    </div>
+                </h2>
+                <div class="ui large form" >
+                    <div class="ui  segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input id="username" type="text" name="username"
+                                       placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input id="password" type="password" name="password"
+                                       placeholder="密码">
+                            </div>
+                        </div>
+                        <button class="ui fluid large teal submit button" type="button" onclick="login()">登 录</button>
+                    </div>
+
+                    <div class="ui error mini message"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jquery -->
+<script src="../js/jquery-3.6.0.min.js"></script>
+<!-- jquery-validator -->
+<script type="text/javascript" src="../jquery-validation/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../jquery-validation/localization/messages_zh.min.js"></script>
+<!--        semantic-ui-->
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<!-- layer -->
+<script type="text/javascript" src="../lib/layer/layer.js"></script>
+<!--comment.js-->
+<script type="text/javascript" src="../js/common.js"></script>
+<!-- md5.js -->
+<script type="text/javascript" src="../js/md5.min.js"></script>
+<script>
+
+    function login() {
+        doLogin();
+    }
+    function doLogin() {
+        var inputPass = $("#password").val();
+        var username = $('#username').val();
+
+        if (username.length < 2 || username.length > 20) {
+            layer.msg("账号长度为 2~20 个字符");
+            return false;
+        }
+        if (inputPass.length < 4 || inputPass.length > 15) {
+            layer.msg("密码长度为 4~15 个字符");
+            return false;
+        }
+        g_showLoading();
+
+        var salt = g_passsword_salt;
+        var str = "" + salt.charAt(0) + salt.charAt(2) + inputPass + salt.charAt(5) + salt.charAt(4);
+        var password = md5(str);
+
+        $.ajax({
+            url: "/login",
+            type: "POST",
+            data: JSON.stringify({
+                'username': username,
+                'password': password
+            }),
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            async: false,
+            success: function (data) {
+                layer.closeAll();
+                if (data.code === 200) {
+                    layer.msg("成功");
+                    window.location.href = "/admin/index.html";
+                } else {
+                    layer.msg(data.message);
+                }
+            },
+            error: function () {
+                console.log("error");
+                layer.closeAll();
+            }
+        });
+    }
+
+
+</script>
+
+</body>
+</html>

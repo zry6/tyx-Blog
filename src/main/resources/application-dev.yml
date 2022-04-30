@@ -1,0 +1,42 @@
+server:
+  port: 80
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///simpleblog?useUnicode=true&serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  redis:
+    port: 6379
+    host: 1.117.229.251
+    password: 123
+    database: 0
+  #jackson
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      indent_output: true
+    time-zone: GMT+8
+
+
+logging:
+  level:
+    root: info
+    com.zry: debug
+#  file:
+#    name: log/blog-dev.log
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    #下面这些内容是为了让MyBatis映射
+    #指定Mybatis的Mapper文件
+  mapper-locations: classpath:mappers/*xml
+  #指定Mybatis的实体目录
+  type-aliases-package: com.zry.simpleblog2.entity
+    
