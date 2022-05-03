@@ -111,6 +111,6 @@ blog
 
 # 预览图：
 前台：
-![输入图片说明](%E4%B8%BB%E9%A1%B5.png)
+![输入图片说明](assets/%E4%B8%BB%E9%A1%B5.png)
 后台：
-![输入图片说明](image.png)
+![输入图片说明](assets/%E5%90%8E%E5%8F%B0%E6%96%87%E7%AB%A0%E7%AE%A1%E7%90%86.png)
