@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zry.dto.TagDto;
 import com.zry.entity.Tag;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -20,4 +22,12 @@ public interface ITagService extends IService<Tag> {
     void saveTag(TagDto tagDto);
 
     Page<Tag> tagPage(Integer current, Integer size);
+
+    /**
+     * 功能描述: 获取全部标签包含对应的博客数量
+     *
+     * @author zry
+     * @create 2022/5/3
+     */
+    List<TagDto> listAndBlogCount();
 }

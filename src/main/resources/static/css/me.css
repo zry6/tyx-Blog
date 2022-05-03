@@ -66,6 +66,7 @@ a {
     box-shadow: 0 4px 16px rgba(48, 55, 66, 0.15) !important;
     transition: all .5s cubic-bezier(.215, .61, .355, 1) !important;
     border-radius: .5571429rem !important;
+
 }
 
 .m-card-mod {

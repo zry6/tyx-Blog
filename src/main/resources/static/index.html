@@ -13,7 +13,7 @@
 </head>
 <body class="m-back-img5">
 
-<nav  class="animated fadeInDown m-back-grass m-fixed-w">
+<nav class="animated fadeInDown m-back-grass m-fixed-w">
     <div class="ui container">
         <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
             <h2 class="ui white header item">猫喵喵~Blog</h2>
@@ -41,7 +41,7 @@
             <div class="nav_search right item no">
                 <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
                     <div class="ui icon inverted transparent input m-margin-tb-tiny">
-                        <input id="query" type="text" name="query" placeholder="Search...." >
+                        <input id="query" type="text" name="query" placeholder="Search....">
                         <i onclick="document.forms['search'].submit()" class="search link icon"></i>
                     </div>
                 </form>
@@ -132,22 +132,26 @@
             </div>
             <!--    右部分top-->
             <div class="four wide column">
-                <div class="four wide column">
+                <div class="four wide column m-card">
                     <div class="ui top attached segment">
                         <div class="ui attached segment center aligned">
-                            <img class="ui  circular tiny image" src="./images/avatar/zry.jpg" style="display: inline;" >
-                            <p class=" m-text animated flipInX" style="color: rgb(223,29,29);">不忘归期</p>
+                            <img class="ui  circular tiny image" src="./images/avatar/zry.jpg" style="display: inline;">
+                            <p class=" m-text animated flipInX" style="color: rgb(223,29,29);">不忘归期@赵睿宇</p>
                         </div>
                     </div>
                     <div class="ui bottom attached segment center aligned">
-                        <a href="https://gitee.com/zhao--ruiyu/spring-boot-blog-master" target="_blank" data-content="点击跳转gitee" data-position="bottom center" class="ui gitee circular icon button"><img src="/images/gitee.png" width="12"></a>
+                        <a href="https://gitee.com/zhao--ruiyu/spring-boot-blog-master" target="_blank"
+                           data-content="点击跳转gitee" data-position="bottom center" class="ui gitee circular icon button"><img
+                                src="/images/gitee.png" width="12"></a>
                         <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
-                        <a href="https://blog.csdn.net/qq_45802080" target="_blank" class="ui csdn circular icon button" data-content="点击跳转CSDN" data-position="bottom center"><i class="copyright outline icon"></i></a>
-                        <a href="#" class="ui qq circular icon button" data-content="1447051936" data-position="bottom center"><i class="blue qq icon"></i></a>
+                        <a href="https://blog.csdn.net/qq_45802080" target="_blank" class="ui csdn circular icon button"
+                           data-content="点击跳转CSDN" data-position="bottom center"><i class="copyright outline icon"></i></a>
+                        <a href="#" class="ui qq circular icon button" data-content="1447051936"
+                           data-position="bottom center"><i class="blue qq icon"></i></a>
                     </div>
                 </div>
                 <!--分类-->
-                <div id="typeDiv" class="ui segments classify animated flipInX ">
+                <div id="typeDiv" class="ui segments classify m-card">
                     <div class="ui secondary segment">
                         <div class="ui two column grid">
                             <div class="column">
@@ -158,8 +162,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ui teal segment">
-                        <div id="typeList"  class="ui fluid vertical menu">
+                    <div class="ui teal segment ">
+                        <div id="typeList" class="ui fluid vertical menu">
                             <a href="/types/3" data-pjax="" class="item">
                                 <span>java基础</span>
                                 <div class="ui teal basic left pointing label">6</div>
@@ -173,7 +177,7 @@
                 </div>
 
                 <!--标签-->
-                <div id="tagDiv" class="ui segments m-margin-top-large tagDiv animated flipInX">
+                <div id="tagDiv" class="ui segments m-margin-top-large tagDiv m-card   ">
                     <div class="ui secondary segment">
                         <div class="ui two column grid">
                             <div class="column">
@@ -184,7 +188,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ui teal segment">
+                    <div  id="tagList" class="ui teal segment">
                         <a href="/tags/36" data-pjax="" class="ui teal basic left pointing label m-margin-tb-tiny">
                             <span>基础知识</span>
                             <div class="detail">7</div>
@@ -198,7 +202,7 @@
                 </div>
 
                 <!--最新推荐-->
-                <div id="recommendDiv" class="ui segments m-margin-top-large recommendDiv animated flipInX">
+                <div id="recommendDiv" class="ui segments m-margin-top-large recommendDiv m-card  ">
                     <div class="ui secondary segment ">
                         <i class="bookmark icon"></i>最新推荐
                     </div>
@@ -292,21 +296,15 @@
 <!-- require MetingJS -->
 <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 <script type="text/javascript">
-
     $(function () {
         init();
     });
-
-    function init(){
+    function init() {
         show_date_time();
-        setUser();
         setTypes();
         setTags();
+        setBlogs();
     }
-    function setUser() {
-
-    }
-
     function setTypes() {
         $.ajax({
             url: "/types/blogCount",
@@ -314,13 +312,26 @@
             success: function (data) {
                 layer.closeAll();
                 if (data.code === 200) {
-                    console.info(data.obj);
+                    let typeList = '';
+                    $.each(data.obj, function (index, val) {
+                        typeList +=
+                            '<a href="/types.html?typeId='
+                            + val.id
+                            +'"  data-pjax="" class="item"><span>'
+                            + val.name
+                            + '</span>'
+                            + '<div class="ui teal basic left pointing label">'
+                            + val.blogCount
+                            + '</div></a>';
+                    });
+                    $('#typeList').html(typeList);
                 } else {
                     layer.msg(data.message);
                 }
             },
             error: function (obj) {
-                layer.closeAll();  layer.msg("error，也许您的网络有问题");
+                layer.closeAll();
+                layer.msg("error，也许您的网络有问题");
             }
         });
     }
@@ -331,16 +342,33 @@
             success: function (data) {
                 layer.closeAll();
                 if (data.code === 200) {
-                    console.info(data.obj);
+                    let tagList = '';
+                    $.each(data.obj, function (index, val) {
+                        tagList +=
+                            '<a href="/tags.html?tagId='
+                            + val.id
+                            +'"  data-pjax="" class="ui teal basic left pointing label m-margin-tb-tiny"><span>'
+                            + val.name
+                            + '</span>'
+                            + '<div class="detail">'
+                            + val.blogCount
+                            + '</div></a>';
+                    });
+                    $('#tagList').html(tagList);
                 } else {
                     layer.msg(data.message);
                 }
             },
             error: function (obj) {
-                layer.closeAll();  layer.msg("error，也许您的网络有问题");
+                layer.closeAll();
+                layer.msg("error，也许您的网络有问题");
             }
         });
     }
+    function setBlogs() {
+
+    }
+
 </script>
 
 </html>

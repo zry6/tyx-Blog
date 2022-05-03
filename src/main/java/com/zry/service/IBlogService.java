@@ -35,15 +35,14 @@ public interface IBlogService extends IService<Blog> {
     void updateBlog(PostBlogDto blogVo);
 
     /**
-     * 功能描述: 后台管理博客分页 ， 不用查询文章内容，所以为重写一下sql
+     * 功能描述: 后台管理博客分页 ，不用查询文章内容还可能有查询条件，所以为重写一下sql
      *
      * @param
      * @return
      * @author zry
      * @create 2022/4/25
      */
-    Page<BlogDto> allBlogPageNoContent(Integer current, Integer size, BlogQuery query);
-
+    Page<BlogDto> blogPageNoContent(Integer current, Integer size, BlogQuery query);
 
     /**
      * 功能描述: 获得填充好的文章内容
@@ -64,12 +63,5 @@ public interface IBlogService extends IService<Blog> {
      */
     void deleteById(Long id);
 
-    /**
-     * 功能描述: 查询已发布的文章 分页 ， 不用查询文章内容，，所以为重写一下sql
-     *
-     * @param
-     * @return
-     * @author zry
-     * @create 2022/4/25
-     */
+
 }

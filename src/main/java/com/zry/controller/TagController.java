@@ -2,6 +2,7 @@ package com.zry.controller;
 
 
 import com.zry.comment.respBean.RespBean;
+import com.zry.dto.TagDto;
 import com.zry.entity.Tag;
 import com.zry.service.ITagService;
 import io.swagger.annotations.Api;
@@ -31,4 +32,15 @@ public class TagController {
         List<Tag> list = tagService.list();
         return RespBean.success(list);
     }
+    /**
+     * 功能描述: 获取type和对应的文章数量
+     *
+     * @create 2022/4/30
+     */
+    @GetMapping("tags/blogCount")
+    private RespBean getTypesAndBlogCount() {
+        List<TagDto> list = tagService.listAndBlogCount();
+        return RespBean.success(list);
+    }
+
 }

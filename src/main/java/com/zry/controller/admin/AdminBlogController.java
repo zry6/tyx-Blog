@@ -48,7 +48,7 @@ public class AdminBlogController {
     @ApiOperation(value = "后台文章分页",notes = "可按条件查询")
     @GetMapping("/blogs")
     public RespBean blogs(@RequestParam(defaultValue = "1") Integer current, @RequestParam(defaultValue = "5") Integer size, BlogQuery query) {
-        Page<BlogDto> page = blogService.allBlogPageNoContent(current, size,query);
+        Page<BlogDto> page = blogService.blogPageNoContent(current, size,query);
         return RespBean.success(page);
     }
 

@@ -95,7 +95,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
     @Override
-    public Page<BlogDto> allBlogPageNoContent(Integer current, Integer size, BlogQuery query) {
+    public Page<BlogDto> blogPageNoContent(Integer current, Integer size, BlogQuery query) {
         Page<Blog> blogVoPage = blogMapper.selectPageNoContent(new Page<>(current, size),query);
         //类型转换
         Page<BlogDto> page = (Page<BlogDto>) blogVoPage.convert(u -> {
@@ -110,11 +110,10 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         return page;
     }
 
+
     @Override
     public BlogDto getBlogById(Integer id) {
         User user = UserContext.getCurrentUser();
-//        Blog blog = blogMapper.selectOne(new QueryWrapper<Blog>().select("published").eq("id", id));
-
         Blog blog = blogMapper.selectById(id);
         if (null == blog) {
             return null;
@@ -122,11 +121,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         if (!blog.getPublished() && user == null) {
             throw new GlobalException(RespBeanEnum.AUTH_ERROR);
         }
-
         BlogDto blogDto = new BlogDto(blog);
         //获取分类
         blogDto.setType(typeMapper.selectById(blogDto.getTypeId()));
-
         //获取标签
         List<BlogTags> blogTags = blogTagsMapper.selectList(new QueryWrapper<BlogTags>().eq("blogs_id", blogDto.getId()));
         if (blogTags != null && blogTags.size() > 0) {

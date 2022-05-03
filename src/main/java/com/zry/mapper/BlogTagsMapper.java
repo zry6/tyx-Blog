@@ -1,6 +1,7 @@
 package com.zry.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zry.dto.TagDto;
 import com.zry.entity.BlogTags;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,4 +24,13 @@ public interface BlogTagsMapper extends BaseMapper<BlogTags> {
      * @author zry
      */
     int insert(@Param("blogId")Long blogId,@Param("tagList") List<Long> tagList);
+
+
+    /**
+     * 功能描述: 返回存在博客的标签，和对应博客的数量。
+     *
+     * @author zry
+     * @create 2022/4/30
+     */
+    List<TagDto> selectCountAndTagsId();
 }

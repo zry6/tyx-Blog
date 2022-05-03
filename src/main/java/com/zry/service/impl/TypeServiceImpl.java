@@ -60,6 +60,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
 
     @Override
     public List<TypeDto> listAndBlogCount() {
+        //在博客表中查询出分类id和对应文章数量
         List<TypeDto> typeDos = blogMapper.selectCountAndTypesId();
         for (TypeDto typeDto : typeDos) {
             Type type = typeMapper.selectById(typeDto.getId());

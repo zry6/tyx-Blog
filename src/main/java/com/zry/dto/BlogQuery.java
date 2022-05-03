@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@ApiModel(value = "BlogQuery", description = "用于条件查询的实体")
+@ApiModel(value = "BlogQuery", description = "可选的用于条件查询的实体")
 public class BlogQuery {
 
     @ApiParam(value = "标签" ,example = "java")

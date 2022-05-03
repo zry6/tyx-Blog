@@ -28,7 +28,7 @@ public interface BlogMapper extends BaseMapper<Blog> {
     Page<Blog> selectPageNoContent(Page<Blog> page, @Param("query") BlogQuery query);
     /**
      * 功能描述:
-     * 这个返回值为 TypeDto是不是违反了分层的原则呢？
+     *
      * @author zry
      * @create 2022/4/30
      */
