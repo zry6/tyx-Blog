@@ -1,7 +1,7 @@
 # 应用名称
 spring:
   application:
-    name: SimpleBlog2
+    name: SimpleBlog
   profiles:
     active: dev
   messages:

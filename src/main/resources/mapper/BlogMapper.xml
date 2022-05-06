@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zry.mapper.BlogMapper">
+<mapper namespace="com.zry.simpleBlog.mapper.BlogMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zry.entity.Blog">
+    <resultMap id="BaseResultMap" type="com.zry.simpleBlog.entity.Blog">
         <id column="id" property="id"/>
         <result column="appreciation" property="appreciation"/>
         <result column="commentable" property="commentable"/>
@@ -22,8 +22,8 @@
         <result column="user_id" property="userId"/>
     </resultMap>
 
-    <!-- 博客分页除了内容 可选的条件查询  -->
-    <select id="selectPageNoContent" resultMap="BaseResultMap">
+    <!-- 后台管理的博客列表分页  可选的条件查询  -->
+    <select id="selectAdminPage" resultMap="BaseResultMap">
         select id,title,update_Time,type_id,recommend,published from t_blog
         <if test="query != null">
             <where>
@@ -40,8 +40,24 @@
         </if>
         order by update_time desc
     </select>
+    <!-- 博客浏览分页 可选的条件查询  -->
+    <select id="selectPageByBlogQuery" resultMap="BaseResultMap">
+        select id,title,update_Time,type_id,recommend,published,views,description,user_id,first_picture from t_blog
+        <if test="query != null">
+            <where>
+                <if test="query.title != null and query.title != ''">
+                    and title like concat('%', #{query.title}, '%')
+                </if>
+                <if test="query.typeId != null and query.typeId != ''">
+                    and type_Id = #{query.typeId}
+                </if>
+                    and published = true
+            </where>
+        </if>
+        order by update_time desc
+    </select>
 
-    <select id="selectCountAndTypesId" resultType='com.zry.dto.TypeDto'>
-        select type_id as id,count(type_id) blogCount from t_blog group by type_id order by count(type_id) desc;
+    <select id="selectCountAndTypesId" resultType='com.zry.simpleBlog.dto.TypeDto'>
+        select type_id as id,count(type_id) blogCount from t_blog where published = true group by type_id order by count(type_id) desc;
     </select>
 </mapper>

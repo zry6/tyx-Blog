@@ -29,15 +29,15 @@
     position: absolute !important;
     top: 0 !important;
     right: 0 !important;
-    width: 61px !important;
-    height: 61px !important;
+    width: 69px !important;
+    height: 69px !important;
     background-color: #670090 !important;
     transition: .5s !important;
 }
 
 .m-search .funIcon, .s-icon {
-    width: 61px !important;
-    height: 61px !important;
+    width: 69px !important;
+    height: 69px !important;
     line-height: 63px !important;
     font-size: 30px !important;
     color: #fff !important;

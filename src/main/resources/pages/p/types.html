@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>分类</title>
+    <link rel="icon" href="/images/logo.ico"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="/lib/animate/animate.min.css"/>
+    <link rel="stylesheet" href="/css/me.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+</head>
+<body class="m-back-img5">
+<!--导航-->
+<nav class="animated fadeInDown m-back-grass m-fixed-w">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
+            <h2 class="ui white header item"><a href="/">猫喵喵~Blog</a></h2>
+            <a href="/" class="nav_item item m-mobile-hide"><i
+                    class="home icon"></i>首页</a>
+            <a href="/p/types.html" class="nav_item item m-mobile-hide"
+            ><i class="idea icon"></i>分类</a>
+            <a href="/p/tags.html" class="nav_item item m-mobile-hide">
+                <i class="tags icon"></i>标签</a>
+            <a href="/p/archives.html" class="nav_item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a href="/p/guestbook.html" class="nav_item item m-mobile-hide">
+                <i class="comments outline icon"></i>留言板</a>
+            <a href="/p/about.html" class="nav_item item m-mobile-hide"><i
+                    class="info icon"></i>关于我</a>
+            <div class=" m-mobile-hide m-search">
+                <i class="search line icon funIcon"></i>
+                <i class="close line icon funIcon no "></i>
+                <form content="m-mobile-show" action="#" th:action="@{/search}" name="search">
+                    <div class="m-form">
+                        <input type="text" name="query" placeholder="快来找你要的东东ヾ(≧▽≦*)o" required="required">
+                        <i onclick="document.forms['search'].submit()" class="search link icon s-icon"></i>
+                    </div>
+                </form>
+            </div>
+            <div class="nav_search right item no">
+                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                    <div class="ui icon inverted transparent input m-margin-tb-tiny">
+                        <input id="query" type="text" name="query" placeholder="Search....">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <span id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
+        <i class="sidebar icon"></i>
+    </span>
+</nav>
+
+<!--top attached 完整拼接成一个相连区域 bottom attached-->
+<!--中间内容-->
+<div id="pointTop" class="m-container-small m-padded-tb-4em m-padded-top-best">
+    <div class="ui container">
+        <!-- header-->
+        <div class="ui top attached segment m-border-radius animated flipInX">
+            <div class="ui middle aligned two column grid">
+                <div class="column">
+                    <h3 class="ui header">分类</h3>
+                </div>
+                <div class="right aligned column ">
+                    共<h2 class="ui orange header m-inline-block m-text-thin"><span>14</span></h2>个
+                </div>
+            </div>
+        </div>
+        <!--    typeId  page页码   隐藏域-->
+        <input type="hidden" name="typeId">
+        <input type="hidden" name="page">
+        <div id="typeList"
+             class="ui attached segment  m-back-grass-deep m-padded-tb-2em m-border-radius animated fadeIn">
+            <div class="ui  labeled  button m-margin-tb-tiny m-card-mod" tabindex="0">
+                <a class="ui  button" href="/types/{id}(id=${type.id})}">
+                    <i class="heart icon"></i> <span>思考与感悟</span>
+                </a>
+                <div class="ui basic left pointing label">
+                    <span>10,42</span>
+                </div>
+            </div>
+
+            <div class="ui labeled button m-margin-tb-tiny m-card-mod" tabindex="0">
+                <a class="ui  button" href="/types/{id}(id=${type.id})}">
+                    <i class="heart icon"></i> <span>思考与感悟</span>
+                </a>
+                <div class="ui basic left pointing label">
+                    <span>10,42</span>
+                </div>
+            </div>
+
+        </div>
+        <div id="blogPage" class="ui top attached segment m-border-radius  m-back-grass-deep animated fadeInUp">
+            <!--            <div class="ui padded segment m-padded-tb-2em m-mobile-clear m-card">-->
+            <!--                <div class="ui mobile reversed stackable grid">  &lt;!&ndash;mobile reversed  手机反转&ndash;&gt;-->
+            <!--                    <div class="eleven wide column">-->
+            <!--                        <h3 class="ui header"><a href="#" href="/blog/{id}(id=${blog.id})" target="_blank"-->
+            <!--                                                 class="m-black" th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>-->
+            <!--                        <p class="m-text">滴哦是是你都i送i你都弄上那你nsdin第四卷第是-->
+            <!--                            是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄是你都i送i你都弄-->
+            <!--                            是你都i送i你都弄是你都i送i你都弄-->
+            <!--                        </p>-->
+            <!--                        <div class="ui grid">-->
+            <!--                            <div class="eleven wide column">-->
+            <!--                                <div class="ui mini horizontal link list">-->
+            <!--                                    <div class="item">-->
+            <!--                                        <img src="https://unsplash.it/100/100?image=1005"-->
+            <!--                                             src="user.avatar" alt=""-->
+            <!--                                             class="ui avatar image">-->
+            <!--                                        &lt;!&ndash;在后面添加一些文字 content&ndash;&gt;-->
+            <!--                                        <div class="content">-->
+            <!--                                            <a class="header">-->
+            <!--                                                赵睿宇-->
+            <!--                                            </a>-->
+            <!--                                        </div>-->
+            <!--                                    </div>-->
+            <!--                                    <div class="item">-->
+            <!--                                        <i class="calendar icon"></i> <span>2021-9-01</span>-->
+            <!--                                    </div>-->
+            <!--                                    <div class="item">-->
+            <!--                                        <i class="eye icon"></i> <span>220</span>-->
+            <!--                                    </div>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                            <div class="right aligned five wide column">-->
+            <!--                                <a href="#" class="ui teal basic label m-padded-03em">简直offer</a>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+
+
+            <!--                    <div class="five wide column">-->
+            <!--                        <a href="#" href="" target="_blank">-->
+            <!--                            <img src="https://unsplash.it/800/450?image=1005" src="" alt=""-->
+            <!--                                 class="ui rounded image">-->
+            <!--                        </a>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div>
+        <div class="ui bottom attached segment">
+            <div id="pageLR" class="ui middle aligned two column grid">
+                <div class="column">
+                    <a href="#" class="ui mini teal basic button ">上一页</a>
+                </div>
+                <div class="right aligned column ">
+                    <a href="#" class="ui mini teal basic button ">下一页</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--底部footer-->
+<footer id="" class="ui inverted vertical segment m-padded-tb-massive m-padded-top">
+    <!--    居中-->
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="/images/weixin.png" class="ui rounded image"
+                             alt="" width="110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <div class="ui inverted link list m-text-thin m-text-spaced">
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">联系我</h4>
+                <div class="ui inverted link list m-text-thin m-text-spaced">
+                    <a href="#" class="item">Email：1447051936@qq.com</a>
+                    <a href="#" class="item">QQ:1447051936</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">Blog</h4>
+                <p class="m-text-thin m-text-spaced m-opacity">
+                    这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...
+                </p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+    </div>
+
+    <div class="ui center aligned container m-font-size">本站😉已运行✌[<span id="span_dt_dt"></span> ]
+    </div>
+    <!--    居中-->
+    <div class="ui center aligned container m-padded-tb-small">
+        <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright © 2021-2022 听宇轩 , All rights reserved.
+        </p>
+        <div>
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41142102000072"
+               style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
+                    src="http://www.beian.gov.cn/img/ico.ico" style="float:left;">
+                <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff1c04;">豫ICP备
+                    2021028184号</p></a>
+        </div>
+    </div>
+    <meting-js
+            server="netease"
+            type="playlist"
+            id="6859965088"
+            mini="true"
+            artist="rainymood"
+            fixed="true">
+    </meting-js>
+</footer>
+</body>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script src="/lib/layer/layer.js"></script>
+<script src="/js/snowFall.js"></script>
+<script src="/js/showTime.js"></script>
+<!--comment.js-->
+<script type="text/javascript" src="/js/common.js"></script>
+<!--comment.js-->
+<script type="text/javascript" src="/js/blog.js"></script>
+<!-- require APlayer -->
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        browser();
+        init();
+    });
+
+    function init() {
+        show_date_time();
+        getTypes();
+    }
+
+    function setTypes(obj) {
+        let typeList = "";
+        $.each(obj, function (index, val) {
+            typeList += '<div class="ui labeled button m-margin-tb-tiny m-card-mod" tabIndex="0" >'
+                + '<a class="ui black button" onclick="getBlogs('
+                + 1 + ',' + val.id
+                + ')"' + '<i class="heart icon"></i><span>'
+                + val.name
+                + '</span></a>'
+                + '</span></a><div class="ui basic left pointing label"><span>'
+                + val.blogCount
+                + '</span> </div></div>';
+        });
+
+        $("#typeList").html(typeList);
+        let typeId = getUrl("typeId");
+        if (typeId == null || typeId.length == 0) {
+            typeId = obj[0].id;
+        }
+        $("[name='typeId']").val(typeId);
+        getBlogs(1, typeId);
+    }
+
+    function setBlogPage(obj) {
+//每页的大小
+        var pageSiz = obj.size;
+        //数据
+        var blogs = obj.records;
+        //数据总数
+        var total = obj.total;
+        //计算当前页的数据量
+        console.log(blogs.length);
+        //当前页
+        let current = obj.current;
+        //总页数
+        var pages = obj.pages;
+        var page_content = '';//当前页内容
+        $.each(blogs, function (index, val) {
+            page_content += '<div class="ui padded  segment m-padded-tb-2em m-mobile-clear m-card"><div class="ui middle aligned mobile reversed stackable grid"><div class="eleven wide column"> <h3 class="ui header"><a href="/blog/53" target="_blank" class="m-black">'
+                + val.title
+                + '</a></h3><p class="m-text"><a href="/blog/53" data-pjax="" class="m-black">'
+                + val.description
+                + '</a></p><div class="ui grid"><div class="eleven wide column"><div class="ui mini horizontal link list"><div class="item"><img src="'
+                + val.user.avatar
+                + '" class="ui avatar image"><div class="content"><a href="#" class="header">'
+                + val.user.nickname
+                + ' </a></div> </div><div class="item"><i class="calendar icon"></i><span>'
+                + val.updateTime
+                + '</span></div><div class="item"><i class="eye icon"></i> <span>'
+                + val.views
+                + '</span></div></div></div><div class="right aligned four wide column"><a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">'
+                + val.type.name
+                + '</a> </div></div></div> <div class="five wide column"><a href="/blog/53" target="_blank"> <img src="'
+                + val.firstPicture
+                + '" class="ui rounded image"></a></div></div></div>';
+        });
+        $("#blogPage").html(page_content);
+
+        let typeId = $("[name='typeId']").val();
+
+        var page_LR = '';
+        if (current === 1) {
+            page_LR = '<div class="left aligned column"> </div>';
+
+            page_LR += '<div class="right aligned column"><a onclick="getBlogs('
+                + (current + 1) + ',' + typeId
+                + ')" class="ui mini teal basic button">下一页</a></div>';
+        } else if (current === pages) {
+            page_LR = '<div class="left aligned column"><a onclick="getBlogs('
+                + (current - 1) + ',' + typeId
+                + ') " class="ui mini teal basic button">上一页</a> </div>';
+        } else if (1 < current && current < pages) {
+            page_LR = '<div class="left aligned column"><a onclick="getBlogs('
+                + (current - 1) + ',' + typeId
+                + ') " class="ui mini teal basic button">上一页</a> </div>';
+            page_LR += '<div class="right aligned column"><a onclick="getBlogs('
+                + (current + 1) + ',' + typeId
+                + ')" class="ui mini teal basic button">下一页</a></div>';
+        }
+        if (1 >= pages) {
+            page_LR = "";
+        }
+        $("#pageLR").html(page_LR);
+    };
+
+
+</script>
+
+</html>

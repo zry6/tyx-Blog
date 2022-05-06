@@ -1,4 +1,4 @@
-
+//更新博客 新增文章的js
 function postBlog() {
     data = {
         title: $('[name="title"]').val(),

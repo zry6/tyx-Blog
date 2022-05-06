@@ -38,5 +38,5 @@ mybatis:
     #指定Mybatis的Mapper文件
   mapper-locations: classpath:mappers/*xml
   #指定Mybatis的实体目录
-  type-aliases-package: com.zry.simpleblog2.entity
+  type-aliases-package: com.zry.simpleBlog.entity
     
