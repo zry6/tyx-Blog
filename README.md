@@ -39,7 +39,7 @@
 
 ## 2.整体设计与功能
 请求接口restful风格+Swagger接口文档
-抛弃了thymeleaf模板，前端使用完全的ajax请求获取数据，（/static/下的html文件）
+抛弃了thymeleaf模板，前端使用完全的ajax请求获取数据，（/pages/下的html文件）
 达到前后端分离的效果。
 
 *  **全局处理异常** 
