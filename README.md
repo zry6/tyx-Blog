@@ -1,8 +1,8 @@
 #  基于SpringBoot的个人博客2.0
 
- **我的个人博客项目第二版，代码重构中。** 
-目前已完成后台的部分。 
-
+ **我的个人博客项目第二版，代码重构中ing** 
+目前已完成后台的部分和部分前台。 
+接口文档地址  http://localhost/swagger-ui.html
 
 1.  **后台接口restful风格** 
 
@@ -74,43 +74,12 @@
 - 标签管理
 - 分类管理
 - 个人信息管理
-
-## 3.文件结构
-```
-blog
-─src
-    ├─main
-       ├─java
-       │  └─com
-       │      └─zry
-       │          ├─comment
-       │          │  ├─annotations
-       │          │  ├─aop
-       │          │  │  ├─aspect
-       │          │  │  └─exception
-       │          │  │      └─handler
-       │          │  ├─config
-       │          │  ├─idempotent
-       │          │  │  └─strategy
-       │          │  │      └─impl
-       │          │  ├─interceptor
-       │          │  ├─respBean
-       │          │  └─utils
-       │          ├─controller
-       │          │  └─admin
-       │          ├─dto
-       │          ├─entity
-       │          ├─mapper
-       │          └─service
-       │              └─impl
-       └─resources
-           ├─i18n
-           ├─mapper
-           ├─static
-```
-
-# 预览图：
+# 3.文件结构
+![输入图片说明](assets/%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png)
+# 4.预览图：
 前台：
 ![输入图片说明](assets/%E4%B8%BB%E9%A1%B5.png)
+![输入图片说明](assets/%E5%88%86%E7%B1%BB%E9%A1%B5.png)
+![输入图片说明](assets/tagsPage.png)
 后台：
 ![输入图片说明](assets/%E5%90%8E%E5%8F%B0%E6%96%87%E7%AB%A0%E7%AE%A1%E7%90%86.png)
