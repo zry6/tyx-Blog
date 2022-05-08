@@ -52,11 +52,11 @@
 
 *  **全局返回统一封装的json数据格式** 
 
-{
+ **{
     code:200,
-    massage: "String",
-    obj: 数据
-}
+    msg: "String",
+    data: 数据
+}** 
 
 * ...
 
