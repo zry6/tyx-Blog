@@ -122,7 +122,9 @@
 <!--comment.js-->
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript">
-
+    $(".ui.dropdown").dropdown({
+        on: "hover"
+    });
     $(function () {
         getUserInfo();
         setTagName();
@@ -135,15 +137,15 @@
                 url: "/admin/tags/"+id,
                 type: "GET",
                 async: false,
-                success: function (data) {
+                success: function (res) {
                     layer.closeAll();
-                    if (data.code === 200) {
-                        $('#tagName').val(data.obj.name);
+                    if (res.code === 200) {
+                        $('#tagName').val(res.data.name);
                     } else {
-                        layer.msg(data.message);
+                        layer.msg(res.msg);
                     }
                 },
-                error: function (obj) {
+                error: function (res) {
                     console.log("error");
                     layer.closeAll();
                 }
@@ -177,9 +179,9 @@
             dataType: "json",
             contentType: "application/json;charset=UTF-8",
             async: false,
-            success: function (data) {
+            success: function (res) {
                 layer.closeAll();
-                    layer.msg(data.message);
+                    layer.msg(res.msg);
             },
             error: function (obj) {
                 console.log("error");
@@ -203,13 +205,13 @@
             dataType: "json",
             contentType: "application/json;charset=UTF-8",
             async: false,
-            success: function (data) {
+            success: function (res) {
                 layer.closeAll();
-                if (data.code === 201) {
-                    layer.msg(data.message);
+                if (res.code === 201) {
+                    layer.msg(res.msg);
                     $("#tagName").val('');
                 } else {
-                    layer.msg(data.message);
+                    layer.msg(res.msg);
                 }
             },
             error: function (obj) {

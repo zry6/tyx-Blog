@@ -50,11 +50,10 @@
     width: 100vw !important;
     height: 100vh !important;
 }
-
 .m-form {
     position: absolute;
     top: 50% !important;
-    right: 10% !important;
+    right: 15% !important;
     transform: translate(-50%, -50%);
     display: none;
 }

@@ -10,16 +10,16 @@ function getBlogs(page, typeId, tagId) {
     $.ajax({
         url: url,
         type: "GET",
-        success: function (data) {
+        success: function (res) {
             layer.closeAll();
-            if (data.code === 200) {
-                setBlogPage(data.obj);
+            if (res.code === 200) {
+                setBlogPage(res.data);
             }
-            layer.msg(data.message);
+            layer.msg(res.msg);
         },
-        error: function (obj) {
+        error: function (res) {
             layer.closeAll();
-            layer.msg("error，也许您的网络有问题");
+            layer.msg(res.code + "error，也许您的网络有问题");
         }
     });
 }
@@ -28,17 +28,17 @@ function getTags() {
     $.ajax({
         url: "/tags/blogCount",
         type: "GET",
-        success: function (data) {
+        success: function (res) {
             layer.closeAll();
-            if (data.code === 200) {
-                setTags(data.obj);
+            if (res.code === 200) {
+                setTags(res.data);
             } else {
-                layer.msg(data.message);
+                layer.msg(res.msg);
             }
         },
-        error: function (obj) {
+        error: function (res) {
             layer.closeAll();
-            layer.msg("error，也许您的网络有问题");
+            layer.msg(res.code + "error，也许您的网络有问题");
         }
     });
 }
@@ -47,17 +47,17 @@ function getTypes() {
     $.ajax({
         url: "/types/blogCount",
         type: "GET",
-        success: function (data) {
+        success: function (res) {
             layer.closeAll();
-            if (data.code === 200) {
-                setTypes(data.obj);
+            if (res.code === 200) {
+                setTypes(res.data);
             } else {
-                layer.msg(data.message);
+                layer.msg(res.code + "error，也许您的网络有问题");
             }
         },
-        error: function (obj) {
+        error: function (res) {
             layer.closeAll();
-            layer.msg("error，也许您的网络有问题");
+            layer.msg(res.code + "error，也许您的网络有问题");
         }
     });
 }

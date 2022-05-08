@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
             br = ((MethodArgumentNotValidException) e).getBindingResult();
         }
         RespBean respBean = RespBean.error(RespBeanEnum.ERROR);
-        respBean.setMessage(br.getAllErrors().get(0).getDefaultMessage());
+        respBean.setMsg(br.getAllErrors().get(0).getDefaultMessage());
         return respBean;
     }
 

@@ -24,9 +24,9 @@ public class RespBean implements Serializable {
     @ApiModelProperty(value = "状态码")
     private int code;
     @ApiModelProperty(value = "数据类型")
-    private String message;
+    private String msg;
     @ApiModelProperty(value = "数据实体")
-    private Object obj;
+    private Object data;
     /**
      * 功能描述: 返回成功结果
      *
@@ -43,8 +43,8 @@ public class RespBean implements Serializable {
      * @return RespBean
      * @author zry
      */
-    public static RespBean success(Object obj) {
-        return new RespBean(RespBeanEnum.SUCCESS.getCode(), RespBeanEnum.SUCCESS.getMessage(), obj);
+    public static RespBean success(Object data) {
+        return new RespBean(RespBeanEnum.SUCCESS.getCode(), RespBeanEnum.SUCCESS.getMessage(), data);
     }
 
     /**
@@ -63,8 +63,8 @@ public class RespBean implements Serializable {
      * @return RespBean
      * @author zry
      */
-    public static RespBean success(RespBeanEnum respBeanEnum, Object obj) {
-        return new RespBean(respBeanEnum.getCode(), respBeanEnum.getMessage(), obj);
+    public static RespBean success(RespBeanEnum respBeanEnum, Object data) {
+        return new RespBean(respBeanEnum.getCode(), respBeanEnum.getMessage(), data);
     }
 
     /**
@@ -91,8 +91,8 @@ public class RespBean implements Serializable {
      * @param respBeanEnum,obj;
      * @return RespBean
      */
-    public static RespBean error(RespBeanEnum respBeanEnum, Object obj) {
-        return new RespBean(respBeanEnum.getCode(), respBeanEnum.getMessage(), obj);
+    public static RespBean error(RespBeanEnum respBeanEnum, Object data) {
+        return new RespBean(respBeanEnum.getCode(), respBeanEnum.getMessage(), data);
     }
 
 }

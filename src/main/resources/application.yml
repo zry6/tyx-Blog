@@ -14,8 +14,8 @@ spring:
         no-store: false
         max-age: 10000
     # 要运⽤于模板之上的模板模式。另⻅ StandardTemplate-ModeHandlers( 默认值： HTML5)
-  thymeleaf:
-    mode: HTML
+#  thymeleaf:
+#    mode: HTML
   #   开启 Put 请求和 Delete 请求
   mvc:
     hiddenmethod:

@@ -140,7 +140,9 @@
 <!--comment.js-->
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript">
-
+    $(".ui.dropdown").dropdown({
+        on: "hover"
+    });
     $(function () {
         getUserInfo();
         getPage(1);
@@ -148,14 +150,14 @@
 
     function getPage(current) {
         $.ajax({
-            url: "/admin/types?current=" + current + "&size=6",
+            url: "/admin/types?page=" + current + "&pageSize=6",
             type: "GET",
-            success: function (data) {
+            success: function (result) {
                 layer.closeAll();
-                if (data.code === 200) {
-                    setPage(data.obj);
+                if (result.code === 200) {
+                    setPage(result.data);
                 } else {
-                    layer.msg(data.message);
+                    layer.msg(result.msg);
                 }
             },
             error: function (obj) {
@@ -229,7 +231,7 @@
     }
 
     function updateType(id) {
-        window.location.href = "/admin/types-input.html?typeId=" + id;
+        window.location.href = "/back/types-input.html?typeId=" + id;
     }
 
     function deleteType(id) {
@@ -244,7 +246,7 @@
                         if (data.code === 204) {
                             $('.typeLine' + id).toggleClass("no");
                         }
-                        layer.msg(data.message);
+                        layer.msg(data.msg);
                     },
                     error: function (obj) {
                         layer.closeAll();

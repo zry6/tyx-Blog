@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>关于我</title>
+    <link rel="icon" href="/images/logo.ico"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="/lib/animate/animate.min.css"/>
+    <link rel="stylesheet" href="/css/me.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+</head>
+<body class="m-back-img6">
+<!--导航-->
+<nav class="animated fadeInDown m-back-grass m-fixed-w">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
+            <h2 class="ui white header item"><a href="/">猫喵喵~Blog</a></h2>
+            <a href="/" class="nav_item item m-mobile-hide"><i
+                    class="home icon"></i>首页</a>
+            <a href="/p/types.html" class="nav_item item m-mobile-hide"
+            ><i class="idea icon"></i>分类</a>
+            <a href="/p/tags.html" class="nav_item item m-mobile-hide">
+                <i class="tags icon"></i>标签</a>
+            <a href="/p/archives.html" class="nav_item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a href="/p/guestbook.html" class="nav_item item m-mobile-hide">
+                <i class="comments outline icon"></i>留言板</a>
+            <a href="/p/about.html" class="nav_item item m-mobile-hide"><i
+                    class="info icon"></i>关于我</a>
+            <div class=" m-mobile-hide m-search">
+                <i class="search line icon funIcon"></i>
+                <i class="close line icon funIcon no "></i>
+                <form content="m-mobile-show" action="#" th:action="@{/search}" name="search">
+                    <div class="m-form">
+                        <input type="text" name="query" placeholder="快来找你要的东东ヾ(≧▽≦*)o" required="required">
+                        <i onclick="document.forms['search'].submit()" class="search link icon s-icon"></i>
+                    </div>
+                </form>
+            </div>
+            <div class="nav_search right item no">
+                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                    <div class="ui icon inverted transparent input m-margin-tb-tiny">
+                        <input id="query" type="text" name="query" placeholder="Search....">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <span id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
+        <i class="sidebar icon"></i>
+    </span>
+</nav>
+
+
+<!--top attached 完整拼接成一个相连区域 bottom attached-->
+<!--中间内容-->
+<div id="pointTop" class="m-container m-padded-tb-4em m-padded-top-best">
+    <div class="ui container">
+        <div class="ui stackable grid">
+            <div class="eleven wide column">
+                <img src="/images/v2-f20b725c007d2fd0044ccd2fa5b4ea53_720w.jpg"  style="max-height:500px;" alt="" class="ui rounded image">
+                <div>
+                    <h2>生活就是这样</h2>
+                    <h1>不到最后一刻，永远不知道下一块是什么<span style="color: rgb(48,223,29);">味</span><span style="color: rgb(87,29,223);">道</span>。</h1>
+                </div>
+
+            </div>
+            <div class="five wide column m-card-mod">
+                <div class="ui top attached segment">
+                    <div class="ui header">喵喵喵</div>
+                </div>
+                <div class="ui attached segment">
+                    <p class="m-text">学习，永无止境。</p>
+                    <p class="m-text">（本项目以开源。长期维护，欢迎大佬们指导)<a target="_blank" href="https://gitee.com/zhao--ruiyu/spring-boot-blog-master">gitee地址</a></p>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui orange basic left pointing label">编程</div>
+                    <div class="ui orange basic left pointing label">运动</div>
+                    <div class="ui orange basic left pointing label">思考</div>
+                    <div class="ui orange basic left pointing label">阅读</div>
+
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">Java</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">MYSQL</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">Spring</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">SpringBoot</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">Redis</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">...</div>
+                </div>
+                <div class="ui bottom attached segment center aligned">
+                    <a href="https://gitee.com/zhao--ruiyu/spring-boot-blog-master" target="_blank"  data-content="点击跳转gitee" data-position="bottom center" class="ui gitee circular icon button"><img src="/images/gitee.png"  width="12"></a>
+                    <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+                    <a href="https://blog.csdn.net/qq_45802080" target="_blank" class="ui csdn circular icon button" data-content="点击跳转CSDN" data-position="bottom center"><i class="copyright outline icon"></i></a>
+                    <a href="#" class="ui qq circular icon button" data-content="1447051936" data-position="bottom center"><i class="blue qq icon"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--底部footer-->
+<footer id="" class="ui inverted vertical segment m-padded-tb-massive m-padded-top">
+    <!--    居中-->
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="/images/weixin.png" class="ui rounded image"
+                             alt="" width="110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <div class="ui inverted link list m-text-thin m-text-spaced">
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">联系我</h4>
+                <div class="ui inverted link list m-text-thin m-text-spaced">
+                    <a href="#" class="item">Email：1447051936@qq.com</a>
+                    <a href="#" class="item">QQ:1447051936</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">Blog</h4>
+                <p class="m-text-thin m-text-spaced m-opacity">
+                    这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...
+                </p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+    </div>
+
+    <div class="ui center aligned container m-font-size">本站😉已运行✌[<span id="span_dt_dt"></span> ]
+    </div>
+    <!--    居中-->
+    <div class="ui center aligned container m-padded-tb-small">
+        <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright © 2021-2022 听宇轩 , All rights reserved.
+        </p>
+        <div>
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41142102000072"
+               style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
+                    src="http://www.beian.gov.cn/img/ico.ico" style="float:left;">
+                <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff1c04;">豫ICP备
+                    2021028184号</p></a>
+        </div>
+    </div>
+    <meting-js
+            server="netease"
+            type="playlist"
+            id="6859965088"
+            mini="true"
+            artist="rainymood"
+            fixed="true">
+    </meting-js>
+</footer>
+</body>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script src="/lib/layer/layer.js"></script>
+<!--<script src="/js/snowFall.js"></script>-->
+<script src="/js/showTime.js"></script>
+<!--comment.js-->
+<script type="text/javascript" src="/js/common.js"></script>
+<!--blog.js-->
+<script type="text/javascript" src="/js/blog.js"></script>
+<!-- require APlayer -->
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        browser();
+    });
+$(".qq").popup();
+$(".csdn").popup();
+$(".gitee").popup();
+
+</script>
+
+</html>

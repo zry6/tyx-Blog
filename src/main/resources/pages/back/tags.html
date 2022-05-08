@@ -144,9 +144,7 @@
     $(".ui.dropdown").dropdown({
         on: "hover"
     });
-    $("#menu_toggle").click(function () {
-        $(".nav_item").toggleClass('m-mobile-hide');
-    });
+
     $(function () {
         getUserInfo();
         getPage(1);
@@ -156,14 +154,14 @@
     function getPage(current) {
 
         $.ajax({
-            url: "/admin/tagPage?current=" + current + "&size=6",
+            url: "/admin/tagPage?page=" + current + "&pageSize=6",
             type: "GET",
-            success: function (data) {
+            success: function (res) {
                 layer.closeAll();
-                if (data.code === 200) {
-                    setPage(data.obj);
+                if (res.code === 200) {
+                    setPage(res.data);
                 } else {
-                    layer.msg(data.message);
+                    layer.msg(res.msg);
                 }
             },
             error: function (obj) {
@@ -246,15 +244,15 @@
                     url: "/admin/tags/" + id,
                     type: "DELETE",
                     async: false,
-                    success: function (data) {
+                    success: function (res) {
                         layer.closeAll();
-                        if (data.code === 204) {
+                        if (res.code === 204) {
                             $('.tagLine' + id).toggleClass("no");
                         }
-                        layer.msg(data.message);
+                        layer.msg(res.msg);
 
                     },
-                    error: function (obj) {
+                    error: function (res) {
                         layer.closeAll();
                         layer.msg("请求超时");
                     }

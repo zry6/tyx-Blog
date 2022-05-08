@@ -22,23 +22,23 @@ function postBlog() {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         async: false,
-        success: function (data) {
+        success: function (res) {
             layer.closeAll();
-            if (data.code === 201) {
+            if (res.code === 201) {
                 if ($('[name="published"]').val() == "true") {
-                    layer.msg(data.message, {time: 2000}, function () {
-                        window.location.replace("/admin/blog-s.html");
+                    layer.msg(res.msg, {time: 2000}, function () {
+                        window.location.replace("/back/blogs.html");
                     });
                 }
             }
             $("#publish-btn").attr("disabled", false);
-            $('[name="blogId"]').val(data.obj);
-            layer.msg(data.message);
+            $('[name="blogId"]').val(res.data);
+            layer.msg(res.msg);
         },
-        error: function (obj) {
+        error: function (res) {
             layer.closeAll();
             $("#publish-btn").attr("disabled", false);
-            layer.msg("error，也许您的网络有问题");
+            layer.msg(res.code + "error，也许您的网络有问题");
         }
     });
 };
@@ -66,22 +66,22 @@ function updateBlog() {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         async: false,
-        success: function (data) {
+        success: function (res) {
             layer.closeAll();
-            if (data.code === 203) {
+            if (res.code === 203) {
                 if ($('[name="published"]').val() == "true") {
-                    layer.msg(data.message, {time: 2000}, function () {
-                        window.location.replace("/admin/blog-s.html");
+                    layer.msg(res.msg, {time: 1000}, function () {
+                        window.location.replace("/back/blogs.html");
                     });
                 }
             }
             layer.msg("保存成功");
             $("#publish-btn").attr("disabled", false);
         },
-        error: function (obj) {
+        error: function (res) {
             $("#publish-btn").attr("disabled", false);
             layer.closeAll();
-            layer.msg("error，也许您的网络有问题");
+            layer.msg(res.code + "error，也许您的网络有问题");
         }
     });
 };
