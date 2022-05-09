@@ -10,7 +10,7 @@ html {
 /* common */
 ::-webkit-scrollbar {
     width: 6px;
-    height: 5px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -123,6 +123,9 @@ a {
 .m-padded-top-best {
     padding-top: 10em !important;
 }
+.m-padded-top-7em {
+    padding-top: 7em !important;
+}
 .m-padded-top {
     padding-top: 2em !important;
 }
@@ -217,7 +220,7 @@ a {
 }
 
 .m-container-normal {
-    max-width: 50em !important;
+    max-width: 70em !important;
     margin: auto !important;
 }
 

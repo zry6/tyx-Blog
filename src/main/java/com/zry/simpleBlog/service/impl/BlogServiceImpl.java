@@ -63,6 +63,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         blogDto.setUpdateTime(new Date());
         blogDto.setUserId(user.getId());
         blogDto.setViews(0L);
+
         Blog blog = blogDto.caseToBlog();
         //插入t_blog
         blogMapper.insert(blog);
@@ -120,12 +121,16 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     Page<BlogDto> setTypeAndUSerInfo(Page<BlogDto> page) {
         List<BlogDto> blogVos = page.getRecords();
         for (BlogDto blogVo : blogVos) {
-            blogVo.setUser(new UserDto(userMapper.selectById(blogVo.getUserId())));
+//            blogVo.setUser(new UserDto(userMapper.selectById(blogVo.getUserId())));
+            blogVo.setUser(new UserDto(userMapper.selectOne(new QueryWrapper<User>().select("id","avatar","nickname").eq("id",blogVo.getUserId()))));
             blogVo.setType(typeMapper.selectById(blogVo.getTypeId()));
         }
         return page;
     }
 
+    /**
+     * 博客标签页的分页展示
+     */
     @Override
     public Page<BlogDto> blogPage(Integer current, Integer size, Long tagId) {
         List<BlogTags> blogTagsList = blogTagsMapper.selectList(new QueryWrapper<BlogTags>().eq("tags_id", tagId));
@@ -143,12 +148,15 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         Page<BlogDto> page = pageClassConvert(blogVoPage);
         // 填充分类和博主信息，标签
         List<BlogDto> blogVos = page.getRecords();
+
         for (BlogDto blog : blogVos) {
-            blog.setUser(new UserDto(userMapper.selectById(blog.getUserId())));
+//            blog.setUser(new UserDto(userMapper.selectById(blog.getUserId())));
+            blog.setUser(new UserDto(userMapper.selectOne(new QueryWrapper<User>().select("id","avatar","nickname").eq("id",blog.getUserId()))));
             blog.setType(typeMapper.selectById(blog.getTypeId()));
             //填充标签
             setTagsByBlogId(blog);
         }
+
         return page;
     }
 
@@ -171,6 +179,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
      */
     @Override
     public Page<BlogDto> adminBlogPage(Integer current, Integer size, BlogQuery query) {
+        query.setUserId(UserContext.getCurrentUser().getId());
         Page<Blog> blogVoPage = blogMapper.selectAdminPage(new Page<>(current, size), query);
         //pageClassConvert类型转换
         Page<BlogDto> page = pageClassConvert(blogVoPage);
@@ -222,7 +231,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         }
         blogTagsMapper.delete(new QueryWrapper<BlogTags>().eq("blogs_id", id));
         commentMapper.delete(new QueryWrapper<Comment>().eq("blog_id", id));
-
     }
 
     /**

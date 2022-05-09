@@ -21,4 +21,6 @@ public class BlogQuery {
     private Long typeId;
     @ApiParam(value = "已发布" ,example = "true")
     private boolean published;
+
+    private Long userId;
 }

@@ -23,7 +23,19 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
-
+p code {
+    font-family: "Courier New", sans-serif;
+    font-size: 12px;
+    padding: 0 5px;
+    line-height: 1.8;
+    margin: 0 3px;
+    display: inline-block;
+    overflow-x: auto;
+    vertical-align: middle;
+    border-radius: 3px;
+    background-color: #f6f6f6;
+    color: #e83e8c;
+}
 /*搜索框样式*/
 .m-search {
     position: absolute !important;

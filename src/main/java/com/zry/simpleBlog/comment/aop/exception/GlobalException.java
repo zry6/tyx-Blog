@@ -26,9 +26,9 @@ public class GlobalException extends RuntimeException {
     private String detailMessage;
 
     public GlobalException(String message) {
-        super(message);
-        this.messageCode = RespBeanEnum.ERROR.getCode();
-        this.detailMessage = message;
+            super(message);
+            this.messageCode = RespBeanEnum.ERROR.getCode();
+            this.detailMessage = message;
     }
 
     public GlobalException(RespBeanEnum code) {

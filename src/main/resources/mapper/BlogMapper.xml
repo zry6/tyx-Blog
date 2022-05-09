@@ -27,6 +27,7 @@
         select id,title,update_Time,type_id,recommend,published from t_blog
         <if test="query != null">
             <where>
+                user_id = #{query.userId}
                 <if test="query.title != null and query.title != ''">
                     and title like concat('%', #{query.title}, '%')
                 </if>

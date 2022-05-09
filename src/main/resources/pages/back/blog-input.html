@@ -154,7 +154,7 @@
                                                                                            target="_blank">https://tenapi.cn/acg</a>
             </div>
             <div class="required field">
-                <textarea name="description"  placeholder="博客描述..."
+                <textarea name="description" placeholder="博客描述..."
                           maxlength="100"></textarea>
             </div>
             <div class="ui error message"></div>
@@ -204,7 +204,7 @@
         <div>
             <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41142102000072"
                style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
-                    src="http://www.beian.gov.cn/img/ico.ico" style="float:left;">
+                        src="http://www.beian.gov.cn/img/ico.ico" style="float:left;">
                 <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff1c04;">豫ICP备
                     2021028184号</p></a>
         </div>
@@ -229,13 +229,22 @@
     $(".ui.dropdown").dropdown({
         on: "hover"
     });
+
+
     $(function () {
         getUserInfo();
         init();
+        //博客页面初始化
+        //初始化editormd编辑器
+        editormd("md-content", {
+            width: "100%",
+            height: 640,
+            syncScrolling: "single",
+            // path: "[[@{/lib/editormd/lib/}]]"
+            path: "/lib/editormd/lib/"
+            // path: "../../static/lib/editormd/lib/"
+        });
     });
-    //博客页面初始化
-    //初始化editormd编辑器
-    var contentEditor;
 
     function init() {
         let id = g_getQueryString("blogId");
@@ -244,19 +253,10 @@
             console.info($('[name="blogId"]').val());
             setEditBlog(id);
         }
-        contentEditor = editormd("md-content", {
-            width: "100%",
-            height: 640,
-            syncScrolling: "single",
-            // path: "[[@{/lib/editormd/lib/}]]"
-            path: "/lib/editormd/lib/"
-            // path: "../../static/lib/editormd/lib/"
-        });
         //获取所有分类
         $.ajax({
             url: "/types",
             type: "GET",
-            async: false,
             success: function (result) {
                 layer.closeAll();
                 if (result.code === 200) {
@@ -283,7 +283,6 @@
         $.ajax({
             url: "/tags",
             type: "GET",
-            async: false,
             success: function (result) {
                 layer.closeAll();
                 if (result.code === 200) {
@@ -312,10 +311,13 @@
         $.ajax({
             url: "/blogs/" + id,
             type: "GET",
+            async: false,
             success: function (result) {
                 layer.closeAll();
                 if (result.code === 200) {
                     setBlog(result.data);
+
+
                 } else {
                     layer.msg(result.msg);
                 }
@@ -328,8 +330,11 @@
         });
 
         function setBlog(obj) {
-            $('[name="title"]').val(obj.title);
+            console.info(obj);
+            $("#content").text(obj.content);
             $("#content").val(obj.content);
+            $('[name="title"]').val(obj.title);
+
             $('[name="type.id"]').val(obj.type.id);
             $('.type.text').text(obj.type.name);
             $('.type.text').toggleClass("default");

@@ -1,35 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="_fragments :: head(~{::title})">
+<html lang="en">
+<head lang="en">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
-  <link rel="stylesheet" href="../css/me.css" >
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>406</title>
+  <link rel="icon" href="/images/logo.ico"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="/css/me.css"/>
+  <link rel="stylesheet" href="/css/style.css"/>
 </head>
-<body class="m-back-img1">
-
+<body class="m-back-img5">
 <!--导航-->
-<nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+<nav class="animated fadeInDown m-back-grass m-fixed-w">
   <div class="ui container">
-    <div class="ui inverted secondary stackable menu">
-      <h2 class="ui teal header item">Blog</h2>
-      <a href="#" class=" m-item item m-mobile-hide"><i class="mini home icon"></i>首页</a>
-      <a href="#" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
-      <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
-      <a href="#" class="m-item item m-mobile-hide"><i class="mini clone icon"></i>归档</a>
-      <a href="#" class="m-item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
-      <div class="right m-item item m-mobile-hide">
-        <div class="ui icon inverted transparent input m-margin-tb-tiny">
-          <input type="text" placeholder="Search....">
-          <i class="search link icon"></i>
-        </div>
+    <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
+      <h2 class="ui white header item"><a href="/">猫喵喵~Blog</a></h2>
+      <a href="/" class="nav_item item m-mobile-hide"><i
+                class="home icon"></i>首页</a>
+      <a href="/p/types.html" class="nav_item item m-mobile-hide"
+      ><i class="idea icon"></i>分类</a>
+      <a href="/p/tags.html" class="nav_item item m-mobile-hide">
+        <i class="tags icon"></i>标签</a>
+      <a href="/p/archives.html" class="nav_item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+      <a href="/p/guestbook.html" class="nav_item item m-mobile-hide">
+        <i class="comments outline icon"></i>留言板</a>
+      <a href="/p/about.html" class="nav_item item m-mobile-hide"><i
+                class="info icon"></i>关于我</a>
+      <div class=" m-mobile-hide m-search">
+        <i class="search line icon funIcon"></i>
+        <i class="close line icon funIcon no "></i>
+        <form content="m-mobile-show" action="#" th:action="@{/search}" name="search">
+          <div class="m-form">
+            <input type="text" name="query" placeholder="快来找你要的东东ヾ(≧▽≦*)o" required="required">
+            <i onclick="document.forms['search'].submit()" class="search link icon s-icon"></i>
+          </div>
+        </form>
+      </div>
+      <div class="nav_search right item no">
+        <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+          <div class="ui icon inverted transparent input m-margin-tb-tiny">
+            <input id="query" type="text" name="query" placeholder="Search....">
+            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-    <i class="sidebar icon"></i>
-  </a>
+  <span id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
+        <i class="sidebar icon"></i>
+    </span>
 </nav>
 
 <br>
@@ -50,7 +69,7 @@
 <br>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
 <script>
   $(".funIcon").click(function () {
     $('.m-search').toggleClass('m-active');
