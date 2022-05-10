@@ -23,7 +23,7 @@ public interface BlogTagsMapper extends BaseMapper<BlogTags> {
      * @return
      * @author zry
      */
-    int insert(@Param("blogId")Long blogId,@Param("tagList") List<Long> tagList);
+    int insertBlogTags(@Param("blogId")Long blogId, @Param("tagList") List<Long> tagList);
 
 
     /**

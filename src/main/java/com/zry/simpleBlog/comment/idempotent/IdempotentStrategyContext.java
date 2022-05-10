@@ -1,7 +1,7 @@
 package com.zry.simpleBlog.comment.idempotent;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.zry.simpleBlog.comment.annotations.IdempotentStrategy;
+import com.zry.simpleBlog.comment.aop.annotations.IdempotentStrategy;
 import com.zry.simpleBlog.comment.idempotent.strategy.IdempotentStrategyInterface;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;

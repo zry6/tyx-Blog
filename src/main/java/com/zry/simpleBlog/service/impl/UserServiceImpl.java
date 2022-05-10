@@ -2,7 +2,7 @@ package com.zry.simpleBlog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zry.simpleBlog.comment.aop.exception.GlobalException;
+import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.dto.LoginDto;
@@ -45,7 +45,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public RespBean doLogin(LoginDto loginDto) {
         if (loginDto == null) {
-            throw new GlobalException(RespBeanEnum.ERROR);
+            throw new BusinessException(RespBeanEnum.ERROR);
         }
         String username = loginDto.getUsername();
         String password = loginDto.getPassword();
@@ -55,7 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = userMapper.selectOne(new QueryWrapper<User>().eq("username", username));
         // 1.判断用户是否存在 或者 判断再次MD5加密的密码是否相等
         if (user == null || !MD5Util.formPassToDBPass(password, user.getSalt()).equals(user.getPassword())) {
-            throw new GlobalException(RespBeanEnum.LOGIN_ERROR);
+            throw new BusinessException(RespBeanEnum.LOGIN_ERROR);
         }
         user.setPassword("你不知道");
         user.setSalt("你也不知道");
@@ -68,7 +68,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         //将ticket存入 cookie中
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (servletRequestAttributes == null) {
-            throw new GlobalException(RespBeanEnum.SERVICE_ERROR);
+            throw new BusinessException(RespBeanEnum.SERVICE_ERROR);
         }
         HttpServletRequest request = servletRequestAttributes.getRequest();
         HttpServletResponse response = servletRequestAttributes.getResponse();
@@ -81,7 +81,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 //    @Override
 //    public void updateUser(Integer id, UserVo userVo) {
 //        if (userVo == null) {
-//            throw new GlobalException(RespBeanEnum.DATA_ERROR);
+//            throw new BusinessException(RespBeanEnum.DATA_ERROR);
 //        }
 //        if (StringUtils.isEmpty(userVo.getUsername())) {
 //            userVo.setUsername(null);

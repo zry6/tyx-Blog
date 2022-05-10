@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zry.simpleBlog.comment.aop.exception.GlobalException;
+import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.dto.TypeDto;
 import com.zry.simpleBlog.entity.Type;
@@ -41,7 +41,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
         type.setName(typeDto.getName());
         //检查分类是否已经存在
         if (isExistType(typeDto)) {
-            throw new GlobalException(RespBeanEnum.TYPE_EXISTED);
+            throw new BusinessException(RespBeanEnum.TYPE_EXISTED);
         }
         typeMapper.insert(type);
     }
@@ -53,7 +53,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
         type.setId(typeDto.getId());
         //检查分类是否已经存在
         if (isExistType(typeDto)) {
-            throw new GlobalException(RespBeanEnum.TYPE_EXISTED);
+            throw new BusinessException(RespBeanEnum.TYPE_EXISTED);
         }
         typeMapper.updateById(type);
     }

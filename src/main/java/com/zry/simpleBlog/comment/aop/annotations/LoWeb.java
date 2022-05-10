@@ -1,9 +1,9 @@
-package com.zry.simpleBlog.comment.annotations;
+package com.zry.simpleBlog.comment.aop.annotations;
 
 import java.lang.annotation.*;
 
 /**
- * LogAnnotation
+ * LoWeb
  *
  * @author zry
  * @version V2.0
@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface LogAnnotation {
+public @interface LoWeb {
     /**
      * 模块
      */

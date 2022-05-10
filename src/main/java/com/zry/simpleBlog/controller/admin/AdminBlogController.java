@@ -1,10 +1,10 @@
 package com.zry.simpleBlog.controller.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zry.simpleBlog.comment.annotations.CheckLogin;
-import com.zry.simpleBlog.comment.annotations.Idempotent;
-import com.zry.simpleBlog.comment.annotations.IdempotentStrategy;
-import com.zry.simpleBlog.comment.annotations.LogAnnotation;
+import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
+import com.zry.simpleBlog.comment.aop.annotations.Idempotent;
+import com.zry.simpleBlog.comment.aop.annotations.IdempotentStrategy;
+import com.zry.simpleBlog.comment.aop.annotations.LoWeb;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.dto.BlogDto;
@@ -52,7 +52,7 @@ public class AdminBlogController {
     @ApiOperation(value = "添加文章")
     @PostMapping("/blogs")
     @CheckLogin
-    @LogAnnotation(title = "博客管理", action = "新增文章")
+    @LoWeb(title = "博客管理", action = "新增文章")
     public RespBean post(@RequestBody @Valid PostBlogDto blogDto) {
         return RespBean.success(RespBeanEnum.POST_SUCCESS, blogService.saveBlog(blogDto));
     }
@@ -63,7 +63,7 @@ public class AdminBlogController {
     @ApiOperation(value = "更新文章")
     @PutMapping("/blogs/{id}")
     @CheckLogin
-    @LogAnnotation(title = "博客管理", action = "更新文章")
+    @LoWeb(title = "博客管理", action = "更新文章")
     public RespBean update(@RequestBody @Valid PostBlogDto blogDto, @PathVariable Long id) {
         blogDto.setId(id);
         blogService.updateBlog(blogDto);

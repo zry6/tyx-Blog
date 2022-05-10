@@ -9,7 +9,7 @@
         <result column="tags_id" property="tagsId" />
     </resultMap>
 
-    <insert id="insert" useGeneratedKeys="true" >
+    <insert id="insertBlogTags" useGeneratedKeys="true" >
         insert into `t_blog_tags` (blogs_id,tags_id) values
         <foreach item="tagId" collection="tagList" separator=",">
             (#{blogId},#{tagId})

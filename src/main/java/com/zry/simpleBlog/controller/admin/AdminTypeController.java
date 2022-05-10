@@ -2,8 +2,8 @@ package com.zry.simpleBlog.controller.admin;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zry.simpleBlog.comment.annotations.CheckLogin;
-import com.zry.simpleBlog.comment.annotations.LogAnnotation;
+import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
+import com.zry.simpleBlog.comment.aop.annotations.LoWeb;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.dto.TypeDto;
@@ -42,7 +42,7 @@ public class AdminTypeController {
      * @author zry
      */
     @GetMapping("/types")
-    @LogAnnotation(title = "分类管理", action = "获取分类分页")
+    @LoWeb(title = "分类管理", action = "获取分类分页")
     public RespBean typePage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer pageSize) {
         Page<Type> pageVo = typeService.typePage(page, pageSize);
         return RespBean.success(pageVo);
@@ -54,7 +54,7 @@ public class AdminTypeController {
      * @author zry
      */
     @GetMapping("/types/{id}")
-    @LogAnnotation(title = "分类管理", action = "按id获取分类")
+    @LoWeb(title = "分类管理", action = "按id获取分类")
     public RespBean getType(@PathVariable @Valid Integer id) {
         Type type = typeService.getById(id);
         if (type == null) {
@@ -70,7 +70,7 @@ public class AdminTypeController {
      */
     @PostMapping("/types")
     @CheckLogin
-    @LogAnnotation(title = "分类管理", action = "新增分类")
+    @LoWeb(title = "分类管理", action = "新增分类")
     public RespBean postType(@RequestBody @Valid TypeDto typeDto) {
         typeService.saveType(typeDto);
         return RespBean.success(RespBeanEnum.POST_SUCCESS);
@@ -83,7 +83,7 @@ public class AdminTypeController {
      */
     @DeleteMapping("/types/{id}")
     @CheckLogin
-    @LogAnnotation(title = "分类管理", action = "按id删除分类")
+    @LoWeb(title = "分类管理", action = "按id删除分类")
     public RespBean deleteType(@PathVariable Long id) {
         if (!typeService.removeById(id)) {
             return RespBean.error(RespBeanEnum.DELETE_ERROR);
@@ -98,7 +98,7 @@ public class AdminTypeController {
      */
     @PutMapping("/types/{id}")
     @CheckLogin
-    @LogAnnotation(title = "分类管理", action = "按id更新分类")
+    @LoWeb(title = "分类管理", action = "按id更新分类")
     public RespBean updateType(@RequestBody @Valid TypeDto typeDto, @PathVariable Long id) {
         typeDto.setId(id);
         typeService.updateById(typeDto);

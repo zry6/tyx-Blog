@@ -2,7 +2,7 @@ package com.zry.simpleBlog.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zry.simpleBlog.comment.annotations.CheckLogin;
+import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.dto.BlogDto;
 import com.zry.simpleBlog.dto.BlogQuery;

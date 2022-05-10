@@ -1,8 +1,8 @@
 package com.zry.simpleBlog.comment.aop.aspect;
 
-import com.zry.simpleBlog.comment.aop.exception.GlobalException;
+import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.service.RedisService;
-import com.zry.simpleBlog.comment.annotations.CheckLogin;
+import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
 import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.comment.utils.CookieUtil;
 import com.zry.simpleBlog.comment.utils.UserContext;
@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
  * <p>
  * 会将登录用户信息存储在UserContext中。
  * 注解属性isLogin=true
- * 没有登陆则抛出 GlobalException(RespBeanEnum.AUTH_ERROR)异常
+ * 没有登陆则抛出 BusinessException(RespBeanEnum.AUTH_ERROR)异常
  * 注解属性isLogin=false 就不会抛出异常
  *
  * @author zry
@@ -49,7 +49,7 @@ public class CheckLoginAspect {
     @Value("${cookie.user.key}")
     private String cookieKey;
 
-    @Pointcut(value = "@annotation(com.zry.simpleBlog.comment.annotations.CheckLogin)")
+    @Pointcut(value = "@annotation(com.zry.simpleBlog.comment.aop.annotations.CheckLogin)")
     public void landerPointCut() {
     }
 
@@ -65,7 +65,7 @@ public class CheckLoginAspect {
         User user = getUser(request, response);
         if (permissions.isLogin()) {
             if (user == null) {
-                throw new GlobalException(RespBeanEnum.AUTH_ERROR);
+                throw new BusinessException(RespBeanEnum.AUTH_ERROR);
             }
         }
         UserContext.addCurrentUser(user);

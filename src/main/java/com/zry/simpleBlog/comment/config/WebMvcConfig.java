@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
- * 配置 fastJson 处理 null
  *
  * @author zry
  * @create 2022-04-09 17:31
@@ -21,19 +20,19 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
      * 功能描述: 开放静态资源
      */
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        "classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/"
-        //重写这个方法，映射静态资源文件
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/resources/")
-                .addResourceLocations("classpath:/static/")
-                .addResourceLocations("classpath:/pages/")
-        ;
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-        super.addResourceHandlers(registry);
+            //重写这个方法，映射静态资源文件
+            registry.addResourceHandler("/**")
+                    .addResourceLocations("classpath:/resources/")
+                    .addResourceLocations("classpath:/static/")
+                    .addResourceLocations("classpath:/pages/")
+            ;
+            registry.addResourceHandler("swagger-ui.html")
+                    .addResourceLocations("classpath:/META-INF/resources/");
+            registry.addResourceHandler("/webjars/**")
+                    .addResourceLocations("classpath:/META-INF/resources/webjars/");
+            super.addResourceHandlers(registry);
     }
 
     /**
@@ -45,8 +44,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminInterceptor())
                 //拦截路径
-                .addPathPatterns("/admin/*.html")
-                .excludePathPatterns("/admin/login.html") ;
+                .addPathPatterns("/back/*.html")
+                .excludePathPatterns("/back/login.html") ;
 
         super.addInterceptors(registry);
     }

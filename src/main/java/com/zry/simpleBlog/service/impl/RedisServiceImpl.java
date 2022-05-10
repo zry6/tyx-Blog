@@ -1,6 +1,6 @@
 package com.zry.simpleBlog.service.impl;
 
-import com.zry.simpleBlog.comment.aop.exception.GlobalException;
+import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.service.RedisService;
@@ -54,7 +54,7 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public void deleteUser(String ticket) {
         if (StringUtils.isEmpty(ticket)) {
-            throw new GlobalException(RespBeanEnum.AUTH_ERROR);
+            throw new BusinessException(RespBeanEnum.AUTH_ERROR);
         }
         //获取redis中的user key
         String userKey = RedisKeyUtil.getUserKey(ticket);
@@ -94,7 +94,6 @@ public class RedisServiceImpl implements RedisService {
         return Boolean.TRUE.equals(result);
     }
 
-
     /**
      * 写入缓存
      *
@@ -119,7 +118,7 @@ public class RedisServiceImpl implements RedisService {
             operations.set(key, value, expireTime, timeUnit);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new GlobalException(RespBeanEnum.SET_CACHE_ERROR);
+            throw new BusinessException(RespBeanEnum.SET_CACHE_ERROR);
         }
         return true;
     }
@@ -171,7 +170,7 @@ public class RedisServiceImpl implements RedisService {
             result = operations.get(key);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new GlobalException(RespBeanEnum.GET_CACHE_ERROR);
+            throw new BusinessException(RespBeanEnum.GET_CACHE_ERROR);
         }
         return result;
     }

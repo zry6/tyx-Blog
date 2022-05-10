@@ -1,4 +1,4 @@
-package com.zry.simpleBlog.comment.annotations;
+package com.zry.simpleBlog.comment.aop.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

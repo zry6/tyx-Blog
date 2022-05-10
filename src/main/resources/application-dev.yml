@@ -10,14 +10,20 @@ spring:
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
   jpa:
+    database: MYSQL
     hibernate:
       ddl-auto: update
+    #配置是否打印sql
     show-sql: true
+    open-in-view: true
   redis:
     port: 6379
     host: 1.117.229.251
     password: 123
     database: 0
+    jedis:
+      pool:
+        max-wait: 100000
   #jackson
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

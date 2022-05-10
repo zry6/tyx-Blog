@@ -1,6 +1,6 @@
 package com.zry.simpleBlog.dto;
 
-import com.zry.simpleBlog.comment.annotations.IdempotentField;
+import com.zry.simpleBlog.comment.aop.annotations.IdempotentField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

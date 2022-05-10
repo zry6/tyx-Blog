@@ -1,8 +1,8 @@
 package com.zry.simpleBlog.comment.aop.aspect;
 
-import com.zry.simpleBlog.comment.aop.exception.GlobalException;
-import com.zry.simpleBlog.comment.annotations.Idempotent;
-import com.zry.simpleBlog.comment.annotations.IdempotentStrategy;
+import com.zry.simpleBlog.comment.exception.BusinessException;
+import com.zry.simpleBlog.comment.aop.annotations.Idempotent;
+import com.zry.simpleBlog.comment.aop.annotations.IdempotentStrategy;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.comment.idempotent.IdempotentStrategyContext;
 import com.zry.simpleBlog.service.RedisService;
@@ -39,7 +39,7 @@ public class IdempotentAspect {
     /**
      * 切点，标注了@Idempotent的controller方法
      */
-    @Pointcut(value = "@annotation(com.zry.simpleBlog.comment.annotations.Idempotent)")
+    @Pointcut(value = "@annotation(com.zry.simpleBlog.comment.aop.annotations.Idempotent)")
     public void idempotent() {
     }
 
@@ -80,7 +80,7 @@ public class IdempotentAspect {
                 Object value = redisService.get(key);
                 if (LOCK_VALUE.equals(value)) {
                     log.error("same request executing");
-                throw new GlobalException(RespBeanEnum.RUNNING);
+                throw new BusinessException(RespBeanEnum.RUNNING);
             } else {
                 log.info("same request already be executed,return success result");
                 //第一次已经处理完成，但未过超时时间，所以后续同样请求使用同一个返回结果

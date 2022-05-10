@@ -3,7 +3,7 @@ package com.zry.simpleBlog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zry.simpleBlog.comment.aop.exception.GlobalException;
+import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.comment.utils.StringUtil;
 import com.zry.simpleBlog.comment.utils.UserContext;
@@ -15,6 +15,8 @@ import com.zry.simpleBlog.entity.*;
 import com.zry.simpleBlog.mapper.*;
 import com.zry.simpleBlog.service.IBlogService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,62 +48,10 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Resource
     private UserMapper userMapper;
 
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public Long saveBlog(PostBlogDto blogDto) {
-        User user = UserContext.getCurrentUser();
-        if (user == null) {
-            throw new GlobalException(RespBeanEnum.AUTH_ERROR);
-        }
-        //检查type是否存在
-        Long typeId = blogDto.getTypeId();
-        getAndCheckType(typeId);
-        //检查tags是否存在  循环查询tag是否存在
-        List<Long> tagList = getAndCheckTags(blogDto.getTagIds());
-        //补充文章属性
-        blogDto.setCreateTime(new Date());
-        blogDto.setUpdateTime(new Date());
-        blogDto.setUserId(user.getId());
-        blogDto.setViews(0L);
-
-        Blog blog = blogDto.caseToBlog();
-        //插入t_blog
-        blogMapper.insert(blog);
-        //插入t_blog_tags表
-        if (!tagList.isEmpty()) {
-            blogTagsMapper.insert(blog.getId(), tagList);
-        }
-        return blog.getId();
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void updateBlog(PostBlogDto blog) {
-        User user = UserContext.getCurrentUser();
-        if (user == null) {
-            throw new GlobalException(RespBeanEnum.AUTH_ERROR);
-        }
-        //检查type是否存在
-        Long typeId = blog.getTypeId();
-        getAndCheckType(typeId);
-        //插入t_blog
-        blog.setUserId(user.getId());
-        blog.setUpdateTime(new Date());
-
-        blogMapper.update(blog.caseToBlog(), new QueryWrapper<Blog>().eq("id", blog.getId()));
-        //检查tags是否存在  循环查询tag是否存在
-        List<Long> tagList = getAndCheckTags(blog.getTagIds());
-        //修改t_blog_tags表
-        blogTagsMapper.delete(new QueryWrapper<BlogTags>().eq("blogs_id", blog.getId()));
-        //插入t_blog_tags表
-        if (!tagList.isEmpty()) {
-            blogTagsMapper.insert(blog.getId(), tagList);
-        }
-    }
-
     /**
      * 博客首页和分类的分页展示
      */
+    @Cacheable(value = "BlogPage_Index_Type")
     @Override
     public Page<BlogDto> blogPage(Integer current, Integer size, BlogQuery query) {
         Page<Blog> blogVoPage = blogMapper.selectPageByBlogQuery(new Page<>(current, size), query);
@@ -131,6 +81,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     /**
      * 博客标签页的分页展示
      */
+    @Cacheable(value = "BlogPage_Tag")
     @Override
     public Page<BlogDto> blogPage(Integer current, Integer size, Long tagId) {
         List<BlogTags> blogTagsList = blogTagsMapper.selectList(new QueryWrapper<BlogTags>().eq("tags_id", tagId));
@@ -159,7 +110,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
         return page;
     }
-
     /**
      * 为一个文章填充标签
      * @param blog
@@ -173,7 +123,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             blog.init();
         }
     }
-
     /**
      * 后台管理博客列表分页
      */
@@ -212,7 +161,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         }
         //未登录状态不能看未发布的
         if (!blog.getPublished() && user == null) {
-            throw new GlobalException(RespBeanEnum.AUTH_ERROR);
+            throw new BusinessException(RespBeanEnum.AUTH_ERROR);
         }
         BlogDto blogDto = new BlogDto(blog);
         //获取分类
@@ -222,17 +171,73 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         return blogDto;
     }
 
+    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List"},allEntries = true)
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Long saveBlog(PostBlogDto blogDto) {
+        User user = UserContext.getCurrentUser();
+        if (user == null) {
+            throw new BusinessException(RespBeanEnum.AUTH_ERROR);
+        }
+        //检查type是否存在
+        Long typeId = blogDto.getTypeId();
+        getAndCheckType(typeId);
+        //检查tags是否存在  循环查询tag是否存在
+        List<Long> tagList = getAndCheckTags(blogDto.getTagIds());
+        //补充文章属性
+        blogDto.setCreateTime(new Date());
+        blogDto.setUpdateTime(new Date());
+        blogDto.setUserId(user.getId());
+        blogDto.setViews(0L);
+
+        Blog blog = blogDto.caseToBlog();
+        //插入t_blog
+        blogMapper.insert(blog);
+        //插入t_blog_tags表
+        if (!tagList.isEmpty()) {
+            blogTagsMapper.insertBlogTags(blog.getId(), tagList);
+        }
+        return blog.getId();
+    }
+
+    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List"},allEntries = true)
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateBlog(PostBlogDto blog) {
+        User user = UserContext.getCurrentUser();
+        if (user == null) {
+            throw new BusinessException(RespBeanEnum.AUTH_ERROR);
+        }
+        //检查type是否存在
+        Long typeId = blog.getTypeId();
+        getAndCheckType(typeId);
+        //插入t_blog
+        blog.setUserId(user.getId());
+        blog.setUpdateTime(new Date());
+
+        blogMapper.update(blog.caseToBlog(), new QueryWrapper<Blog>().eq("id", blog.getId()));
+        //检查tags是否存在  循环查询tag是否存在
+        List<Long> tagList = getAndCheckTags(blog.getTagIds());
+        //修改t_blog_tags表
+        blogTagsMapper.delete(new QueryWrapper<BlogTags>().eq("blogs_id", blog.getId()));
+        //插入t_blog_tags表
+        if (!tagList.isEmpty()) {
+            blogTagsMapper.insertBlogTags(blog.getId(), tagList);
+        }
+    }
+
+
+    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List"},allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteById(Long id) {
+        commentMapper.delete(new QueryWrapper<Comment>().eq("blog_id", id));
+        blogTagsMapper.delete(new QueryWrapper<BlogTags>().eq("blogs_id", id));
         int i = blogMapper.deleteById(id);
         if (i != 1) {
-            throw new GlobalException(RespBeanEnum.DELETE_ERROR);
+            throw new BusinessException(RespBeanEnum.DELETE_ERROR);
         }
-        blogTagsMapper.delete(new QueryWrapper<BlogTags>().eq("blogs_id", id));
-        commentMapper.delete(new QueryWrapper<Comment>().eq("blog_id", id));
     }
-
     /**
      * 功能描述: 更新或添加文章时，检查并获取Tags
      */
@@ -241,7 +246,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         for (Long tagId : tagList) {
             Tag tag = tagMapper.selectById(tagId);
             if (tag == null) {
-                throw new GlobalException(RespBeanEnum.TAG_NOT_EXISTED);
+                throw new BusinessException(RespBeanEnum.TAG_NOT_EXISTED);
             }
         }
         return tagList;
@@ -253,7 +258,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     private void getAndCheckType(Long typeId) {
         Type type = typeMapper.selectById(typeId);
         if (type == null) {
-            throw new GlobalException(RespBeanEnum.TYPE_NOT_EXISTED);
+            throw new BusinessException(RespBeanEnum.TYPE_NOT_EXISTED);
         }
     }
 

@@ -1,7 +1,7 @@
-package com.zry.simpleBlog.comment.aop.exception.handler;
+package com.zry.simpleBlog.comment.exception.handler;
 
 
-import com.zry.simpleBlog.comment.aop.exception.GlobalException;
+import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -32,13 +32,13 @@ public class GlobalExceptionHandler {
 //    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * 功能描述: 捕获自定义异常 GlobalException
+     * 功能描述: 捕获自定义异常 BusinessException
      *
      * @param
      * @return
      */
-    @ExceptionHandler(GlobalException.class)
-    public RespBean globalExceptionHandler(GlobalException e) {
+    @ExceptionHandler(BusinessException.class)
+    public RespBean globalExceptionHandler(BusinessException e) {
         return RespBean.error(e.getMessageCode(), e.getDetailMessage());
     }
 

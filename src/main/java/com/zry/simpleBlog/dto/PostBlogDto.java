@@ -1,7 +1,7 @@
 package com.zry.simpleBlog.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.zry.simpleBlog.comment.annotations.IdempotentField;
+import com.zry.simpleBlog.comment.aop.annotations.IdempotentField;
 import com.zry.simpleBlog.comment.idempotent.IdempotentInterface;
 import com.zry.simpleBlog.entity.Blog;
 import com.zry.simpleBlog.entity.Tag;

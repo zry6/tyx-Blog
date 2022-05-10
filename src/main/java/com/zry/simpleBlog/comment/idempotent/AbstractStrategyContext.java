@@ -1,6 +1,6 @@
 package com.zry.simpleBlog.comment.idempotent;
 
-import com.zry.simpleBlog.comment.aop.exception.GlobalException;
+import com.zry.simpleBlog.comment.exception.BusinessException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,7 +32,7 @@ public abstract class AbstractStrategyContext<R> {
      */
     protected R getStrategy(String type) {
         System.out.println(map);
-        return Optional.ofNullable(getMap().get(type)).orElseThrow(() -> new GlobalException("幂等类型：" + type + "未定义"));
+        return Optional.ofNullable(getMap().get(type)).orElseThrow(() -> new BusinessException("幂等类型：" + type + "未定义"));
     }
 
 }
