@@ -37,8 +37,6 @@
 - css动画：animate     
 - Markdown 编辑器：Editor.md
 - 代码高亮（Prism）
-- 目录生成（Tocbot）
-- 二维码生成（qrcode.js）
 - 还有其它有意思的插件 ...
 
 ## 2.整体设计与功能
