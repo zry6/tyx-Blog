@@ -52,13 +52,33 @@
                 <if test="query.typeId != null and query.typeId != ''">
                     and type_Id = #{query.typeId}
                 </if>
-                    and published = true
+                and published = true
             </where>
         </if>
         order by update_time desc
     </select>
 
     <select id="selectCountAndTypesId" resultType='com.zry.simpleBlog.dto.TypeDto'>
-        select type_id as id,count(type_id) blogCount from t_blog where published = true group by type_id order by count(type_id) desc;
+        select type_id as id, count(type_id) blogCount
+        from t_blog
+        where published = true
+        group by type_id
+        order by count(type_id) desc;
     </select>
+
+    <select id="findGroupYear" resultType="java.lang.String">
+        select date_format(b.update_time, '%Y') as year
+        from t_blog b
+        where published= true
+        group by year
+        order by year desc
+    </select>
+    <select id="findBlogByYear" resultMap="BaseResultMap">
+        select id,title,update_time,flag
+        from t_blog b
+        where date_format(b.update_time, '%Y') = #{year}
+          and published = true
+        order by update_time desc
+    </select>
+
 </mapper>

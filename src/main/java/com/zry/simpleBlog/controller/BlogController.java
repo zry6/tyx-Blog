@@ -6,6 +6,7 @@ import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.dto.BlogDto;
 import com.zry.simpleBlog.dto.BlogQuery;
+import com.zry.simpleBlog.entity.Blog;
 import com.zry.simpleBlog.service.IBlogService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -64,5 +67,10 @@ public class BlogController {
         }
         return RespBean.success(pageDto);
     }
-
+    @ApiOperation(value = "时间归档", notes = "按时间倒序Map结构{key : year ，value: List<Blog>}")
+    @GetMapping("/archives")
+    public RespBean archives(){
+        Map<String, List<Blog>> stringListMap = blogService.mapArchives();
+        return RespBean.success(stringListMap);
+    }
 }

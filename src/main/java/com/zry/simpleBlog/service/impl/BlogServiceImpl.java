@@ -21,9 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -140,6 +138,18 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         return page;
     }
 
+    @Cacheable(value = "Blog_Archives")
+    @Override
+    public Map<String, List<Blog>> mapArchives() {
+        List<String> years = blogMapper.findGroupYear();
+        Map<String,List<Blog>> map = new HashMap<>(64);
+        for (String year : years) {
+            map.put(year,blogMapper.findBlogByYear(year));
+        }
+        log.debug(map.toString());
+        return map;
+    }
+
     /**
      * 功能描述: page类型转换
      */
@@ -171,7 +181,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         return blogDto;
     }
 
-    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List"},allEntries = true)
+    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List","Blog_Archives"},allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Long saveBlog(PostBlogDto blogDto) {
@@ -200,7 +210,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         return blog.getId();
     }
 
-    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List"},allEntries = true)
+    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List","Blog_Archives"},allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateBlog(PostBlogDto blog) {
@@ -227,7 +237,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
 
-    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List"},allEntries = true)
+    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List","Blog_Archives"},allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteById(Long id) {

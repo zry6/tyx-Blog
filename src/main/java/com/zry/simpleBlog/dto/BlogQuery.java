@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiParam;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @author zry
  * @description
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @ApiModel(value = "BlogQuery", description = "可选的用于条件查询的实体")
-public class BlogQuery {
+public class BlogQuery implements Serializable, BaseDto{
 
     @ApiParam(value = "标题" ,example = "java")
     private String title;

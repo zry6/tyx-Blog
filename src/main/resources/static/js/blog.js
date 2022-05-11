@@ -14,8 +14,9 @@ function getBlogs(page, typeId, tagId) {
             layer.closeAll();
             if (res.code === 200) {
                 setBlogPage(res.data);
+            } else {
+                layer.msg(res.msg);
             }
-            layer.msg(res.msg);
         },
         error: function (res) {
             layer.closeAll();

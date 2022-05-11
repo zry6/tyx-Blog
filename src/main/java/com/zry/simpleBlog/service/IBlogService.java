@@ -7,6 +7,9 @@ import com.zry.simpleBlog.dto.BlogQuery;
 import com.zry.simpleBlog.dto.PostBlogDto;
 import com.zry.simpleBlog.entity.Blog;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 服务类
@@ -74,4 +77,6 @@ public interface IBlogService extends IService<Blog> {
 
 
     Page<BlogDto> adminBlogPage(Integer current, Integer size, BlogQuery query);
+
+    Map<String, List<Blog>> mapArchives();
 }

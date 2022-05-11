@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author zry
@@ -22,8 +22,6 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * 功能描述: 这个用来查询分页，除了内容
      *
      * @param page ,query查询条件
-     * @author zry
-     * @create 2022/4/25
      */
     Page<Blog> selectPageByBlogQuery(Page<Blog> page, @Param("query") BlogQuery query);
 
@@ -31,15 +29,15 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * 功能描述: 这个用来查询分页，除了内容
      *
      * @param page ,query查询条件
-     * @author zry
-     * @create 2022/4/25
      */
     Page<Blog> selectAdminPage(Page<Blog> page, @Param("query") BlogQuery query);
+
     /**
      * 功能描述: 查询各个分类id对应博客数量
-     *
-     * @author zry
-     * @create 2022/4/30
      */
     List<TypeDto> selectCountAndTypesId();
+
+    List<String> findGroupYear();
+
+    List<Blog> findBlogByYear(@Param("year") String year);
 }
