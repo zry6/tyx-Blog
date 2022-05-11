@@ -87,6 +87,7 @@
 ![输入图片说明](assets/%E4%B8%BB%E9%A1%B5.png)
 ### 文章浏览页面
 ![输入图片说明](blogPage.png)
+![输入图片说明](assets/blogpage2.png)
 ### 分类页面
 ![输入图片说明](assets/%E5%88%86%E7%B1%BB%E9%A1%B5.png)
 ### 标签页面
