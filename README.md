@@ -37,8 +37,6 @@
 - css动画：animate     
 - Markdown 编辑器：Editor.md
 - 代码高亮（Prism）
-- 目录生成（Tocbot）
-- 二维码生成（qrcode.js）
 - 还有其它有意思的插件 ...
 
 ## 2.整体设计与功能
@@ -89,11 +87,13 @@
 ![输入图片说明](assets/%E4%B8%BB%E9%A1%B5.png)
 ### 文章浏览页面
 ![输入图片说明](blogPage.png)
+![输入图片说明](assets/blogpage2.png)
 ### 分类页面
 ![输入图片说明](assets/%E5%88%86%E7%B1%BB%E9%A1%B5.png)
 ### 标签页面
 ![输入图片说明](assets/tagsPage.png)
-
+### 归档页面
+![输入图片说明](assets/archives.png)
 ## 后台：
 ### 博文管理页面
 ![输入图片说明](assets/%E5%90%8E%E5%8F%B0%E6%96%87%E7%AB%A0%E7%AE%A1%E7%90%86.png)
