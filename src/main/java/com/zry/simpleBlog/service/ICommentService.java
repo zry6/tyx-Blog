@@ -17,4 +17,6 @@ import java.util.List;
 public interface ICommentService extends IService<Comment> {
 
     List<CommentDto> listCommentByBlogId(Integer current, Integer pageSize, Long blogId);
+
+    CommentDto saveComment(CommentDto comment);
 }

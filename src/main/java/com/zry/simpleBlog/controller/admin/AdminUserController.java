@@ -2,7 +2,7 @@ package com.zry.simpleBlog.controller.admin;
 
 
 import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
-import com.zry.simpleBlog.comment.aop.annotations.LoWeb;
+import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.dto.LoginDto;
@@ -45,7 +45,7 @@ public class AdminUserController {
      */
     @ApiOperation(value = "用户登录")
     @PostMapping("login")
-    @LoWeb(title = "后台管理", action = "用户登录")
+    @LogWeb(title = "后台管理", action = "用户登录")
     public RespBean login(@RequestBody @Valid LoginDto loginDto) {
         return userService.doLogin(loginDto);
     }
@@ -58,7 +58,7 @@ public class AdminUserController {
     @ApiOperation(value = "获取已登录用户信息")
     @GetMapping("userInfoByTicket")
     @CheckLogin
-    @LoWeb(title = "用户操作", action = "ThreadLocal或redis中获取用户信息")
+    @LogWeb(title = "用户操作", action = "ThreadLocal或redis中获取用户信息")
     public RespBean userInfo() {
         User user = UserContext.getCurrentUser();
         return RespBean.success(new UserDto(user));
@@ -72,7 +72,7 @@ public class AdminUserController {
     @ApiOperation(value = "更新用户信息", notes = "暂时不包括密码")
     @PutMapping("user/{id}")
     @CheckLogin
-    @LoWeb(title = "用户操作", action = "更新用户信息")
+    @LogWeb(title = "用户操作", action = "更新用户信息")
     public RespBean updateUserInfo(@Valid @RequestBody UserDto userDto, @PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response) {
         //更新数据库中的用户信息
         userDto.setId(Long.valueOf(id));
@@ -93,7 +93,7 @@ public class AdminUserController {
     @ApiOperation(value = "退出登录", notes = "将cookie中的key-value可redis中的用户信息删除")
     @GetMapping("admin/logout")
     @CheckLogin
-    @LoWeb(title = "用户操作", action = "退出登录")
+    @LogWeb(title = "用户操作", action = "退出登录")
     public RespBean updateUserInfo(HttpServletRequest request,
                                    HttpServletResponse response) {
         //1.删除redis中的user信息

@@ -4,9 +4,9 @@ package com.zry.simpleBlog.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
 import com.zry.simpleBlog.comment.respBean.RespBean;
+import com.zry.simpleBlog.dto.ArchivesDto;
 import com.zry.simpleBlog.dto.BlogDto;
 import com.zry.simpleBlog.dto.BlogQuery;
-import com.zry.simpleBlog.entity.Blog;
 import com.zry.simpleBlog.service.IBlogService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,10 +67,11 @@ public class BlogController {
         }
         return RespBean.success(pageDto);
     }
+
     @ApiOperation(value = "时间归档", notes = "按时间倒序Map结构{key : year ，value: List<Blog>}")
     @GetMapping("/archives")
     public RespBean archives(){
-        Map<String, List<Blog>> stringListMap = blogService.mapArchives();
+        Map<String, List<ArchivesDto>> stringListMap = blogService.mapArchives();
         return RespBean.success(stringListMap);
     }
 }

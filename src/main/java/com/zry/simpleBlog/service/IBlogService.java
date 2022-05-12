@@ -2,6 +2,7 @@ package com.zry.simpleBlog.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zry.simpleBlog.dto.ArchivesDto;
 import com.zry.simpleBlog.dto.BlogDto;
 import com.zry.simpleBlog.dto.BlogQuery;
 import com.zry.simpleBlog.dto.PostBlogDto;
@@ -78,5 +79,5 @@ public interface IBlogService extends IService<Blog> {
 
     Page<BlogDto> adminBlogPage(Integer current, Integer size, BlogQuery query);
 
-    Map<String, List<Blog>> mapArchives();
+    Map<String, List<ArchivesDto>> mapArchives();
 }

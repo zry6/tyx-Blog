@@ -1,6 +1,5 @@
 package com.zry.simpleBlog.comment.respBean;
 
-import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,18 +12,18 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum RespBeanEnum  {
-//3xx 重定向
+public enum RespBeanEnum {
+    //3xx 重定向
 //4xx 客户端错误
 //5xx 服务器错误
 //2xx 状态码
 // GET:    200 OK  POST:   201  Created
 // PUT:    200 OK  PATCH:  200  OK       DELETE: 204 No Content
     SUCCESS(200, "SUCCESS"),
-    POST_SUCCESS(201 , "创建成功"),
+    POST_SUCCESS(201, "创建成功"),
     UPDATE_SUCCESS(203, "更新成功"),
-    DELETE_SUCCESS(204 , "删除成功"),
-    RUNNING(205,"请求正在处理中"),
+    DELETE_SUCCESS(204, "删除成功"),
+    RUNNING(205, "请求正在处理中"),
 
     //5xx状态码表示服务端错误
     SERVICE_ERROR(500, "服务器错误,请联系管理员"),
@@ -34,11 +33,14 @@ public enum RespBeanEnum  {
     ERROR(400, "客户端请求错误"),
     TOKEN_ERROR(400101, "登录凭证已过期，请重新登录"),
     AUTH_ERROR(403, "权限不足"),
-    NOT_FOUND_ERROR(404,    "请求的资源不存在"),
+    NOT_FOUND_ERROR(404, "请求的资源不存在"),
 
     LOGIN_ERROR(400001, "用户名或密码错误"),
     UPDATE_ERROR(400002, "更新失败"),
     POST_ERROR(400004, "创建失败"),
+    POST_COMMENT_ERROR(400014, "评论失败"),
+    COMMENT_NOT_EXISTED(400016, "评论不存在"),
+    BLOG_NOT_EXISTED(400015, "文章不存在"),
     DELETE_ERROR(400006, "删除失败"),
     TYPE_EXISTED(400005, "分类已存在"),
     TYPE_NOT_EXISTED(400008, "分类不存在"),

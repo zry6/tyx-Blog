@@ -1,6 +1,6 @@
 package com.zry.simpleBlog.comment.aop.aspect;
 
-import com.zry.simpleBlog.comment.aop.annotations.LoWeb;
+import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -33,7 +33,7 @@ public class LogAspect {
      * 此处的切点是注解的方式
      * 只要出现 @LogAnnotation注解都会进入
      */
-    @Pointcut("@annotation(com.zry.simpleBlog.comment.aop.annotations.LoWeb)")
+    @Pointcut("@annotation(com.zry.simpleBlog.comment.aop.annotations.LogWeb)")
     public void logPointCut() {
     }
 
@@ -66,7 +66,7 @@ public class LogAspect {
         MethodSignature signature = (MethodSignature) point.getSignature();
 
         Method method = signature.getMethod();
-        LoWeb loWeb = method.getAnnotation(LoWeb.class);
+        LogWeb loWeb = method.getAnnotation(LogWeb.class);
 
         String operation = null;
         if (loWeb != null) {

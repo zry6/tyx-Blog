@@ -5,6 +5,7 @@ import com.zry.simpleBlog.comment.aop.annotations.IdempotentField;
 import com.zry.simpleBlog.comment.idempotent.IdempotentInterface;
 import com.zry.simpleBlog.entity.Blog;
 import com.zry.simpleBlog.entity.Tag;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -34,6 +35,8 @@ public class PostBlogDto implements Serializable, BaseDto, IdempotentInterface {
     @NotNull(message = "内容不能为空")
     @Size(min = 1,message = "内容不能为空")
     private String content;
+
+    @ApiModelProperty(hidden = true)
     @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
@@ -53,6 +56,8 @@ public class PostBlogDto implements Serializable, BaseDto, IdempotentInterface {
     @NotNull(message = "标题不能为空")
     @Size(min = 1,message = "标题不能为空")
     private String title;
+
+    @ApiModelProperty(hidden = true)
     @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 

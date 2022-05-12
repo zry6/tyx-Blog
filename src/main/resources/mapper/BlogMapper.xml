@@ -73,7 +73,7 @@
         group by year
         order by year desc
     </select>
-    <select id="findBlogByYear" resultMap="BaseResultMap">
+    <select id="findBlogByYear" resultType="com.zry.simpleBlog.dto.ArchivesDto">
         select id,title,update_time,flag
         from t_blog b
         where date_format(b.update_time, '%Y') = #{year}

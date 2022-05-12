@@ -7,10 +7,7 @@ import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.comment.utils.StringUtil;
 import com.zry.simpleBlog.comment.utils.UserContext;
-import com.zry.simpleBlog.dto.BlogDto;
-import com.zry.simpleBlog.dto.BlogQuery;
-import com.zry.simpleBlog.dto.PostBlogDto;
-import com.zry.simpleBlog.dto.UserDto;
+import com.zry.simpleBlog.dto.*;
 import com.zry.simpleBlog.entity.*;
 import com.zry.simpleBlog.mapper.*;
 import com.zry.simpleBlog.service.IBlogService;
@@ -140,9 +137,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Cacheable(value = "Blog_Archives")
     @Override
-    public Map<String, List<Blog>> mapArchives() {
+    public Map<String, List<ArchivesDto>> mapArchives() {
         List<String> years = blogMapper.findGroupYear();
-        Map<String,List<Blog>> map = new HashMap<>(64);
+        Map<String,List<ArchivesDto>> map = new HashMap<>(64);
         for (String year : years) {
             map.put(year,blogMapper.findBlogByYear(year));
         }

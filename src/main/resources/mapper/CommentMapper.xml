@@ -14,5 +14,12 @@
         <result column="blog_id" property="blogId" />
         <result column="parent_comment_id" property="parentCommentId" />
     </resultMap>
-
+    
+    
+    
+    <select id="selectReplyList" resultType='com.zry.simpleBlog.dto.CommentDto'>
+        select * from t_comment where parent_comment_id=#{id} ORDER BY create_time ASC
+    </select>
+    
+    
 </mapper>

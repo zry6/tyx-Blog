@@ -2,6 +2,7 @@ package com.zry.simpleBlog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zry.simpleBlog.dto.ArchivesDto;
 import com.zry.simpleBlog.dto.BlogQuery;
 import com.zry.simpleBlog.dto.TypeDto;
 import com.zry.simpleBlog.entity.Blog;
@@ -39,5 +40,5 @@ public interface BlogMapper extends BaseMapper<Blog> {
 
     List<String> findGroupYear();
 
-    List<Blog> findBlogByYear(@Param("year") String year);
+    List<ArchivesDto> findBlogByYear(@Param("year") String year);
 }

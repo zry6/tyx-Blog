@@ -3,7 +3,7 @@ package com.zry.simpleBlog.comment.aop.annotations;
 import java.lang.annotation.*;
 
 /**
- * LoWeb
+ * LogWeb
  *
  * @author zry
  * @version V2.0
@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface LoWeb {
+public @interface LogWeb {
     /**
      * 模块
      */
