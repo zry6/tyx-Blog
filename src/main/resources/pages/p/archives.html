@@ -1,40 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head lang="en" th:replace="_fragments::head(~{::title})">
+<head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>归档</title>
+    <link rel="icon" href="/images/logo.ico"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-    <link rel="stylesheet" href="../static/css/me.css">
+    <link rel="stylesheet" href="/lib/animate/animate.min.css"/>
+    <link rel="stylesheet" href="/css/me.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
 </head>
 <body class="m-back-img2">
 <!--导航-->
-<nav th:replace="_fragments::menu(4)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav class="animated fadeInDown m-back-grass m-fixed-w">
     <div class="ui container">
         <div class="ui inverted secondary stackable  menu">  <!--stackable 可堆叠的 应用在移动端-->
-            <h2 class="ui teal header item">Blog</h2>
-            <a href="#" class="nav_item item m-mobile-hide"><i class="home icon"></i>首页</a>
-            <a href="#" class="nav_item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-            <a href="#" class="nav_item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-            <a href="#" class="active nav_item item m-mobile-hide"><i class="clone icon"></i>归档</a>
-            <a href="#" class="nav_item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
-            <div class="nav_item right item m-mobile-hide">
-                <div class="ui icon inverted transparent  input">
-                    <input type="text" placeholder="Search...">
-                    <i class="search link icon"></i>
-                </div>
+            <h2 class="ui white header item"><a href="/">猫喵喵~Blog</a></h2>
+            <a href="/" class="nav_item item m-mobile-hide"><i
+                        class="home icon"></i>首页</a>
+            <a href="/p/types.html" class="nav_item item m-mobile-hide"
+            ><i class="idea icon"></i>分类</a>
+            <a href="/p/tags.html" class="nav_item item m-mobile-hide">
+                <i class="tags icon"></i>标签</a>
+            <a href="/p/archives.html" class="nav_item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a href="/p/guestbook.html" class="nav_item item m-mobile-hide">
+                <i class="comments outline icon"></i>留言板</a>
+            <a href="/p/about.html" class="nav_item item m-mobile-hide"><i
+                        class="info icon"></i>关于我</a>
+            <div class=" m-mobile-hide m-search">
+                <i class="search line icon funIcon"></i>
+                <i class="close line icon funIcon no "></i>
+                <form content="m-mobile-show" action="#" th:action="@{/search}" name="search">
+                    <div class="m-form">
+                        <input type="text" name="query" placeholder="快来找你要的东东ヾ(≧▽≦*)o" required="required">
+                        <i onclick="document.forms['search'].submit()" class="search link icon s-icon"></i>
+                    </div>
+                </form>
             </div>
-
+            <div class="nav_search right item no">
+                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                    <div class="ui icon inverted transparent input m-margin-tb-tiny">
+                        <input id="query" type="text" name="query" placeholder="Search....">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-    <a href="#" id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
+    <span id="menu_toggle" class="ui black button m-mobile-show m-top-right ">
         <i class="sidebar icon"></i>
-    </a>
+    </span>
 </nav>
 
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 <!--中间内容-->
-<div id="pointTop" class="m-container-small m-padded-tb-4em m-padded-top-best">
+<div id="pointTop" style="min-height: 700px;" class="m-container-small m-padded-tb-4em m-padded-top-best">
     <div class="ui container">
         <!-- header-->
         <div class="ui top attached segment animated flipInX">
@@ -44,36 +64,26 @@
                     <h3 class="ui  header">归档</h3>
                 </div>
                 <div class="right aligned column ">
-                    共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}"> 14 </h2>篇博客
+                    共<h2 id="blogCount" class="ui orange header m-inline-block m-text-thin">999</h2>篇博客
                 </div>
             </div>
         </div>
-        <div th:each="item : ${archiveMap}">
-            <h2 class="ui center aligned header animated fadeInUp" th:text="${item.key}">2018</h2>
-            <div class="ui fluid vertical menu animated fadeInUpBig " >
-                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" class="item m-card-mod"  th:each="blog : ${item.value}">
-                <span>
-                    <i class="mini teal circle icon"></i> <span th:text="${blog.title}">关于可以练习的清单</span>
-                    <div class="ui teal basic left pointing label m-padded-tb-mini" th:text="${#dates.format(blog.updateTime,'MMMdd')}">9月03</div>
-                </span>
-                    <div class="ui orange basic
-                 label m-padded-tb-mini" th:text="${blog.flag}">原创
-                    </div>
-                </a>
-            </div>
+        <div id="archiveMap" style="height:800px;overflow:auto;">
+            <!-- js填充-->
         </div>
     </div>
 </div>
 
 <!--底部footer-->
-<footer th:replace="_fragments::footer" class="ui inverted vertical segment m-padded-tb-massive">
+<footer id="" class="ui inverted vertical segment m-padded-tb-massive m-padded-top">
     <!--    居中-->
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
             <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img src="../static/images/微信二维码1.png" class="ui rounded image" alt="" width="110px">
+                        <img src="/images/weixin.png" class="ui rounded image"
+                             alt="" width="110px">
                     </div>
                 </div>
             </div>
@@ -100,21 +110,88 @@
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright &copy; 2021 rights reserved Newbie Zry</p>
     </div>
 
+    <div class="ui center aligned container m-font-size">本站😉已运行✌[<span id="span_dt_dt"></span> ]
+    </div>
+    <!--    居中-->
+    <div class="ui center aligned container m-padded-tb-small">
+        <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright © 2021-2022 听宇轩 , All rights reserved.
+        </p>
+        <div>
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41142102000072"
+               style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
+                        src="http://www.beian.gov.cn/img/ico.ico" style="float:left;">
+                <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#ff1c04;">豫ICP备
+                    2021028184号</p></a>
+        </div>
+    </div>
+    <meting-js
+            server="netease"
+            type="playlist"
+            id="6859965088"
+            mini="true"
+            artist="rainymood"
+            fixed="true">
+    </meting-js>
 </footer>
 </body>
-<!--/*/<th:block th:replace="_fragments::script">/*/-->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<!--/*/</th:block>/*/-->
+<script src="/lib/layer/layer.js"></script>
+<!--<script src="/js/snowFall.js"></script>-->
+<script src="/js/showTime.js"></script>
+<!--comment.js-->
+<script type="text/javascript" src="/js/common.js"></script>
+<!-- require APlayer -->
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 <script type="text/javascript">
-
-    $("#menu_toggle").click(function () {
-        $(".nav_item").toggleClass('m-mobile-hide');
-        $(".nav_search").toggleClass('no');
+    $(function () {
+        browser();
+        init()
     });
+
+    function init() {
+        let url = "/archives";
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function (res) {
+                layer.closeAll();
+                if (res.code === 200) {
+                    let data = res.data;
+                    let context = "";
+                    let total = 0;
+                    $.each(data, function (key, item) {//每一行
+                        context += '<div><h2 class="ui center aligned header animated fadeInUp">'
+                            + key
+                            + '</h2><div class="ui fluid vertical menu animated fadeInUpBig "> ';
+                        $.each(item, function (index, val) {
+                            let data = new Date(Date.parse(val.updateTime.replace(/-/g, "/"))).format('MM月dd');
+                            total++;
+                            context += '<a href="#"  class="item m-card-mod"><span><i class="mini teal circle icon"></i> <span>'
+                                + val.title
+                                + '</span><div class="ui teal basic left pointing label m-padded-tb-mini">'
+                                + data
+                                + '</div></span><div class="ui orange basic label m-padded-tb-mini">'
+                                + val.flag
+                                + '</div></a>';
+                        });
+                        context += '</div></div>';
+                        $("#archiveMap").html(context);
+                    });
+
+                    $("#blogCount").text(total);
+                }
+            },
+            error: function (res) {
+                layer.closeAll();
+                layer.msg(res.code + "error，也许您的网络有问题");
+            }
+        });
+    };
 
 </script>
 

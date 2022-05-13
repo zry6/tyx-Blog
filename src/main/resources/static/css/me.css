@@ -66,7 +66,6 @@ a {
     box-shadow: 0 4px 16px rgba(48, 55, 66, 0.15) !important;
     transition: all .5s cubic-bezier(.215, .61, .355, 1) !important;
     border-radius: .5571429rem !important;
-
 }
 
 .m-card-mod {
@@ -205,7 +204,9 @@ a {
 .m-opacity {
     opacity: 0.8 !important;
 }
-
+.m-opacity-small {
+    opacity: 0.95 !important;
+}
 .m-opacity-tiny {
     opacity: 0.6 !important;
 }
@@ -304,8 +305,74 @@ a {
     .ui.sticky{
         display: none !important;
     }
+    .esa-toolbar {
+        position: fixed!important;
+        bottom: 25px!important;
+        right: 60px!important;
+        width: 55px!important;
+        height: 55px!important;
+        z-index: 1001!important;
+    }
 
 }
+
+.esa-toolbar {
+    position: fixed;
+    bottom: 80px;
+    right: 140px;
+    width: 60px;
+    height: 60px;
+    z-index: 1001;
+}
+
+/*目录按钮样式*/
+.esa-toolbar .contents {
+    position: absolute;
+    cursor: pointer;
+    bottom: 0;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    z-index: 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
+    background-color: #ffffff;
+    transition: all .3s ease;
+}
+.esa-toolbar :hover{
+    box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
+    background-color: #4da440;
+    transition: all .3s ease;
+}
+.fa :hover{
+    box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
+    background-color: #ffffff;
+    transition: all .3s ease;
+}
+.fa {
+    display: inline-block;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.markdown-toc-list a {
+    font-size: large;
+    font-weight: lighter ;
+    color: #252525;
+    text-decoration: none;
+}
+.markdown-toc-list a {
+    color: #252525;
+    text-decoration: none;
+}
+.markdown-toc-list a:hover {
+    color: #ba2636;
+    text-decoration: underline;
+}
+/*----------------------*/
 
 .m-toTop {
     position: relative;

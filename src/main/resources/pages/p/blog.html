@@ -15,61 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
     <style>
-        .esa-toolbar {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 55px;
-            height: 55px;
-            z-index: 1001;
-        }
 
-        .esa-toolbar .contents {
-            position: absolute;
-            cursor: pointer;
-            bottom: 0;
-            right: 0;
-            height: 45px;
-            width: 45px;
-            text-align: center;
-            line-height: 45px;
-            z-index: 0;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
-            background-color: #ffffff;
-            transition: all .3s ease;
-        }
-        .esa-toolbar :hover{
-            box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
-            background-color: #4da440;
-            transition: all .3s ease;
-        }
-        .fa :hover{
-            box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
-            background-color: #ffffff;
-            transition: all .3s ease;
-        }
-        .fa {
-            display: inline-block;
-            font-size: inherit;
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .markdown-toc-list a {
-            font-size: large;
-            font-weight: lighter ;
-            color: #252525;
-            text-decoration: none;
-        }
-        .markdown-toc-list a {
-            color: #252525;
-            text-decoration: none;
-        }
-        .markdown-toc-list a:hover {
-            color: #ba2636;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body class="m-back-img2">
@@ -114,7 +60,7 @@
 </nav>
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 <!--中间内容-->
-<div id="waypoint" class="line-numbers m-container-normal m-padded-tb-2em m-padded-top-7em  m-mobile-top-15px">
+<div id="waypoint" style="" class="line-numbers m-container m-padded-tb-2em m-padded-top-7em  m-mobile-top-15px m-opacity-small">
     <div class="ui container">
         <div class="ui top attached segment ">
             <div class="ui horizontal link list animated flipInX">
@@ -170,7 +116,7 @@
                     <i class="fa fa-list-ul">
                     </i>
                 </span></div>
-            <div id="editormd-view" class=" typo typo-selection m-padded-lr-responsive m-padded-tb-2em">
+            <div id="editormd-view" class="typo typo-selection m-padded-lr-responsive m-padded-tb-2em m-padded-lr-responsive">
             <textarea id="content" style="display:none;">
                     # MY BABY
                     ### 文章内容
@@ -407,12 +353,16 @@
     </meting-js>
 </footer>
 </body>
+<script type="text/javascript">
+    window.Prism = window.Prism || {};
+    window.Prism.manual = true;
+</script>
 <!-- jquery -->
 <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 <!-- semantic-ui-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 <!--editormd-->
-<script src="/lib/editormd/lib/marked.min.js"></script>
+
 <script src="/lib/editormd/lib/prettify.min.js"></script>
 <script src="/lib/editormd/lib/raphael.min.js"></script>
 <script src="/lib/editormd/lib/underscore.min.js"></script>
@@ -425,10 +375,8 @@
 <script type="text/javascript" src="/lib/editormd/editormd.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.3/jquery.scrollTo.min.js"></script>
+
 <script type="text/javascript" src="/lib/prism/prism.js"></script>
-<!--<script type="text/javascript" src="/lib/tocbot/tocbot.min.js"></script>-->
-<!--<script type="text/javascript" src="/lib/qrcode/qrcode.min.js"></script>-->
-<!--<script type="text/javascript" src="/lib/waypoint/jquery.waypoints.min.js"></script> -->
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript" src="/js/showTime.js"></script>
 <!-- require APlayer -->
@@ -436,6 +384,7 @@
 <!-- require MetingJS -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 <script type="text/javascript">
+
     //关于侧边栏目录的
     $(".contents-show").click(function (){
         $("#markdown-toc-list").toggleClass("no");
@@ -451,7 +400,8 @@
         show_date_time();
         getBlogByUrlId(Bid);
 
-    };
+    };                    //手动高亮代码
+
 
     function getBlogByUrlId(id) {
         $.ajax({
@@ -461,19 +411,7 @@
                 layer.closeAll();
                 if (result.code === 200) {
                     setBlog(result.data);
-                    //手动高亮代码
-                    Prism.plugins.NormalizeWhitespace.setDefaults({
-                        'remove-trailing': true,
-                        'remove-indent': true,
-                        'left-trim': true,
-                        'right-trim': true,
-                        /*'break-lines': 80,
-                        'indent': 2,
-                        'remove-initial-line-feed': false,
-                        'tabs-to-spaces': 4,
-                        'spaces-to-tabs': 4*/
-                    });
-                    Prism.highlightAll();
+                    Prism.highlightAll(false)
                 } else {
                     layer.msg(result.msg);
                 }
@@ -483,7 +421,6 @@
                 layer.log("error，也许您的网络有问题");
             }
         });
-
         function setBlog(obj) {
             console.info(obj);
             $("#blog-title").text(obj.title);
@@ -507,9 +444,6 @@
 
             setBlogUser(obj.userId);
 
-            // $('').val(obj.type.id);
-            // $('').text(obj.type.name);
-            // $('.type.text').toggleClass("default");
             let tagsText = '';
             $.each(obj.tags, function (index, val) {
                 tagsText += '<div class="ui basic teal left pointing label"> '
@@ -670,31 +604,6 @@
     });
 
 
-    // var waypoint = new Waypoint({
-    //     element: document.getElementById('waypoint'),
-    //     handler: function (direction) {
-    //         if (direction == 'down') {
-    //             $("#toolbar").show(400);
-    //         } else {
-    //             $("#toolbar").hide(500);
-    //         }
-    //         console.log('Scrolled to waypoint!' + direction)
-    //     }
-    // });
-
-
-    // var serurl = window.location.href;
-    // // var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
-    // var qrcode = new QRCode("wechat-qr", {
-    //     // text: "http://jindo.dev.naver.com/collie",
-    //     text: serurl,
-    //     width: 110,
-    //     height: 110,
-    //     colorDark: "#000000",
-    //     colorLight: "#ffffff",
-    //     correctLevel: QRCode.CorrectLevel.H
-    // });
-    // Using JQuery
 
 </script>
 

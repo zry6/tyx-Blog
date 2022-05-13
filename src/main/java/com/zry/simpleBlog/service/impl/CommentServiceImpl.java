@@ -1,7 +1,6 @@
 package com.zry.simpleBlog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zry.simpleBlog.comment.exception.BusinessException;
@@ -14,7 +13,6 @@ import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.mapper.BlogMapper;
 import com.zry.simpleBlog.mapper.CommentMapper;
 import com.zry.simpleBlog.service.ICommentService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +23,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.beans.BeanUtils.copyProperties;
+
 /**
- * <p>
- * 服务实现类
- * </p>
+ * 评论
  *
  * @author zry
  * @since 2022-04-09
@@ -44,14 +42,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Value("${comment.default.avatar}")
     String avatar;
 
-    @Override
-    public List<CommentDto> listCommentByBlogId(Integer page, Integer pageSize, Long blogId) {
-        //找出所有的一级评论
-        IPage<Comment> commentsPage = commentMapper.selectPage(new Page<>(page, pageSize), new QueryWrapper<Comment>().eq("blog_id", blogId).isNull("parent_comment_id").orderByAsc("create_time"));
-        IPage<CommentDto> commentDtoPage = commentsPage.convert(this::apply);
-        combineChildren(commentDtoPage);
-        return null;
-    }
+
+    /**
+     * 功能描述: 存放迭代找出的所有子代的临时列表  ThreadLocal规避 全局变量的并发问题
+     *
+     * @create 2022/5/12
+     */
+    private static final ThreadLocal<List<CommentDto>> COMMENT_TEMP_CONTENT = new ThreadLocal<>();
+
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -74,7 +72,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
         if (comment.getParentComment() != null && !StringUtils.isEmpty(comment.getParentComment().getId())) {
             Comment comment1 = commentMapper.selectById(comment.getParentComment().getId());
-            if (comment1==null){
+            if (comment1 == null) {
                 throw new BusinessException(RespBeanEnum.COMMENT_NOT_EXISTED);
             }
         }
@@ -85,7 +83,34 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         return comment;
     }
 
-    private void combineChildren(IPage<CommentDto> comments) {
+    @Override
+    public Page<CommentDto> pageCommentByBlogId(Integer page, Integer pageSize, Long blogId) {
+        //找出所有的一级评论
+        Page<Comment> commentsPage = commentMapper.selectPage(new Page<>(page, pageSize), new QueryWrapper<Comment>().eq("blog_id", blogId).isNull("parent_comment_id").orderByAsc("create_time"));
+        Page<CommentDto> commentDtoPage = (Page<CommentDto>) commentsPage.convert(this::apply);
+
+        COMMENT_TEMP_CONTENT.set(new ArrayList<>());
+        combineChildren(commentDtoPage);
+        COMMENT_TEMP_CONTENT.remove();
+
+        return commentDtoPage;
+    }
+
+
+    /**
+     * 类型转化
+     *
+     * @param u
+     * @return
+     */
+    private CommentDto apply(Comment u) {
+        log.debug(u.toString());
+        CommentDto v = new CommentDto();
+        copyProperties(u, v);
+        return v;
+    }
+
+    private void combineChildren(Page<CommentDto> comments) {
         List<CommentDto> records = comments.getRecords();
 
         for (CommentDto comment : records) {
@@ -96,23 +121,17 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
             List<CommentDto> replies = comment.getReplyComments();
             for (CommentDto reply : replies) {
-                //循环迭代，找出子代，存放在tempReplays中
+                //循环迭代，找出子代的所有子代，存放在tempReplays中
                 recursively(reply);
             }
             log.debug(replies.toString());
             //修改顶级节点的reply集合为迭代处理后的列表
-            comment.setReplyComments(tempReplies);
-            //清除临时存放区
-            tempReplies.clear();
+            comment.setReplyComments(COMMENT_TEMP_CONTENT.get());
+//            //清除临时存放区
+            COMMENT_TEMP_CONTENT.set(new ArrayList<>());
         }
     }
 
-    /**
-     * 功能描述:存放迭代找出的所有子代的临时列表
-     *
-     * @create 2022/5/12
-     */
-    private final List<CommentDto> tempReplies = new ArrayList<>();
 
     /**
      * 功能描述: 以为二级评论还会有回复者所有我们要，递归的查找所有评论子级的回复者
@@ -120,27 +139,24 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
      * @create 2022/5/12
      */
     private void recursively(CommentDto comment) {
-//        comment.setParentComment(commentMapper.selectById(comment.));
-//        comment.setReplyComments( commentMapper.getReplyComments(comment.getId()));
-//        //顶节点添加到临时存放集合
-//        tempReplies.add(comment);
-//        if (comment.getReplyComments().size() > 0) {
-//            List<CommentDto> rplies = comment.getReplyComments();
-//
-//            for (CommentDto reply : rplies) {
-//                reply.setParentComment(commentMapper.findParentById(reply.getParentComment().getId()));
-//                reply.setReplyComments(commentMapper.getReplyComments(reply.getId()));
-//                tempReplies.add(reply);
-//                if (reply.getReplyComments().size() > 0) {
-//                    recursively(reply);
-//                }
-//            }
-//        }
+        //查出父级注入父级
+
+        comment.setParentComment(apply(commentMapper.selectById(comment.getParentComment().getId())));
+        comment.setReplyComments(commentMapper.selectReplyList(comment.getId()));
+        //顶节点添加到临时存放集合
+        COMMENT_TEMP_CONTENT.get().add(comment);
+        if (comment.getReplyComments().size() > 0) {
+            List<CommentDto> replies = comment.getReplyComments();
+            for (CommentDto reply : replies) {
+                // 查出父级 注入父级
+                reply.setParentComment(apply(commentMapper.selectById(comment.getParentComment().getId())));
+                reply.setReplyComments(commentMapper.selectReplyList(reply.getId()));
+                COMMENT_TEMP_CONTENT.get().add(reply);
+                if (reply.getReplyComments().size() > 0) {
+                    recursively(reply);
+                }
+            }
+        }
     }
 
-    private CommentDto apply(Comment u) {
-        CommentDto v = new CommentDto();
-        BeanUtils.copyProperties(u, v);
-        return v;
-    }
 }

@@ -1,6 +1,7 @@
 package com.zry.simpleBlog.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
 import com.zry.simpleBlog.comment.aop.annotations.Idempotent;
 import com.zry.simpleBlog.comment.aop.annotations.IdempotentStrategy;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * <p>
@@ -31,8 +31,8 @@ public class CommentController {
 
 
     @GetMapping("/comments/{blogId}")
-    public RespBean comments(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize, @PathVariable Long blogId) {
-        List<CommentDto> comments = commentService.listCommentByBlogId(page, pageSize, blogId);
+    public RespBean comments(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "20") Integer pageSize, @PathVariable Long blogId) {
+        Page<CommentDto> comments = commentService.pageCommentByBlogId(page, pageSize, blogId);
         return RespBean.success(comments);
     }
 

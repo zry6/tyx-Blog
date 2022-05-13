@@ -44,7 +44,11 @@ public class CommentDto implements Serializable, BaseDto, IdempotentInterface {
     @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
+
+    @IdempotentField
     private Long blogId;
+
+
     @ApiModelProperty(hidden = true)
     private List<CommentDto> replyComments = new ArrayList<>();
 
