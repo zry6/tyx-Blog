@@ -305,6 +305,7 @@ a {
     .ui.sticky{
         display: none !important;
     }
+
     .esa-toolbar {
         position: fixed!important;
         bottom: 25px!important;
@@ -315,7 +316,6 @@ a {
     }
 
 }
-
 .esa-toolbar {
     position: fixed;
     bottom: 80px;
@@ -334,7 +334,7 @@ a {
     height: 50px;
     width: 50px;
     text-align: center;
-    line-height: 50px;
+    line-height: 50px !important;
     z-index: 0;
     border-radius: 4px;
     box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
@@ -358,6 +358,9 @@ a {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.markdown-toc-list {
+    line-height: 2.0 !important;
+}
 .markdown-toc-list a {
     font-size: large;
     font-weight: lighter ;
@@ -365,12 +368,12 @@ a {
     text-decoration: none;
 }
 .markdown-toc-list a {
-    color: #252525;
-    text-decoration: none;
+    color: #252525 !important;
+    text-decoration: none !important;
 }
 .markdown-toc-list a:hover {
-    color: #ba2636;
-    text-decoration: underline;
+    color: #ba2636 !important;
+    text-decoration: underline !important;
 }
 /*----------------------*/
 

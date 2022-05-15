@@ -18,8 +18,8 @@ spring:
     open-in-view: true
   redis:
     port: 6379
-    host: X.XXX.229.XXX
-    password: XXX
+    host: 1.117.229.251
+    password: 123
     database: 0
     jedis:
       pool:

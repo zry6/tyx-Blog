@@ -18,4 +18,6 @@ public interface ICommentService extends IService<Comment> {
     Page<CommentDto> pageCommentByBlogId(Integer current, Integer pageSize, Long blogId);
 
     CommentDto saveComment(CommentDto comment);
+
+    boolean removeComment(Long id);
 }

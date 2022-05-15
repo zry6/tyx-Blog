@@ -55,7 +55,7 @@ public class AdminUserController {
      *
      * @author zry
      */
-    @ApiOperation(value = "获取已登录用户信息")
+    @ApiOperation(value = "目前登录用户信息")
     @GetMapping("userInfoByTicket")
     @CheckLogin
     @LogWeb(title = "用户操作", action = "ThreadLocal或redis中获取用户信息")
@@ -86,12 +86,12 @@ public class AdminUserController {
 
 
     /**
-     * 功能描述: 推出登录
+     * 功能描述: 退出登录
      *
      * @author zry
      */
-    @ApiOperation(value = "退出登录", notes = "将cookie中的key-value可redis中的用户信息删除")
-    @GetMapping("admin/logout")
+    @ApiOperation(value = "退出登录", notes = "需要cookie中的key-value,将redis中的用户信息删除")
+    @PostMapping("logout")
     @CheckLogin
     @LogWeb(title = "用户操作", action = "退出登录")
     public RespBean updateUserInfo(HttpServletRequest request,

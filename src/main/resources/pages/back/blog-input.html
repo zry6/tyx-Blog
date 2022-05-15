@@ -35,7 +35,7 @@
                     <i class="dropdown icon"></i>
                     <div class="menu element-ui dialog" style="z-index: 999 !important;">
                         <a href="/back/user.html" class="item">个人信息</a>
-                        <a href="/logout" class="item">注销</a>
+                        <a onclick="logout()" class="item">注销</a>
                     </div>
                 </div>
             </div>
@@ -315,7 +315,6 @@
                 layer.closeAll();
                 if (result.code === 200) {
                     setBlog(result.data);
-
 
                 } else {
                     layer.msg(result.msg);

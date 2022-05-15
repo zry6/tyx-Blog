@@ -39,16 +39,19 @@
             background-color: #ffffff;
             transition: all .3s ease;
         }
-        .esa-toolbar :hover{
+
+        .esa-toolbar :hover {
             box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
             background-color: #4da440;
             transition: all .3s ease;
         }
-        .fa :hover{
+
+        .fa :hover {
             box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
             background-color: #ffffff;
             transition: all .3s ease;
         }
+
         .fa {
             display: inline-block;
             font-size: inherit;
@@ -56,16 +59,19 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+
         .markdown-toc-list a {
             font-size: large;
-            font-weight: lighter ;
+            font-weight: lighter;
             color: #252525;
             text-decoration: none;
         }
+
         .markdown-toc-list a {
             color: #252525;
             text-decoration: none;
         }
+
         .markdown-toc-list a:hover {
             color: #ba2636;
             text-decoration: underline;
@@ -117,189 +123,101 @@
 
 <div class="m-padded-top-best" style="opacity: 0.9;">
     <div class=" ui container">
-            <!--中间内容-->
+        <!--中间内容-->
         <div id="waypoint" class="ui eleven wide column m-container animated fadeIn stickyed">
-                <div class="ui container">
-                    <div class="ui  padded segment">
-                        <!--   内容-->
-                        <div class="ui  aligned basic segment">
-                        </div>
-                        <h2 class="ui center aligned header" th:text="${blog.title}">留言板</h2>
-                        <div id="content" th:utext="${blog.content}"
-                             class="js-toc-content typo typo-selection m-padded-lr-responsive m-padded-tb-2em">
-                            <h2 id="tagline" class="serif">一致化浏览器排版效果，构建最适合中文阅读的网页排版</h2>
-                        </div>
-                        <!--赞赏-->
-                        <!-- segment 加个basic就把边线去掉了  circular大圆角-->
-                        <div class="ui center aligned basic segment" th:if="${blog.appreciation}">
-                            <button id="payButton" class="ui orange basic circular button">赞赏</button>
-                        </div>
-                        <div class="ui payQR flowing popup transition hidden">
-                            <div class="ui orange basic label">
-                                <div class="ui medium images">
-                                    <div class="ui images ">
-                                        <div class="image ">
-                                            <img class="ui rounded bordered image" src="../static/images/微信二维码1.png"
-                                                 th:src="@{/images/pay/img_1.png}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="ui container">
+                <div class="ui  padded segment">
+                    <!--   内容-->
+                    <div class="ui  aligned basic segment">
                     </div>
-                    <div class="ui bottom  segment m-font-size" th:if="${blog.commentable}">
-                        <div id="comment-form" class="ui form">
-                            <input type="hidden" name="blog.id" th:value="${blog.id}">
-                            <input type="hidden" name="parentComment.id" value="-1">
-                            <input type="hidden" name="parentComment.email" value="-1">
-                            <input type="hidden" name="avatar" value="-1"
-                                   th:value="${session.User}!=null ? ${session.User.avatar}">
-                            <div class="field">
-                                <textarea name="content" placeholder="快留下你的足迹..."></textarea>
-                            </div>
-                            <div class="ui fields ">
-                                <div class="field m-mobile-wide m-margin-bottom-small">
-                                    <div class="ui left icon input">
-                                        <img id="avatar" class="ui mini circular image" style="margin: 5px 0px;"
-                                             src="/images/avatar/2.png">
-                                        <div class="ui left icon input" th:if="!${session.User}">
-                                            <i class="qq icon"></i>
-                                            <input id="QQ" type="text" name="qq"
-                                                   placeholder="输入qq号自动获取昵称头像">
-                                        </div>
+                    <h2 class="ui center aligned header">留言板</h2>
+                    <div id="editormd-view"
+                         class="typo typo-selection m-padded-lr-responsive m-padded-tb-2em ">
+            <textarea id="content" style="display:none;">
+                    # MY BABY
+                    ### 文章内容
+                </textarea>
+                    </div>
+
+                    <!--赞赏-->
+                    <!-- segment 加个basic就把边线去掉了  circular大圆角-->
+                    <div class="ui center aligned basic segment" th:if="${blog.appreciation}">
+                        <button id="payButton" class="ui orange basic circular button">赞赏</button>
+                    </div>
+                    <div class="ui payQR flowing popup transition hidden">
+                        <div class="ui orange basic label">
+                            <div class="ui medium images">
+                                <div class="ui images ">
+                                    <div class="image ">
+                                        <img class="ui rounded bordered image" src="/images/pay/img_1.png">
                                     </div>
                                 </div>
-                                <div class="field m-mobile-wide m-margin-bottom-small">
-                                    <div class="ui left icon input">
-                                        <i class="user icon"></i>
-                                        <input type="text" name="nickname"
-                                               th:value="${session.User}!=null ? ${session.User.nickname}"
-                                               placeholder="昵称(必填)">
-                                    </div>
-                                </div>
-                                <div class="field m-mobile-wide m-margin-bottom-small">
-                                    <div class="ui left icon input">
-                                        <i class="mail icon"></i>
-                                        <input type="text" name="email" placeholder="邮箱(将保密)"
-                                               th:value="${session.User}!=null ? ${session.User.email}">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="field m-mobile-wide m-margin-bottom-small">
-                                <button id="commentpost-btn" class="ui blue button m-mobile-wide"><i
-                                        class="edit icon"></i>发布
-                                </button>
-                            </div>
-
-                            <div class="ui error message">
-                                <div class="header">输入错误</div>
-                                <p>你只能用指定的邮箱注册</p>
                             </div>
                         </div>
-                        <!--           留言板-->
-                        <div id="comment-container" class="ui teal segment">
-                            <div th:fragment="commentList">
-                                <div class="ui threaded comments" style="max-width: 100%;">
-                                    <h3 class="ui dividing header">留言板</h3>
-                                    <div th:if="${comments!=null}">
-
-                                        <div class="comment" th:each="comment : ${comments.list}">
-                                            <a class="avatar">
-                                                <img src="https://unsplash.it/100/100?image=1005"
-                                                     th:src="@{${comment.avatar}}"
-                                                     alt="">
-                                            </a>
-                                            <div class="content">
-                                                <a class="author m-font-color m-font-size">
-                                                    <span th:text="${comment.nickname}">Matt</span>
-                                                    <div class="ui mini basic teal left pointing label m-padded-mini"
-                                                         th:if="${comment.adminComment}">博主
-                                                    </div>
-                                                </a>
-                                                <div class="metadata">
-                                    <span class="date"
-                                          th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
-                                                </div>
-                                                <div class="text m-padded-tb-mini " th:text="${comment.content}">
-                                                    <p>How artistic!</p>
-                                                </div>
-                                                <div class="actions">
-                                                    <a class="reply" data-commentid="1" data-commentnickname="Matt"
-                                                       th:attr="data-commentid=${comment.id},data-commentemail=${comment.email},data-commentnickname=${comment.nickname}"
-                                                       onclick="reply(this)">回复</a>
-                                                </div>
-                                            </div>
-                                            <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
-                                                <div class="comment" th:each="reply : ${comment.replyComments}">
-                                                    <a class="avatar">
-                                                        <img src="https://unsplash.it/100/100?image=1005"
-                                                             th:src="@{${reply.avatar}}"
-                                                             alt="">
-                                                    </a>
-                                                    <div class="content">
-                                                        <a class="author m-font-color m-font-size">
-                                                            <span th:text="${reply.nickname}">小红</span>&nbsp;
-                                                            <div class="ui mini basic teal left pointing label m-padded-mini"
-                                                                 th:if="${reply.adminComment}">博主
-                                                            </div>
-                                                            &nbsp;<span th:text="|@ ${reply.parentComment.nickname}|"
-                                                                        class="m-teal">@ 小白</span>
-                                                        </a>
-                                                        <div class="metadata">
-                                            <span class="date"
-                                                  th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
-                                                        </div>
-                                                        <div class="text m-padded-tb-mini "
-                                                             th:text="${reply.content}">
-                                                            <p>How artistic!</p>
-                                                        </div>
-                                                        <div class="actions">
-                                                            <a class="reply" data-commentid="1"
-                                                               data-commentnickname="Matt"
-                                                               th:attr="data-commentid=${reply.id},data-commentemail=${reply.email},data-commentnickname=${reply.nickname}"
-                                                               onclick="reply(this)">回复</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- pageInfo-->
-                                        <div class="ui center aligned basic segment">
-                                            <div class="ui pagination menu"
-                                                 th:if="${comments.total}>1">
-                                                <div class="item">
-                                                    <a th:attr="data-pagenum=${comments.pageNum-1}"
-                                                       onclick="commentPage(this)" id="lastpage" class="ui blue  button"
-                                                       th:unless="${comments.isIsFirstPage}">上一页</a>
-                                                </div>
-                                                <div class="item m-text">
-                                                    <div> 当前页 </div>
-                                                    <span th:text="${comments.pageNum}" style="color: red" >1</span>
-                                                </div>
-                                                <div class="item">
-                                                    <div> 共有 </div>
-                                                    <span th:text="${comments.pages}" style="color: red">3</span>
-                                                    <div> 页</div>
-                                                </div>
-                                                <div class="right aligned item">
-                                                    <a th:attr="data-pagenum=${comments.pageNum+1}"
-                                                       onclick="commentPage(this)" id="nextpage" class="ui blue  button"
-                                                       th:unless="${comments.isLastPage}" >下一页</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
                     </div>
                 </div>
+                <div class="ui bottom  segment m-font-size">
+                    <!--            留言区-->
+                    <div id="comment-form" class="ui form">
+                        <input type="hidden" name="blog.id">
+                        <input type="hidden" name="parentComment.id" value="">
+                        <input type="hidden" name="parentComment.email" value="">
+                        <input type="hidden" name="login" value="">
+                        <div class="field">
+                    <textarea name="content"
+                              placeholder="评论千万条，友善第一条"></textarea>
+                        </div>
+                        <div class="fields">
+                            <div class="field m-mobile-wide m-margin-bottom-small">
+                                <div class="ui left icon input">
+                                    <img id="avatar" src="/images/avatar/2.png" class="ui mini circular image"
+                                         style="margin: 5px 0px;">
+                                </div>
+                            </div>
+                            <div id="div-QQ" class="field m-mobile-wide m-margin-bottom-small">
+                                <div class="ui left icon input">
+                                    <i class="qq icon"></i>
+                                    <input id="QQ" type="text" name="qq"
+                                           placeholder="输入qq号自动获取昵称头像">
+                                </div>
+                            </div>
+                            <div class="field m-mobile-wide m-margin-bottom-small">
+                                <div class="ui left icon input">
+                                    <i class="user icon"></i>
+                                    <input type="text" name="nickname"
+                                           placeholder="昵称(必填)">
+                                </div>
+                            </div>
+                            <div class="field m-mobile-wide m-margin-bottom-small">
+                                <div class="ui left icon input">
+                                    <i class="mail icon"></i>
+                                    <input type="text" name="email" placeholder="邮箱(将保密)">
+                                </div>
+                            </div>
+                            <div class="field m-mobile-wide m-margin-bottom-small">
+                                <button id="commentpost-btn" class="ui blue button m-mobile-wide"><i
+                                            class="edit icon"></i>发布
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="ui error message">
+                            <div class="header">输入错误</div>
+                            <p>你只能用指定的邮箱注册</p>
+                        </div>
+
+                    </div>
+                    <!--            留言区-->
+                    <div id="comment-container" class="ui teal segment">
+                        <div>
+                            <div class="ui threaded comments" style="max-width: 100%;">
+                                <h3 id="comment-before" class="ui dividing header">评论</h3>
+                                <!--            留言内容-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -333,8 +251,8 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header">最新博客</h4>
-                <div class="ui inverted link list m-text-thin m-text-spaced">
+                <h4 class="ui inverted header">推荐博客</h4>
+                <div id="recommends" class="ui inverted link list m-text-thin m-text-spaced">
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
@@ -382,12 +300,16 @@
     </meting-js>
 </footer>
 </body>
+<script type="text/javascript">
+    window.Prism = window.Prism || {};
+    window.Prism.manual = true;
+</script>
 <!-- jquery -->
 <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 <!-- semantic-ui-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 <!--editormd-->
-<script src="/lib/editormd/lib/marked.min.js"></script>
+
 <script src="/lib/editormd/lib/prettify.min.js"></script>
 <script src="/lib/editormd/lib/raphael.min.js"></script>
 <script src="/lib/editormd/lib/underscore.min.js"></script>
@@ -400,100 +322,26 @@
 <script type="text/javascript" src="/lib/editormd/editormd.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.3/jquery.scrollTo.min.js"></script>
+
 <script type="text/javascript" src="/lib/prism/prism.js"></script>
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript" src="/js/showTime.js"></script>
+<script type="text/javascript" src="/js/comment.js"></script>
 <!-- require APlayer -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
 <!-- require MetingJS -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 <script type="text/javascript">
 
+    //关于侧边栏目录的
+    $(".contents-show").click(function () {
+        $("#markdown-toc-list").toggleClass("no");
+        $("#markdown-toc-list").toggleClass("animated fadeIn");
+    });
+
     $(function () {
-        browser();
         init();
     });
-    function init(){
-            $.ajax({
-                url: "/blogs/" + id,
-                type: "GET",
-                success: function (result) {
-                    layer.closeAll();
-                    if (result.code === 200) {
-                        setBlog(result.data);
-                        //手动高亮代码
-                        Prism.plugins.NormalizeWhitespace.setDefaults({
-                            'remove-trailing': true,
-                            'remove-indent': true,
-                            'left-trim': true,
-                            'right-trim': true,
-                            /*'break-lines': 80,
-                            'indent': 2,
-                            'remove-initial-line-feed': false,
-                            'tabs-to-spaces': 4,
-                            'spaces-to-tabs': 4*/
-                        });
-                        Prism.highlightAll();
-                    } else {
-                        layer.msg(result.msg);
-                    }
-                },
-                error: function (obj) {
-                    layer.closeAll();
-                    layer.log("error，也许您的网络有问题");
-                }
-            });
-
-            function setBlog(obj) {
-                console.info(obj);
-                $("#blog-title").text(obj.title);
-                $("#content").text(obj.content);
-                $("[name='blog.id']").val(obj.id);
-
-                editormd.markdownToHTML("editormd-view", {
-                    htmlDecode: "style,script,iframe",
-                    tocm: true,
-                    tocContainer: "#custom-toc-container",
-                    emoji: true,
-                    taskList: true,
-                    // codeFold : true,
-                    previewCodeHighlight: false,// 关闭预览 HTML 的代码块高亮，默认开启
-                    tex: true, //默认不解析
-                    flowChart: true, //默认不解析
-                    sequenceDiagram: true //默认不解析
-                });
-
-                $("#blog-updateTime").text(obj.updateTime);
-
-                // $('').val(obj.type.id);
-                // $('').text(obj.type.name);
-                // $('.type.text').toggleClass("default");
-                let tagsText = '';
-                $.each(obj.tags, function (index, val) {
-                    tagsText += '<div class="ui basic teal left pointing label"> '
-                        + val.name
-                        + '</div>';
-                });
-                $('#tags').html(tagsText);
-                $('#blog-firstPicture').attr("src", obj.firstPicture);
-                // $('').val(obj.description);
-                // $('[name=]').val(obj.published);
-
-                $('#blog-flag').text(obj.flag);
-                // $(".flag.text").text(obj.flag);
-                if (!obj.shareStatement) {
-                    $("#blogInfo-shareText").addClass('no');
-                }
-                $("#blogInfo-updateTime").text(obj.createTime);
-                $("#blogInfo-createTime").text(obj.updateTime);
-            };
-
-    }
-    $("#menu_toggle").click(function () {
-        $(".nav_item").toggleClass('m-mobile-hide');
-        $(".nav_search").toggleClass('no');
-    });
-
     $("#payButton").popup({
         popup: $(".payQR.popup"),
         on: 'click',
@@ -507,77 +355,200 @@
         $(window).scrollTo(document.getElementById('comment-form'));
     });
 
+    function init() {
+        Bid=1;
+        show_date_time();
+        $("[name='blog.id']").val(Bid);
+        getBlogByUrlId(Bid);
+    };
 
-    // var waypoint = new Waypoint({
-    //     element: document.getElementById('waypoint'),
-    //     handler: function (direction) {
-    //         if (direction == 'down') {
-    //             $("#toolbar").show(400);
-    //         } else {
-    //             $("#toolbar").hide(500);
-    //         }
-    //         console.log('Scrolled to waypoint!' + direction)
-    //     }
-    // });
+    function getBlogByUrlId(id) {
+        $.ajax({
+            url: "/blogs/" + id,
+            type: "GET",
+            success: function (result) {
+                layer.closeAll();
+                if (result.code === 200) {
+                    setBlog(result.data);
+                    Prism.highlightAll(false)
+                    if(result.data.commentable){
+                        getComment();
+                    }else {
+                        $("#comment-form").remove();
+                        $("#comment-container").remove();
+                    }
+                } else {
+                    layer.msg(result.msg);
+                }
 
-    $(function () {
-        $("#comment-container").load(/*[[@{/contacts/{id}(id=${blog.id})}]]*/"contacts/");
-    });
+            },
+            error: function (obj) {
+                layer.closeAll();
+                layer.log("error，也许您的网络有问题");
+            }
+        });
 
-    var serurl = /*[[#{blog.serurl}]]*/"http://localhost:80";
+        function setBlog(obj) {
+            $("#blog-title").text(obj.title);
+            $("#content").text(obj.content);
+            $("[name='blog.id']").val(obj.id);
 
-    function commentPage(obj) {
-        var pageNum = $(obj).data("pagenum");
-        blogId = /*[[${blog.id}]]*/"";
-        var url = serurl + '/contacts/' + blogId + '?pageNum=' + pageNum;
-        $("#comment-container").load(url);
-    }
+            editormd.markdownToHTML("editormd-view", {
+                htmlDecode: "style,script,iframe",
+                tocm: true,
+                tocContainer: "#custom-toc-container",
+                emoji: true,
+                taskList: true,
+                // codeFold : true,
+                previewCodeHighlight: false,// 关闭预览 HTML 的代码块高亮，默认开启
+                tex: true, //默认不解析
+                flowChart: true, //默认不解析
+                sequenceDiagram: true //默认不解析
+            });
 
-    $('#commentpost-btn').click(function () {
-        var boo = $('.ui.form').form('validate form');
-        if (boo) {
-            postData();
-            console.log('校验成功');
-        } else {
-            console.log('校验失败');
+            $("#blog-updateTime").text(obj.updateTime);
+
+
+            let tagsText = '';
+            $.each(obj.tags, function (index, val) {
+                tagsText += '<div class="ui basic teal left pointing label"> '
+                    + val.name
+                    + '</div>';
+            });
+            $('#tags').html(tagsText);
+            $('#blog-firstPicture').attr("src", obj.firstPicture);
+            // $('').val(obj.description);
+            // $('[name=]').val(obj.published);
+
+            $('#blog-flag').text(obj.flag);
+            // $(".flag.text").text(obj.flag);
+            if (!obj.shareStatement) {
+                $("#blogInfo-shareText").addClass('no');
+            }
+            $("#blogInfo-updateTime").text(obj.createTime);
+            $("#blogInfo-createTime").text(obj.updateTime);
+        };
+
+
+    };
+
+    function reply(parentCommentId, parentCommentEmail, parentCommentNickname) {
+
+        $('#reply-form').remove();
+        let replyFormHtml = "";
+        replyFormHtml +=
+            '<div id="reply-form" class="ui form">'
+            + '<input type="hidden" name="reply.parentId" value="'
+            + parentCommentId
+            + '">'
+            + '<input type="hidden" name="reply.parentEmail" value="'
+            + parentCommentEmail
+            + '">'
+            + '<input type="hidden" name="reply.parentNickname" value="'
+            + parentCommentNickname
+            + '">'
+            + '<div class="field"> <textarea name="reply.content" placeholder="评论千万条，友善第一条"></textarea></div>'
+            + '<div class="fields"><div class="ui left icon input"><img id="reply-avatar" src="/images/avatar/2.png" class="ui mini circular image" style="margin: 5px 0px;">'
+            + '<div class="field m-mobile-wide m-margin-bottom-small"></div></div>'
+            + '<div id="reply-div-QQ" class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"> <i class="qq icon"></i><input id="reply-QQ" onblur="getQQ(this)" type="text" name="qq" placeholder="输入qq号自动获取昵称头像"></div></div>'
+            + ' <div class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"><i class="user icon"></i><input type="text" name="reply.nickname" placeholder="昵称(必填)"></div></div>'
+            + ''
+            + '<div class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"><i class="mail icon"></i><input type="text" name="reply.email" placeholder="邮箱(将保密)"></div></div>'
+            + '<div class="field m-mobile-wide m-margin-bottom-small"><button onclick="replyPost()" class="ui blue button m-mobile-wide"><i class="edit icon"></i>发布</button></div>'
+            + '</div>';
+
+        $('#comment-' + parentCommentId).after(replyFormHtml);
+
+
+        if ($("[name='login']").val()) {
+            $("#reply-div-QQ").remove();
+            $("#reply-avatar").attr("src", $("#avatar").attr('src'));
+            $("[name='reply.nickname']").val($("[name='nickname']").val());
+            $("[name='reply.email']").val($("[name='email']").val());
         }
 
-    });
+    };
 
-    function postData() {
-        $("#comment-container").load(/*[[@{/contacts}]]*/"", {
-            "parentComment.id": $("[name='parentComment.id']").val(),
-            "parentComment.email": $("[name='parentComment.email']").val(),
-            "blog.id": $("[name='blog.id']").val(),
-            "nickname": $("[name='nickname']").val(),
-            "email": $("[name='email']").val(),
-            "content": $("[name='content']").val(),
-            "avatar": $("[name='avatar']").val(),
-        }, function (responseTxt, statusTxt, xhr) {
-            $(window).scrollTo($('#comment-container'), 500);
-            clearContent();
+    function replyPost() {
+        //绑定事件
+        $('#reply-form').form({
+            fields: {
+                replyContent: {
+                    identifier: 'reply.content',
+                    rules: [{
+                        type: "empty",
+                        prompt: "提示：请输入评论内容"
+                    }]
+                },
+                replyNickname: {
+                    identifier: 'reply.nickname',
+                    rules: [{
+                        type: "empty",
+                        prompt: "提示：请输入你的昵称"
+                    }]
+                },
+                replyEmail: {
+                    identifier: 'reply.email',
+                    rules: [{
+                        type: "email",
+                        prompt: "请填写正确的邮箱地址"
+                    }]
+                }
+            }
+
         });
-    }
+        var boo = $('#reply-form').form('validate form');
+        if (boo) {
+            let parentComment = {
+                'id': $("[name='reply.parentId']").val(),
+                'email': $("[name='reply.parentNickname']").val()
+            };
+            let reply = {};
+            reply.blogId = $("[name='blog.id']").val();
+            reply.nickname = $("[name='reply.nickname']").val();
+            reply.email = $("[name='reply.email']").val();
+            reply.content = $("[name='reply.content']").val();
+            reply.avatar = $("#reply-avatar").attr("src");
+            reply.parentComment = parentComment;
+
+            $.ajax({
+                url: "/comments",
+                type: "POST",
+                data: JSON.stringify(
+                    reply
+                ),
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                async: false,
+                success: function (data) {
+                    layer.closeAll();
+                    if (data.code === 200) {
+                        //刷新评论
+                        console.info("刷新评论");
+                        $(".comment").remove();
+                        getComment();
+                    }
+                },
+                error: function () {
+                    layer.msg("出现意料之外的错误，请检查网络");
+                    layer.closeAll();
+                }
+            });
+        } else {
+            layer.msg("请填入合法的参数");
+        }
+    };
+
 
     function clearContent() {
         $("[name='content']").val('');
-        $("[name='parentComment.id']").val(-1);
+        $("[name='parentComment.id']").val('');
         $("[name='parentComment.email']").val('');
         $("[name='content']").attr("placeholder", "欢迎你的评论...");
-    }
+    };
 
-    function reply(obj) {
-        var commentId = $(obj).data("commentid");
-        var commentEmail = $(obj).data("commentemail");
-        var commentNickname = $(obj).data("commentnickname");
-        $("[name='content']").attr("placeholder", "@" + commentNickname).focus();
-        $("[name='parentComment.id']").val(commentId);
-        $("[name='parentComment.email']").val(commentEmail);
-        $(window).scrollTo($('#comment-form'), 500);
-    }
-
-    //评论表单验证
-    $('.ui.form').form({
+    //评论表单验证reply-form
+    $('div[id$="form"]').form({
         fields: {
             title: {
                 identifier: 'content',
@@ -587,41 +558,40 @@
                 }]
 
             },
-            content: {
+
+            nickname: {
                 identifier: 'nickname',
                 rules: [{
                     type: "empty",
                     prompt: "提示：请输入你的昵称"
                 }]
             },
-            typeId: {
+
+            email: {
                 identifier: 'email',
                 rules: [{
                     type: "email",
                     prompt: "请填写正确的邮箱地址"
                 }]
             }
+
         }
     });
-
 
     //#QQ失去焦点  取 #QQ值  请求返回josn ->  name=avatar  #nickname
     // 失去焦点
     $('#QQ').blur(function () {
-        var QQ = $("#QQ").val();
+        let QQ = $("#QQ").val();
         $.ajax({
             url: "https://api.usuuu.com/qq/" + QQ,
             type: "GET",
             dataType: "json",
             success: function (result) {
                 if (result.code == 200) {
-                    console.log(result);
-                    var avatarUrl = result["data"].avatar;
-                    $("[name='nickname']").val(result["data"].name);
-                    $("[name='avatar']").val(avatarUrl);
-                    $("[name='email']").val(result.data.qq + "@qq.com");
-                    //头像显示
-                    $("#avatar").attr('src', avatarUrl);
+                    let data = result.data;
+                    $("[name='nickname']").val(data.name);
+                    $("[name='email']").val(data.qq + "@qq.com");
+                    $("#avatar").attr('src', data.avatar);
                 }
             }, error() {
                 $("#avatar").attr('src', "/images/avatar/1.png");
@@ -629,7 +599,25 @@
         });
     });
 
-
+    function getQQ(e) {
+        let QQ = $(e).val();
+        $.ajax({
+            url: "https://api.usuuu.com/qq/" + QQ,
+            type: "GET",
+            dataType: "json",
+            success: function (result) {
+                if (result.code == 200) {
+                    let data = result.data;
+                    //头像显示
+                    $("#reply-avatar").attr("src", data.avatar);
+                    $("[name='reply.nickname']").val(data.name);
+                    $("[name='reply.email']").val(data.qq + "@qq.com");
+                }
+            }, error() {
+                $("#reply-avatar").attr('src', "/images/avatar/1.png");
+            }
+        });
+    };
 </script>
 
 </html>

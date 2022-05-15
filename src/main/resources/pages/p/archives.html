@@ -88,8 +88,8 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header">最新博客</h4>
-                <div class="ui inverted link list m-text-thin m-text-spaced">
+                <h4 class="ui inverted header">推荐博客</h4>
+                <div id="recommends" class="ui inverted link list m-text-thin m-text-spaced">
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
@@ -168,10 +168,14 @@
                         context += '<div><h2 class="ui center aligned header animated fadeInUp">'
                             + key
                             + '</h2><div class="ui fluid vertical menu animated fadeInUpBig "> ';
+
                         $.each(item, function (index, val) {
                             let data = new Date(Date.parse(val.updateTime.replace(/-/g, "/"))).format('MM月dd');
                             total++;
-                            context += '<a href="#"  class="item m-card-mod"><span><i class="mini teal circle icon"></i> <span>'
+                            context += '<a href="'
+                                + '/p/blog.html?article='
+                                + val.id
+                                +'"  class="item m-card-mod"><span><i class="mini teal circle icon"></i> <span>'
                                 + val.title
                                 + '</span><div class="ui teal basic left pointing label m-padded-tb-mini">'
                                 + data

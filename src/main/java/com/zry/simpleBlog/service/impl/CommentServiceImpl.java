@@ -13,6 +13,7 @@ import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.mapper.BlogMapper;
 import com.zry.simpleBlog.mapper.CommentMapper;
 import com.zry.simpleBlog.service.ICommentService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,9 +62,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         } else {
             comment.setAdminComment(false);
         }
+
         if (StringUtils.isEmpty(comment.getAvatar())) {
             comment.setAvatar(avatar);
         }
+
         comment.setCreateTime(new Date());
         Blog blog = blogMapper.selectById(comment.getBlogId());
         if (blog == null) {
@@ -84,9 +87,22 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
+    public boolean removeComment(Long id) {
+        List<Comment> commentList = commentMapper.selectList(new QueryWrapper<Comment>().eq("parent_comment_id", id));
+        if (commentList != null && !commentList.isEmpty()) {
+            return false;
+        }
+        int i = commentMapper.deleteById(id);
+        if (i != 1) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public Page<CommentDto> pageCommentByBlogId(Integer page, Integer pageSize, Long blogId) {
         //找出所有的一级评论
-        Page<Comment> commentsPage = commentMapper.selectPage(new Page<>(page, pageSize), new QueryWrapper<Comment>().eq("blog_id", blogId).isNull("parent_comment_id").orderByAsc("create_time"));
+        Page<Comment> commentsPage = commentMapper.selectPage(new Page<>(page, pageSize), new QueryWrapper<Comment>().eq("blog_id", blogId).isNull("parent_comment_id").orderByDesc("create_time"));
         Page<CommentDto> commentDtoPage = (Page<CommentDto>) commentsPage.convert(this::apply);
 
         COMMENT_TEMP_CONTENT.set(new ArrayList<>());
@@ -138,10 +154,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
      *
      * @create 2022/5/12
      */
-    private void recursively(CommentDto comment) {
+    private void recursively(@NotNull CommentDto comment) {
         //查出父级注入父级
-
-        comment.setParentComment(apply(commentMapper.selectById(comment.getParentComment().getId())));
+//        comment.setParentComment(apply(commentMapper.selectById(comment.getParentComment().getId())));
         comment.setReplyComments(commentMapper.selectReplyList(comment.getId()));
         //顶节点添加到临时存放集合
         COMMENT_TEMP_CONTENT.get().add(comment);
@@ -149,7 +164,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             List<CommentDto> replies = comment.getReplyComments();
             for (CommentDto reply : replies) {
                 // 查出父级 注入父级
-                reply.setParentComment(apply(commentMapper.selectById(comment.getParentComment().getId())));
+//                reply.setParentComment(apply(commentMapper.selectById(comment.getParentComment().getId())));
                 reply.setReplyComments(commentMapper.selectReplyList(reply.getId()));
                 COMMENT_TEMP_CONTENT.get().add(reply);
                 if (reply.getReplyComments().size() > 0) {

@@ -39,7 +39,24 @@ function browser() {
         $('body').append(script1);
         $('body').append(script2);
     }
+
+    getRecommends();
 }
+
+
+function QQData(QQ) {
+    $.ajax({
+        url: "https://api.usuuu.com/qq/" + QQ,
+        type: "GET",
+        dataType: "json",
+        success: function (result) {
+            return result;
+        },
+        error: function (res) {
+            return "error";
+        }
+    });
+};
 
 // $(".ui.dropdown").dropdown({
 // 	on: "hover"
@@ -59,12 +76,12 @@ $(".funIcon").click(function () {
 function logout() {
     $.ajax({
         url: "/logout",
-        type: "GET",
+        type: "post",
         async: false,
         success: function (res) {
             layer.closeAll();
             layer.msg(res.msg, {time: 1000}, function () {
-                window.location.replace("/admin/login.html");
+                window.location.replace("/back/login.html");
             });
         },
         error: function (res) {
@@ -93,6 +110,25 @@ function getUserInfo() {
         }
     });
 }
+
+//redis用户值并复制
+function getRecommends() {
+    $.get("/recommendBlogs", null, function (data, textStatus) {
+        if (data.code == 200) {
+            let recommendHtml = "";
+            $.each(data.data, function (index, val) {
+                recommendHtml +=
+                    '<a href="/p/blog.html?article='
+                    + val.id
+                    + '"class="item">'
+                    + val.title
+                    + '</a>';
+            });
+            $("#recommends").html(recommendHtml);
+        }
+    });
+}
+
 
 function setUserInfo(obj) {
     $('#userId').val(obj.id);

@@ -14,9 +14,6 @@
     <!--<link rel="stylesheet" href="/lib/tocbot/tocbot.css"/>-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
-    <style>
-
-    </style>
 </head>
 <body class="m-back-img2">
 <nav class="animated fadeInDown m-back-grass m-fixed-w">
@@ -60,7 +57,8 @@
 </nav>
 <!--top attached 完整拼接成一个相连区域 bottom attached-->
 <!--中间内容-->
-<div id="waypoint" style="" class="line-numbers m-container m-padded-tb-2em m-padded-top-7em  m-mobile-top-15px m-opacity-small">
+<div id="waypoint"
+     class="line-numbers m-container m-padded-tb-2em m-padded-top-7em  m-mobile-top-15px m-opacity-small">
     <div class="ui container">
         <div class="ui top attached segment ">
             <div class="ui horizontal link list animated flipInX">
@@ -80,6 +78,7 @@
                 <div class="item">
                     <i class="eye icon"></i><span id="blog-views">2342</span>
                 </div>
+                <input id="blogInfo-user-email" type="hidden">
             </div>
         </div>
         <div class="ui attached segment">
@@ -93,14 +92,15 @@
                 <div id="blog-flag" class="ui orange basic label">原创</div>
             </div>
             <h2 id="blog-title" class="ui center aligned header">题目加载中...</h2>
-            <div id="markdown-toc-list" class="no" style="width: 252px;
+
+            <div id="markdown-toc-list" class=" animated fadeIn" style="width: 252px;
                     height: 100%;
                  position: fixed;
                  top: 5em;
                  right: 0;
                  overflow: hidden;
                  background: #fff;
-                 z-index: 1000;;
+                 z-index: 1000;
                  padding: 18px;
                  border: 1px solid #ddd;
                  border-top: none;
@@ -116,7 +116,8 @@
                     <i class="fa fa-list-ul">
                     </i>
                 </span></div>
-            <div id="editormd-view" class="typo typo-selection m-padded-lr-responsive m-padded-tb-2em m-padded-lr-responsive">
+            <div id="editormd-view"
+                 class="typo typo-selection m-padded-lr-responsive m-padded-tb-2em m-padded-lr-responsive">
             <textarea id="content" style="display:none;">
                     # MY BABY
                     ### 文章内容
@@ -146,6 +147,7 @@
                             </li>
                             <li id="blogInfo-shareText">版权声明：自由转载-非商用-保持署名- (创意共享3.0)</li>
                         </ui>
+
                     </div>
                     <div class="five wide column">
                         <img src="/images/可爱.gif" alt=""
@@ -157,76 +159,11 @@
         </div>
         <div class="ui bottom attached segment">
             <!--            留言区-->
-            <div id="comment-container" class="ui teal segment">
-                <div th:fragment="commentList">
-                    <div class="ui threaded comments" style="max-width: 100%;">
-                        <h3 class="ui dividing header">评论</h3>
-                        <div class="comment" th:each="comment : ${comments}">
-                            <a class="avatar">
-                                <img src="/images/avatar/2.png" alt="">
-                            </a>
-                            <div class="content">
-                                <a class="author">
-                                    <span th:text="${comment.nickname}">Matt</span>
-                                    <div class="ui mini basic teal left pointing label m-padded-mini"
-                                         th:if="${comment.adminComment}">博主
-                                    </div>
-                                </a>
-                                <div class="metadata">
-                                    <span class="date"
-                                          th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
-                                </div>
-                                <div class="text" th:text="${comment.content}">
-                                    How artistic!
-                                </div>
-                                <div class="actions">
-                                    <a class="reply" data-commentid="1" data-commentnickname="Matt"
-                                       th:attr="data-commentid=${comment.id},data-commentemail=${comment.email},data-commentnickname=${comment.nickname}"
-                                       onclick="reply(this)">回复</a>
-                                </div>
-                            </div>
-                            <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
-                                <div class="comment" th:each="reply : ${comment.replyComments}">
-                                    <a class="avatar">
-                                        <img src="/images/avatar/2.png" th:src="@{${reply.avatar}}"
-                                             alt="">
-                                    </a>
-                                    <div class="content">
-                                        <a class="author">
-                                            <span th:text="${reply.nickname}">小红</span>&nbsp;
-                                            <div class="ui mini basic teal left pointing label m-padded-mini"
-                                                 th:if="${reply.adminComment}">博主
-                                            </div>
-                                            &nbsp;<span th:text="|@ ${reply.parentComment.nickname}|"
-                                                        class="m-teal">@ 小白</span>
-                                        </a>+
-                                        <div class="metadata">
-                                            <span class="date"
-                                                  th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
-                                        </div>
-                                        <div class="text" th:text="${reply.content}">
-                                            How artistic!
-                                        </div>
-                                        <div class="actions">
-                                            <a class="reply" data-commentid="1" data-commentnickname="Matt"
-                                               th:attr="data-commentid=${reply.id},data-commentemail=${reply.email},data-commentnickname=${reply.nickname}"
-                                               onclick="reply(this)">回复</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
             <div id="comment-form" class="ui form">
-                <input type="hidden" name="blog.id" th:value="${blog.id}">
-                <input type="hidden" name="parentComment.id" value="-1">
-                <input type="hidden" name="parentComment.email" value="-1">
-                <input type="hidden" name="avatar" value="-1"
-                       th:value="${session.User}!=null ? ${session.User.avatar}">
+                <input type="hidden" name="blog.id">
+                <input type="hidden" name="parentComment.id" value="">
+                <input type="hidden" name="parentComment.email" value="">
+                <input type="hidden" name="login" value="">
                 <div class="field">
                     <textarea name="content"
                               placeholder="评论千万条，友善第一条"></textarea>
@@ -236,26 +173,26 @@
                         <div class="ui left icon input">
                             <img id="avatar" src="/images/avatar/2.png" class="ui mini circular image"
                                  style="margin: 5px 0px;">
-                            <div class="ui left icon input">
-                                <i class="qq icon"></i>
-                                <input id="QQ" type="text" name="qq"
-                                       placeholder="输入qq号自动获取昵称头像">
-                            </div>
+                        </div>
+                    </div>
+                    <div id="div-QQ" class="field m-mobile-wide m-margin-bottom-small">
+                        <div class="ui left icon input">
+                            <i class="qq icon"></i>
+                            <input id="QQ" type="text" name="qq"
+                                   placeholder="输入qq号自动获取昵称头像">
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
                             <input type="text" name="nickname"
-                                   th:value="${session.User}!=null ? ${session.User.nickname}"
                                    placeholder="昵称(必填)">
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
                         <div class="ui left icon input">
                             <i class="mail icon"></i>
-                            <input type="text" name="email" placeholder="邮箱(将保密)"
-                                   th:value="${session.User}!=null ? ${session.User.email}">
+                            <input type="text" name="email" placeholder="邮箱(将保密)">
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
@@ -263,31 +200,25 @@
                                     class="edit icon"></i>发布
                         </button>
                     </div>
-
                 </div>
 
                 <div class="ui error message">
                     <div class="header">输入错误</div>
                     <p>你只能用指定的邮箱注册</p>
                 </div>
+
+            </div>
+            <!--            留言区-->
+            <div id="comment-container" class="ui teal segment">
+                <div >
+                    <div class="ui threaded comments" style="max-width: 100%;">
+                        <h3 id="comment-before" class="ui dividing header">评论</h3>
+                        <!--            留言内容-->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div id="toolbar" class="m-fixed m-bottom-right m-padded" style="display: none">
-        <div class="ui vertical icon buttons ">
-            <button id="toc-but" type="button" class="ui teal button">目录</button>
-            <button id="to_comment" th:if="${blog.commentable}" class="ui teal button">留言</button>
-            <button id="wechat" class="ui icon button"><i class="weixin icon"></i></button>
-            <button id="toTop_but" class="ui icon button"><i class="chevron up icon "></i></button>
-        </div>
-    </div>
-
-    <!-- <div id="toc-container" class="ui flowing popup transition hidden" style="width: 250px;">
-         <ol class="js-toc" style="z-index: 0!important;"></ol>
-     </div>-->
-    <!-- <div id="wechat-qr" class="ui  flowing popup transition hidden " style="width: 130px!important;">
-     </div>-->
 
 </div>
 <!--底部footer-->
@@ -304,8 +235,8 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header">最新博客</h4>
-                <div class="ui inverted link list m-text-thin m-text-spaced">
+                <h4 class="ui inverted header">推荐博客</h4>
+                <div id="recommends" class="ui inverted link list m-text-thin m-text-spaced">
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
@@ -379,6 +310,7 @@
 <script type="text/javascript" src="/lib/prism/prism.js"></script>
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript" src="/js/showTime.js"></script>
+<script type="text/javascript" src="/js/comment.js"></script>
 <!-- require APlayer -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
 <!-- require MetingJS -->
@@ -386,7 +318,7 @@
 <script type="text/javascript">
 
     //关于侧边栏目录的
-    $(".contents-show").click(function (){
+    $(".contents-show").click(function () {
         $("#markdown-toc-list").toggleClass("no");
         $("#markdown-toc-list").toggleClass("animated fadeIn");
     });
@@ -394,14 +326,12 @@
     $(function () {
         init();
     });
-
     function init() {
-        let Bid = getUrl("Bid");
+        let Bid = getUrl("article");
         show_date_time();
+        $("[name='blog.id']").val(Bid);
         getBlogByUrlId(Bid);
-
-    };                    //手动高亮代码
-
+    };
 
     function getBlogByUrlId(id) {
         $.ajax({
@@ -411,7 +341,13 @@
                 layer.closeAll();
                 if (result.code === 200) {
                     setBlog(result.data);
-                    Prism.highlightAll(false)
+                    Prism.highlightAll(false);
+                    if(result.data.commentable){
+                        getComment();
+                    }else {
+                        $("#comment-form").remove();
+                        $("#comment-container").remove();
+                    }
                 } else {
                     layer.msg(result.msg);
                 }
@@ -421,8 +357,8 @@
                 layer.log("error，也许您的网络有问题");
             }
         });
+
         function setBlog(obj) {
-            console.info(obj);
             $("#blog-title").text(obj.title);
             $("#content").text(obj.content);
             $("[name='blog.id']").val(obj.id);
@@ -472,10 +408,10 @@
                     layer.closeAll();
                     if (result.code === 200) {
                         let data = result.data;
-                        console.info(data);
                         $("#blog-user-avatar").attr('src', data.avatar);
                         $("#blog-user-nickname").text(data.nickname);
                         $("#blogInfo-user-nickname2").text(data.nickname);
+                        $("#blogInfo-user-email").val(data.email);
                     } else {
                         layer.msg(result.msg);
                     }
@@ -488,71 +424,8 @@
     };
 
 
-    $("#toc-but").popup({
-        popup: $("#toc-container.popup"),
-        on: 'click',
-        position: 'left center'
-    });
-    $("#wechat").popup({
-        popup: $("#wechat-qr"),
-        on: 'hover',
-        position: 'left center'
-    });
-
-    $("#toTop_but").click(function () {
-        $(window).scrollTo(0, 300);
-    });
-    $("#to_comment").click(function () {
-        $(window).scrollTo(document.getElementById('comment-form'));
-    });
-
-    $(function () {
-        $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
-    });
-    $('#commentpost-btn').click(function () {
-        var boo = $('.ui.form').form('validate form');
-        if (boo) {
-            postData();
-            console.log('校验成功');
-        } else {
-            console.log('校验失败');
-        }
-    });
-
-    function postData() {
-        $("#comment-container").load(/*[[@{/comments}]]*/"", {
-            "parentComment.id": $("[name='parentComment.id']").val(),
-            "parentComment.email": $("[name='parentComment.email']").val(),
-            "blog.id": $("[name='blog.id']").val(),
-            "nickname": $("[name='nickname']").val(),
-            "email": $("[name='email']").val(),
-            "content": $("[name='content']").val(),
-            "avatar": $("[name='avatar']").val(),
-        }, function (responseTxt, statusTxt, xhr) {
-            $(window).scrollTo($('#comment-container'), 500);
-            clearContent();
-        });
-    }
-
-    function clearContent() {
-        $("[name='content']").val('');
-        $("[name='parentComment.id']").val(-1);
-        $("[name='parentComment.email']").val('');
-        $("[name='content']").attr("placeholder", "欢迎你的评论...");
-    }
-
-    function reply(obj) {
-        var commentId = $(obj).data("commentid");
-        var commentEmail = $(obj).data("commentemail");
-        var commentNickname = $(obj).data("commentnickname");
-        $("[name='content']").attr("placeholder", "@" + commentNickname).focus();
-        $("[name='parentComment.id']").val(commentId);
-        $("[name='parentComment.email']").val(commentEmail);
-        $(window).scrollTo($('#comment-form'), 500);
-    }
-
-    //评论表单验证
-    $('#comment-form').form({
+    //评论表单验证reply-form
+    $('div[id$="form"]').form({
         fields: {
             title: {
                 identifier: 'content',
@@ -562,40 +435,40 @@
                 }]
 
             },
-            content: {
+
+            nickname: {
                 identifier: 'nickname',
                 rules: [{
                     type: "empty",
                     prompt: "提示：请输入你的昵称"
                 }]
             },
-            typeId: {
+
+            email: {
                 identifier: 'email',
                 rules: [{
                     type: "email",
                     prompt: "请填写正确的邮箱地址"
                 }]
             }
+
         }
     });
 
     //#QQ失去焦点  取 #QQ值  请求返回josn ->  name=avatar  #nickname
     // 失去焦点
     $('#QQ').blur(function () {
-        var QQ = $("#QQ").val();
+        let QQ = $("#QQ").val();
         $.ajax({
             url: "https://api.usuuu.com/qq/" + QQ,
             type: "GET",
             dataType: "json",
             success: function (result) {
                 if (result.code == 200) {
-                    console.log(result);
-                    var avatarUrl = result["data"].avatar;
-                    $("[name='nickname']").val(result["data"].name);
-                    $("[name='avatar']").val(avatarUrl);
-                    $("[name='email']").val(result.data.qq + "@qq.com");
-                    //头像显示
-                    $("#avatar").attr('src', avatarUrl);
+                    let data = result.data;
+                    $("[name='nickname']").val(data.name);
+                    $("[name='email']").val(data.qq + "@qq.com");
+                    $("#avatar").attr('src', data.avatar);
                 }
             }, error() {
                 $("#avatar").attr('src', "/images/avatar/1.png");
@@ -603,8 +476,25 @@
         });
     });
 
-
-
+    function getQQ(e) {
+        let QQ = $(e).val();
+        $.ajax({
+            url: "https://api.usuuu.com/qq/" + QQ,
+            type: "GET",
+            dataType: "json",
+            success: function (result) {
+                if (result.code == 200) {
+                    let data = result.data;
+                    //头像显示
+                    $("#reply-avatar").attr("src", data.avatar);
+                    $("[name='reply.nickname']").val(data.name);
+                    $("[name='reply.email']").val(data.qq + "@qq.com");
+                }
+            }, error() {
+                $("#reply-avatar").attr('src', "/images/avatar/1.png");
+            }
+        });
+    };
 </script>
 
 </html>

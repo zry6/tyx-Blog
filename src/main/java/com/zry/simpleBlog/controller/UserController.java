@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public RespBean getBlog(@PathVariable Integer id) {
-        User user = userService.getOne(new QueryWrapper<User>().select("id","avatar","nickname","introduction").eq("id",id));
+        User user = userService.getOne(new QueryWrapper<User>().select("id","avatar","nickname","introduction","email").eq("id",id));
         return RespBean.success(user);
     }
 }

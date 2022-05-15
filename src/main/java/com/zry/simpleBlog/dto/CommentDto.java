@@ -39,9 +39,16 @@ public class CommentDto implements Serializable, BaseDto, IdempotentInterface {
     @ApiModelProperty(example = "/images/avatar/avatar1.png")
     private String avatar;
 
+    @IdempotentField
+    @ApiModelProperty(example = "{id: 1}")
+    private CommentDto parentComment;
+
+
+
+    private boolean adminComment;
 
     @ApiModelProperty(hidden = true)
-    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date createTime;
 
 
@@ -52,11 +59,6 @@ public class CommentDto implements Serializable, BaseDto, IdempotentInterface {
     @ApiModelProperty(hidden = true)
     private List<CommentDto> replyComments = new ArrayList<>();
 
-    @IdempotentField
-    @ApiModelProperty(example = "{id: 1}")
-    private CommentDto parentComment;
-
-    private boolean adminComment;
 
     public Comment caseToComment() {
         Comment comment = new Comment();

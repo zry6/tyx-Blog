@@ -124,8 +124,8 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header">最新博客</h4>
-                <div class="ui inverted link list m-text-thin m-text-spaced">
+                <h4 class="ui inverted header">推荐博客</h4>
+                <div id="recommends" class="ui inverted link list m-text-thin m-text-spaced">
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
@@ -247,7 +247,7 @@
                     + tag.name
                     + '</a>';
             });
-            let blogUrl =  "/p/blog.html?Bid="+val.id;
+            let blogUrl =  "/p/blog.html?article="+val.id;
             page_content += '<div class="ui padded  segment m-padded-tb-2em m-mobile-clear m-card "><div class="ui middle aligned mobile reversed stackable grid"><div class="eleven wide column"> <h3 class="ui header"><a href="'+blogUrl+'" target="_blank" class="m-black">'
                 + val.title
                 + '</a></h3><p class="m-text"><a href="'+blogUrl+'" data-pjax="" class="m-black">'

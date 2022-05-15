@@ -234,7 +234,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
 
-    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List","Blog_Archives"},allEntries = true)
+    @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List","Blog_Archives","Blog_Recommends"},allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteById(Long id) {

@@ -66,6 +66,15 @@ public class RespBean implements Serializable {
     public static RespBean success(RespBeanEnum respBeanEnum, Object data) {
         return new RespBean(respBeanEnum.getCode(), respBeanEnum.getMessage(), data);
     }
+    /**
+     * 功能描述: 返回成功结果
+     *
+     * @return RespBean
+     * @author zry
+     */
+    public static RespBean success(String msg) {
+        return new RespBean(RespBeanEnum.SUCCESS.getCode(), msg, null);
+    }
 
     /**
      * 功能描述：返回失败结果
