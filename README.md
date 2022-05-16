@@ -20,8 +20,8 @@
 # 关于部署：
 1. 数据库的配置+sql文件(项目启动应该会自动生成，如果失败请看SimpleBlog.sql文件),
 2. Redis的配置,
-3. 启动博客成功后，请先使用post请求 url：/init  初始化生成留言板文章数据
-4. 后台需要您手动添加一名user 密码使用二次md5加密 ， 生成请看 com.zry.simpleBlog.comment.utils.MD5Util类
+3. 启动博客成功后，请先使用post请求 url：/init  初始化生成留言板文章数据 和 管理员信息
+
 ## 1.涉及技术及工具
 
 |  后端 |    |
@@ -101,6 +101,13 @@
 ![输入图片说明](assets/tagsPage.png)
 ### 归档页面
 ![输入图片说明](assets/archives.png)
+
+### 评论区
+未登录显示
+![输入图片说明](assets/noLoginComment.png)
+登陆后显示
+![输入图片说明](assets/isloginComment.png)
+
 ## 后台：
 ### 博文管理页面
 ![输入图片说明](assets/%E5%90%8E%E5%8F%B0%E6%96%87%E7%AB%A0%E7%AE%A1%E7%90%86.png)
