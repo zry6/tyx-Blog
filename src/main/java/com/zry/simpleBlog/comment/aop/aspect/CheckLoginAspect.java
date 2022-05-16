@@ -1,12 +1,12 @@
 package com.zry.simpleBlog.comment.aop.aspect;
 
-import com.zry.simpleBlog.comment.exception.BusinessException;
-import com.zry.simpleBlog.service.RedisService;
 import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
-import com.zry.simpleBlog.entity.User;
+import com.zry.simpleBlog.comment.exception.BusinessException;
+import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.comment.utils.CookieUtil;
 import com.zry.simpleBlog.comment.utils.UserContext;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
+import com.zry.simpleBlog.entity.User;
+import com.zry.simpleBlog.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -16,7 +16,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

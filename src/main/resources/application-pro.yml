@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
   error:
     include-message: always
 spring:
@@ -16,13 +16,13 @@ spring:
     hibernate:
       ddl-auto: update
     #配置是否打印sql
-    show-sql: false
+    show-sql: true
     open-in-view: true
 
   redis:
     port: 6379
-    host: 1.XXX.XXX.XXX
-    password: XXX
+    host: 127.0.0.1
+    password: 123
     database: 0
     jedis:
       pool:
@@ -34,8 +34,8 @@ spring:
       indent_output: true
     time-zone: GMT+8
   mail:
-    username:
-    password:
+    username: 1447051936@qq.com
+    password: 
     host: smtp.qq.com
     properties:
       mail:

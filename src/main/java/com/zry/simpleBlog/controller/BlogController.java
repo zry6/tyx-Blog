@@ -14,16 +14,16 @@ import com.zry.simpleBlog.service.IBlogService;
 import com.zry.simpleBlog.service.IUserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * <p>
@@ -129,10 +129,6 @@ public class BlogController {
 
     @PostConstruct
     public void init() {
-        WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-        if(wac == null){
-            System.out.println("WebApplicationContext=null");
-        }
         User user = userService.getById(1);
         if(user != null){
             return;

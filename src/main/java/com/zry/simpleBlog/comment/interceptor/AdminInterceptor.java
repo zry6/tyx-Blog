@@ -1,11 +1,11 @@
 package com.zry.simpleBlog.comment.interceptor;
 
-import com.zry.simpleBlog.service.RedisService;
-import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.comment.utils.CookieUtil;
+import com.zry.simpleBlog.entity.User;
+import com.zry.simpleBlog.service.RedisService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
