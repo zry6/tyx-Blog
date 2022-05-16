@@ -3,7 +3,8 @@
 
 看完如果觉得还行，给个star鼓励一下吧👍
 
-接口文档地址  http://localhost/swagger-ui.html
+# 预览地址 http://www.tyux.top/
+# 接口文档地址  http://www.tyux.top/swagger-ui.html
 
 1.  **后台接口restful风格** 
 
@@ -18,9 +19,14 @@
 达到前后端分离的目的。（因为不会vue  大哭~）
 
 # 关于部署：
-1. 数据库的配置+sql文件(项目启动应该会自动生成，如果失败请看SimpleBlog.sql文件),
-2. Redis的配置,
-3. 启动博客成功后，请先使用post请求 url：/init  初始化生成留言板文章数据 (需要登录权限)
+
+1. 修改配置yml文件，配置好mysql和redis数据库连接。
+2. 确保您的数据库中存在SimpleBlog库 。详细sql请看SimpleBlog.sql
+3. 启动项目。项目jpa自动生成表结构，并初始化 **留言板数据** 和 **用户数据** 
+
+4. 启动博客成功后，请先使用post请求 url：/init  初始化生成留言板文章数据 (需要登录权限)
+
+（启动失败的话：表结构跟必要数据请看SimpleBlog.sql）
 
 ## 1.涉及技术及工具
 
