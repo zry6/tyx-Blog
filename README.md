@@ -3,7 +3,8 @@
 
 看完如果觉得还行，给个star鼓励一下吧👍
 
-接口文档地址  http://localhost/swagger-ui.html
+# 预览地址 http://www.tyux.top/
+# 接口文档地址  http://www.tyux.top/swagger-ui.html
 
 1.  **后台接口restful风格** 
 
