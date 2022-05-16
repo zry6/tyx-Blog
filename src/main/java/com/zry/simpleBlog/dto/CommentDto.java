@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class CommentDto implements Serializable, BaseDto, IdempotentInterface {
+public class CommentDto implements Serializable, IdempotentInterface {
 
     private Long id;
 

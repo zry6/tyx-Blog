@@ -333,8 +333,14 @@
             $("#content").val(obj.content);
             $('[name="title"]').val(obj.title);
 
-            $('[name="type.id"]').val(obj.type.id);
-            $('.type.text').text(obj.type.name);
+
+            if(obj.type == null){
+                $('[name="type.id"]').val("");
+                $('.type.text').text("");
+            }else {
+                $('[name="type.id"]').val(obj.type.id);
+                $('.type.text').text(obj.type.name);
+            }
             $('.type.text').toggleClass("default");
 
             $('[name="tagIds"]').val(obj.tagIds);

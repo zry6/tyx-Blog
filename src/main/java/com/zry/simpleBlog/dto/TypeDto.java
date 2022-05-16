@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
-public class TypeDto implements Serializable, BaseDto {
+public class TypeDto implements Serializable {
 
     private Long id;
     @NotNull(message = "分类名不能为空")

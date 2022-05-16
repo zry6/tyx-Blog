@@ -25,11 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    /**
-     * 调试日志
-     *
-     */
-//    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 功能描述: 捕获自定义异常 BusinessException

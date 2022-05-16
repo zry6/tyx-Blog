@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @ApiModel(value = "BlogQuery", description = "可选的用于条件查询的实体")
-public class BlogQuery implements Serializable, BaseDto{
+public class BlogQuery implements Serializable {
 
     @ApiParam(value = "标题" ,example = "java")
     private String title;

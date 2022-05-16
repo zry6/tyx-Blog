@@ -1,7 +1,6 @@
 package com.zry.simpleBlog.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.zry.simpleBlog.entity.Blog;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +13,7 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-public class ArchivesDto implements Serializable, BaseDto{
+public class ArchivesDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

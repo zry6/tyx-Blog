@@ -4,7 +4,13 @@ import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 
-/**MD5 工具类 用来对密码的二次加密
+/**
+ * MD5 工具类 用来对密码的二次加密
+ *
+ * 示例可用的
+ *    用户名： root
+ *    密码：b5fb686c5752edd1c337ac7231c6cea5
+ *
  * @author zry
  * @create 2022-04-09 20:58
  */
@@ -29,7 +35,11 @@ public class MD5Util {
         String dbPass = formPassToDBPass(fromPass, salt);
         return  dbPass;
     }
-
+/**
+ * 功能描述: 生成密码
+ *
+ * @create 2022/5/16
+ */
     public static void main(String[] args) {
 //        b5fb686c5752edd1c337ac7231c6cea5
         System.out.println(MD5Util.inputPassToDBPass("root", salt));

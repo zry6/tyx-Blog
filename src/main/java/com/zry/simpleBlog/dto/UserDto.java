@@ -16,7 +16,7 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-public class UserDto implements Serializable, BaseDto  {
+public class UserDto implements Serializable {
 
     public UserDto(User user) {
         if (user == null) {

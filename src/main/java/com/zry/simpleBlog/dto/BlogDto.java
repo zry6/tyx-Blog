@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BlogDto implements Serializable, BaseDto {
+public class BlogDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

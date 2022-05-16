@@ -184,7 +184,7 @@
                 layer.closeAll();
                 if (result.code === 203) {
                     layer.msg("用户信息已经变更请重新登录", {time: 1000}, function () {
-                        window.location.replace("/admin/login.html") ;
+                        window.location.replace("/back/login.html") ;
                     });
                 } else {
                     layer.msg(result.msg);

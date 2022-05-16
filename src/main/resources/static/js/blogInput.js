@@ -58,6 +58,7 @@ function updateBlog() {
         appreciation: $('[name="appreciation"]').prop('checked'),
         commentable: $('[name="commentable"]').prop('checked'),
     };
+    console.info(data);
     //更新文章
     $.ajax({
         url: "/admin/blogs/" + $('[name="blogId"]').val(),
@@ -75,7 +76,7 @@ function updateBlog() {
                     });
                 }
             }
-            layer.msg("保存成功");
+            layer.msg(res.msg);
             $("#publish-btn").attr("disabled", false);
         },
         error: function (res) {

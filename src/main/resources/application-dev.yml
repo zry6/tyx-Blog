@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///simpleblog?useUnicode=true&serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql:///simpleblog?useUnicode=true&serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=true&allowPublicKeyRetrieval=true
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
@@ -30,14 +30,21 @@ spring:
     serialization:
       indent_output: true
     time-zone: GMT+8
-
-
+  mail:
+    username:
+    password:
+    host: smtp.qq.com
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
 logging:
   level:
     root: info
     com.zry: debug
-#  file:
-#    name: log/blog-dev.log
+  file:
+    name: log/blog-dev.log
 
 mybatis:
   configuration:

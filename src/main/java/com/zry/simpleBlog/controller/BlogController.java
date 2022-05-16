@@ -9,15 +9,21 @@ import com.zry.simpleBlog.dto.ArchivesDto;
 import com.zry.simpleBlog.dto.BlogDto;
 import com.zry.simpleBlog.dto.BlogQuery;
 import com.zry.simpleBlog.entity.Blog;
+import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.service.IBlogService;
+import com.zry.simpleBlog.service.IUserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * <p>
@@ -32,6 +38,9 @@ public class BlogController {
     @Resource
     private IBlogService blogService;
 
+
+    @Resource
+    private IUserService userService;
     /**
      * 功能描述:根据博客id返回文章
      *
@@ -91,29 +100,71 @@ public class BlogController {
     }
 
 
-    /**
-     * 功能描述: 这是一个特殊的方法，主要生成留言板文章数据。留言板是一篇id固定的文章
-     *
-     * @create 2022/5/15
-     */
-    @CheckLogin
-    @ApiOperation(value = "初始化博客", notes = "主要生成留言板文章数据")
-    @PostMapping("init")
-    public RespBean init() {
-        Blog blog;
-        blog = blogService.getById(1);
+//    /**
+//     * 功能描述: 这是一个特殊的方法，主要生成留言板文章数据。留言板是一篇id固定的文章
+//     *
+//     * @create 2022/5/15
+//     */
+//    @CheckLogin
+//    @ApiOperation(value = "初始化博客", notes = "主要生成留言板文章数据")
+//    @PostMapping("init")
+//    public RespBean init() {
+//        Blog blog;
+//        blog = blogService.getById(1);
+//        if (blog != null) {
+//            return RespBean.success("留言板已存在");
+//        }
+//        blog = new Blog();
+//        blog.setId(1L);
+//        blog.setUserId(1L);
+//        blog.setTitle("留言板");
+//        blog.setContent("畅所欲言吧");
+//        blog.setCommentable(true);
+//        blog.setPublished(false);
+//        blog.setFlag("原创");
+//        blog.setCreateTime(new Date());
+//        blogService.save(blog);
+//        return RespBean.success();
+//    }
+
+    @PostConstruct
+    public void init() {
+        WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+        if(wac == null){
+            System.out.println("WebApplicationContext=null");
+        }
+        User user = userService.getById(1);
+        if(user != null){
+            return;
+        }
+        user = new User();
+        user.setId(1L);
+        user.setUsername("root");
+        user.setType(1);
+        //两次root加密之后的
+        user.setPassword("b5fb686c5752edd1c337ac7231c6cea5");
+        user.setNickname("tyux");
+        user.setAvatar("/images/avatar/zry.jpg");
+        user.setSalt("1a2b3c4d");
+        userService.save(user);
+
+
+        Blog blog = blogService.getById(1);
         if (blog != null) {
-            return RespBean.success("留言板已存在");
+            return;
         }
         blog = new Blog();
         blog.setId(1L);
+        blog.setUserId(1L);
         blog.setTitle("留言板");
         blog.setContent("畅所欲言吧");
         blog.setCommentable(true);
         blog.setPublished(false);
         blog.setFlag("原创");
         blog.setCreateTime(new Date());
+        blog.setUpdateTime(new Date());
         blogService.save(blog);
-        return RespBean.success();
     }
+
+
 }

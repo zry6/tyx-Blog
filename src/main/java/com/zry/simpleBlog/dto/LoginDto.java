@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @create 2022-04-09 16:09
  */
 @Data
-public class LoginDto implements Serializable, BaseDto {
+public class LoginDto implements Serializable {
 
     @Size(min = 2, max = 20)
     @NotBlank(message = "昵称不能为空")

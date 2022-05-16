@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class PostBlogDto implements Serializable, BaseDto, IdempotentInterface {
+public class PostBlogDto implements Serializable, IdempotentInterface {
 
     private static final long serialVersionUID = 1L;
 

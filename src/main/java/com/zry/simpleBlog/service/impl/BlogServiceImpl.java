@@ -221,7 +221,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         //插入t_blog
         blog.setUserId(user.getId());
         blog.setUpdateTime(new Date());
-
         blogMapper.update(blog.caseToBlog(), new QueryWrapper<Blog>().eq("id", blog.getId()));
         //检查tags是否存在  循环查询tag是否存在
         List<Long> tagList = getAndCheckTags(blog.getTagIds());

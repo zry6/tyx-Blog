@@ -56,22 +56,22 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Override
     public CommentDto saveComment(CommentDto comment) {
         User user = UserContext.getCurrentUser();
+        comment.setAdminComment(false);
         if (user != null) {
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);
-        } else {
-            comment.setAdminComment(false);
         }
 
         if (StringUtils.isEmpty(comment.getAvatar())) {
             comment.setAvatar(avatar);
         }
 
-        comment.setCreateTime(new Date());
         Blog blog = blogMapper.selectById(comment.getBlogId());
         if (blog == null) {
             throw new BusinessException(RespBeanEnum.BLOG_NOT_EXISTED);
         }
+
+        comment.setCreateTime(new Date());
 
         if (comment.getParentComment() != null && !StringUtils.isEmpty(comment.getParentComment().getId())) {
             Comment comment1 = commentMapper.selectById(comment.getParentComment().getId());
@@ -79,6 +79,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
                 throw new BusinessException(RespBeanEnum.COMMENT_NOT_EXISTED);
             }
         }
+
         int i = commentMapper.insert(comment.caseToComment());
         if (i != 1) {
             throw new BusinessException(RespBeanEnum.POST_COMMENT_ERROR);
@@ -86,8 +87,10 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         return comment;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean removeComment(Long id) {
+
         List<Comment> commentList = commentMapper.selectList(new QueryWrapper<Comment>().eq("parent_comment_id", id));
         if (commentList != null && !commentList.isEmpty()) {
             return false;

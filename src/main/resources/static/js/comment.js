@@ -1,4 +1,10 @@
 function getCommentHtml(val, adminCommentHtml, replyHtml) {
+    let deleteHtml = "";
+    if ($("[name='login']").val() == "true") {
+        deleteHtml = '<a class="reply ui red mini button left" onclick="deleteComment('
+            + val.id
+            + ')">删除</a>';
+    }
     let commentHtml = ' <div  class="comment"><a class="avatar"><img src="'
         + val.avatar
         + '"></a><div class="content"><a class="author m-font-color m-font-size"><span>'
@@ -9,7 +15,9 @@ function getCommentHtml(val, adminCommentHtml, replyHtml) {
         + val.createTime
         + '</span><div class="actions"> <a class="reply ui blue mini button" onclick="reply('
         + val.id + ',' + "'" + val.email + "'" + ',' + "'" + val.nickname + "'"
-        + ')">回复</a></div></div> <div id="comment-' + val.id + '"  class="text m-padded-tb-mini">'
+        + ')">回复</a>'
+        + deleteHtml
+        + '</div></div> <div id="comment-' + val.id + '"  class="text m-padded-tb-mini">'
         + val.content
         + '</div></div>'
         + replyHtml
@@ -17,34 +25,8 @@ function getCommentHtml(val, adminCommentHtml, replyHtml) {
     return commentHtml;
 };
 
-function getComment() {
 
-    $.get("/comments/" + $("[name='blog.id']").val(), null, function (data, textStatus) {
 
-        if (data.code == 200) {
-            setComment(data.data);
-        }
-        layer.msg(data.msg);
-    });
-    //如果已经登录了那就不用再填写 评论信息了
-    $.ajax({
-        url: "/userInfoByTicket",
-        type: "GET",
-        success: function (res) {
-            if (res.code === 200) {
-                $("[name='nickname']").val(res.data.nickname);
-                $("[name='email']").val(res.data.email);
-                $("[name='login']").val(true);
-                $("#avatar").attr("src", res.data.avatar);
-                $("#div-QQ").remove();
-            }
-        },
-        error: function (obj) {
-            layer.closeAll();
-            layer.msg(obj.code + "error，也许您的网络有问题");
-        }
-    });
-};
 function setComment(data) {
     let commentHtml = "";
 //每页的大小
@@ -66,7 +48,6 @@ function setComment(data) {
 
         let replyHtml = "";
         $.each(val.replyComments, function (index, reply) {
-
             if (index == 0) {
                 replyHtml += '<div class="comments">';
             }
@@ -86,7 +67,37 @@ function setComment(data) {
     $("#comment-before").after(commentHtml);
 };
 
+function getComment() {
+    //如果已经登录了那就不用再填写评论者信息了
+    $.ajax({
+        url: "/userInfoByTicket",
+        type: "GET",
+        async:false,
+        success: function (res) {
+            if (res.code === 200) {
+                $("[name='nickname']").val(res.data.nickname);
+                $("[name='email']").val(res.data.email);
+                $("[name='login']").val(true);
+                $("#avatar").attr("src", res.data.avatar);
+                $("#div-QQ").remove();
+            }
+        },
+        error: function (obj) {
+            layer.closeAll();
+            layer.msg(obj.code + "error，也许您的网络有问题");
+        }
+    });
 
+    $(".comment").remove();
+
+    $.get("/comments/" + $("[name='blog.id']").val(), null, function (data, textStatus) {
+        if (data.code == 200) {
+            setComment(data.data);
+        }
+        layer.msg(data.msg);
+    });
+
+};
 function postData(comment) {
     $.ajax({
         url: "/comments",
@@ -100,14 +111,16 @@ function postData(comment) {
         success: function (data) {
             layer.closeAll();
             if (data.code === 200) {
-                let val = data.data;
-                let commentHtml = '';
-                let adminCommentHtml = "";
-                if (val.adminComment == true) {
-                    adminCommentHtml += '<div class="ui mini basic teal left pointing label m-padded-mini">博主</div>';
-                }
-                commentHtml += getCommentHtml(val, adminCommentHtml, "");
-                $("#comment-before").after(commentHtml);
+                // let val = data.data;
+                // let commentHtml = '';
+                // let adminCommentHtml = "";
+                // if (val.adminComment == true) {
+                //     adminCommentHtml += '<div class="ui mini basic teal left pointing label m-padded-mini">博主</div>';
+                // }
+                // commentHtml += getCommentHtml(val, adminCommentHtml, "");
+                //
+                // $("#comment-before").after(commentHtml);
+                getComment();
                 clearContent();
             }
             layer.msg(data.msg);
@@ -121,13 +134,16 @@ function postData(comment) {
 $('#commentpost-btn').click(function () {
     var boo = $('#comment-form').form('validate form');
     if (boo) {
+        let parentComment = {
+            'email': $("#blogInfo-user-email").val(),
+        };
         let data = {
-            'parentComment.email': $("#blogInfo-user-email").val(),
             "blogId": $("[name='blog.id']").val(),
             "nickname": $("[name='nickname']").val(),
             "email": $("[name='email']").val(),
             "content": $("[name='content']").val(),
-            "avatar": $("#avatar").attr("src")
+            "avatar": $("#avatar").attr("src"),
+            parentComment
         };
         postData(data);
         console.log('校验成功');
@@ -135,6 +151,7 @@ $('#commentpost-btn').click(function () {
         console.log('校验失败');
     }
 });
+
 function reply(parentCommentId, parentCommentEmail, parentCommentNickname) {
 
     $('#reply-form').remove();
@@ -162,15 +179,35 @@ function reply(parentCommentId, parentCommentEmail, parentCommentNickname) {
 
     $('#comment-' + parentCommentId).after(replyFormHtml);
 
+    $("#reply-avatar").attr("src", $("#avatar").attr("src"));
+    $("[name='reply.nickname']").val($("[name='nickname']").val());
+    $("[name='reply.email']").val($("[name='email']").val());
+    $("#reply-QQ").val($("#QQ").val());
 
-    if ($("[name='login']").val()) {
+    if ($("[name='login']").val() == "true") {
         $("#reply-div-QQ").remove();
-        $("#reply-avatar").attr("src", $("#blog-user-avatar").attr('src'));
-        $("[name='reply.nickname']").val($("[name='nickname']").val());
-        $("[name='reply.email']").val($("[name='email']").val());
     }
 
 };
+
+function deleteComment(id) {
+    $.ajax({
+        url: "/comments/" + id,
+        type: "Delete",
+        async: false,
+        success: function (data) {
+            layer.closeAll();
+            if (data.code === 200) {
+                getComment();
+            }
+            layer.msg(data.code + ":" + "" + data.msg);
+        },
+        error: function () {
+            layer.msg("出现意料之外的错误，请检查网络");
+            layer.closeAll();
+        }
+    });
+}
 
 function replyPost() {
     //绑定事件
@@ -200,11 +237,12 @@ function replyPost() {
         }
 
     });
+    //校验表单
     var boo = $('#reply-form').form('validate form');
     if (boo) {
         let parentComment = {
             'id': $("[name='reply.parentId']").val(),
-            'email': $("[name='reply.parentNickname']").val()
+            'email': $("[name='reply.parentEmail']").val()
         };
         let reply = {};
         reply.blogId = $("[name='blog.id']").val();
@@ -213,6 +251,11 @@ function replyPost() {
         reply.content = $("[name='reply.content']").val();
         reply.avatar = $("#reply-avatar").attr("src");
         reply.parentComment = parentComment;
+
+        $("#avatar").attr("src", $("#reply-avatar").attr("src"));
+        $("[name='nickname']").val($("[name='reply.nickname']").val());
+        $("[name='email']").val($("[name='reply.email']").val());
+        $("#QQ").val($("#reply-QQ").val());
 
         $.ajax({
             url: "/comments",
@@ -228,7 +271,7 @@ function replyPost() {
                 if (data.code === 200) {
                     //刷新评论
                     console.info("刷新评论");
-                    $(".comment").remove();
+
                     getComment();
                 }
             },

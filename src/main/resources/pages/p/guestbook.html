@@ -14,69 +14,7 @@
     <!--<link rel="stylesheet" href="/lib/tocbot/tocbot.css"/>-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
-    <style>
-        .esa-toolbar {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 55px;
-            height: 55px;
-            z-index: 1001;
-        }
 
-        .esa-toolbar .contents {
-            position: absolute;
-            cursor: pointer;
-            bottom: 0;
-            right: 0;
-            height: 45px;
-            width: 45px;
-            text-align: center;
-            line-height: 45px;
-            z-index: 0;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
-            background-color: #ffffff;
-            transition: all .3s ease;
-        }
-
-        .esa-toolbar :hover {
-            box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
-            background-color: #4da440;
-            transition: all .3s ease;
-        }
-
-        .fa :hover {
-            box-shadow: 0 2px 4px 1px rgb(0 0 0 / 20%);
-            background-color: #ffffff;
-            transition: all .3s ease;
-        }
-
-        .fa {
-            display: inline-block;
-            font-size: inherit;
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .markdown-toc-list a {
-            font-size: large;
-            font-weight: lighter;
-            color: #252525;
-            text-decoration: none;
-        }
-
-        .markdown-toc-list a {
-            color: #252525;
-            text-decoration: none;
-        }
-
-        .markdown-toc-list a:hover {
-            color: #ba2636;
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body class="m-back-img5">
 <!--导航-->
@@ -127,6 +65,7 @@
         <div id="waypoint" class="ui eleven wide column m-container animated fadeIn stickyed">
             <div class="ui container">
                 <div class="ui  padded segment">
+                    <input id="blogInfo-user-email" type="hidden">
                     <!--   内容-->
                     <div class="ui  aligned basic segment">
                     </div>
@@ -141,7 +80,7 @@
 
                     <!--赞赏-->
                     <!-- segment 加个basic就把边线去掉了  circular大圆角-->
-                    <div class="ui center aligned basic segment" th:if="${blog.appreciation}">
+                    <div class="ui center aligned basic segment" >
                         <button id="payButton" class="ui orange basic circular button">赞赏</button>
                     </div>
                     <div class="ui payQR flowing popup transition hidden">
@@ -162,7 +101,7 @@
                         <input type="hidden" name="blog.id">
                         <input type="hidden" name="parentComment.id" value="">
                         <input type="hidden" name="parentComment.email" value="">
-                        <input type="hidden" name="login" value="">
+                        <input type="hidden" name="login" value="false">
                         <div class="field">
                     <textarea name="content"
                               placeholder="评论千万条，友善第一条"></textarea>
@@ -237,6 +176,7 @@
 
 </div>
 
+
 <!--底部footer-->
 <footer id="" class="ui inverted vertical segment m-padded-tb-massive m-padded-top">
     <!--    居中-->
@@ -279,8 +219,7 @@
     </div>
     <!--    居中-->
     <div class="ui center aligned container m-padded-tb-small">
-        <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright © 2021-2022 听宇轩 , All rights
-            reserved.
+        <p class="m-text-thin m-text-spaced" style="color: whitesmoke">Copyright © 2021-2022 听宇轩 , All rights reserved.
         </p>
         <div>
             <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41142102000072"
@@ -333,13 +272,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 <script type="text/javascript">
 
-    //关于侧边栏目录的
-    $(".contents-show").click(function () {
-        $("#markdown-toc-list").toggleClass("no");
-        $("#markdown-toc-list").toggleClass("animated fadeIn");
-    });
-
     $(function () {
+        browser();
         init();
     });
     $("#payButton").popup({
@@ -356,7 +290,7 @@
     });
 
     function init() {
-        Bid=1;
+        let Bid=1;
         show_date_time();
         $("[name='blog.id']").val(Bid);
         getBlogByUrlId(Bid);
@@ -408,6 +342,7 @@
 
             $("#blog-updateTime").text(obj.updateTime);
 
+            setBlogUser(obj.userId);
 
             let tagsText = '';
             $.each(obj.tags, function (index, val) {
@@ -417,135 +352,37 @@
             });
             $('#tags').html(tagsText);
             $('#blog-firstPicture').attr("src", obj.firstPicture);
-            // $('').val(obj.description);
-            // $('[name=]').val(obj.published);
 
             $('#blog-flag').text(obj.flag);
-            // $(".flag.text").text(obj.flag);
             if (!obj.shareStatement) {
                 $("#blogInfo-shareText").addClass('no');
             }
             $("#blogInfo-updateTime").text(obj.createTime);
             $("#blogInfo-createTime").text(obj.updateTime);
         };
-
-
-    };
-
-    function reply(parentCommentId, parentCommentEmail, parentCommentNickname) {
-
-        $('#reply-form').remove();
-        let replyFormHtml = "";
-        replyFormHtml +=
-            '<div id="reply-form" class="ui form">'
-            + '<input type="hidden" name="reply.parentId" value="'
-            + parentCommentId
-            + '">'
-            + '<input type="hidden" name="reply.parentEmail" value="'
-            + parentCommentEmail
-            + '">'
-            + '<input type="hidden" name="reply.parentNickname" value="'
-            + parentCommentNickname
-            + '">'
-            + '<div class="field"> <textarea name="reply.content" placeholder="评论千万条，友善第一条"></textarea></div>'
-            + '<div class="fields"><div class="ui left icon input"><img id="reply-avatar" src="/images/avatar/2.png" class="ui mini circular image" style="margin: 5px 0px;">'
-            + '<div class="field m-mobile-wide m-margin-bottom-small"></div></div>'
-            + '<div id="reply-div-QQ" class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"> <i class="qq icon"></i><input id="reply-QQ" onblur="getQQ(this)" type="text" name="qq" placeholder="输入qq号自动获取昵称头像"></div></div>'
-            + ' <div class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"><i class="user icon"></i><input type="text" name="reply.nickname" placeholder="昵称(必填)"></div></div>'
-            + ''
-            + '<div class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"><i class="mail icon"></i><input type="text" name="reply.email" placeholder="邮箱(将保密)"></div></div>'
-            + '<div class="field m-mobile-wide m-margin-bottom-small"><button onclick="replyPost()" class="ui blue button m-mobile-wide"><i class="edit icon"></i>发布</button></div>'
-            + '</div>';
-
-        $('#comment-' + parentCommentId).after(replyFormHtml);
-
-
-        if ($("[name='login']").val()) {
-            $("#reply-div-QQ").remove();
-            $("#reply-avatar").attr("src", $("#avatar").attr('src'));
-            $("[name='reply.nickname']").val($("[name='nickname']").val());
-            $("[name='reply.email']").val($("[name='email']").val());
-        }
-
-    };
-
-    function replyPost() {
-        //绑定事件
-        $('#reply-form').form({
-            fields: {
-                replyContent: {
-                    identifier: 'reply.content',
-                    rules: [{
-                        type: "empty",
-                        prompt: "提示：请输入评论内容"
-                    }]
-                },
-                replyNickname: {
-                    identifier: 'reply.nickname',
-                    rules: [{
-                        type: "empty",
-                        prompt: "提示：请输入你的昵称"
-                    }]
-                },
-                replyEmail: {
-                    identifier: 'reply.email',
-                    rules: [{
-                        type: "email",
-                        prompt: "请填写正确的邮箱地址"
-                    }]
-                }
-            }
-
-        });
-        var boo = $('#reply-form').form('validate form');
-        if (boo) {
-            let parentComment = {
-                'id': $("[name='reply.parentId']").val(),
-                'email': $("[name='reply.parentNickname']").val()
-            };
-            let reply = {};
-            reply.blogId = $("[name='blog.id']").val();
-            reply.nickname = $("[name='reply.nickname']").val();
-            reply.email = $("[name='reply.email']").val();
-            reply.content = $("[name='reply.content']").val();
-            reply.avatar = $("#reply-avatar").attr("src");
-            reply.parentComment = parentComment;
-
+        function setBlogUser(UId) {
             $.ajax({
-                url: "/comments",
-                type: "POST",
-                data: JSON.stringify(
-                    reply
-                ),
-                dataType: "json",
-                contentType: "application/json;charset=UTF-8",
-                async: false,
-                success: function (data) {
+                url: "/user/" + UId,
+                type: "GET",
+                success: function (result) {
                     layer.closeAll();
-                    if (data.code === 200) {
-                        //刷新评论
-                        console.info("刷新评论");
-                        $(".comment").remove();
-                        getComment();
+                    if (result.code === 200) {
+                        let data = result.data;
+                        $("#blogInfo-user-email").val(data.email);
+                    } else {
+                        layer.msg(result.msg);
                     }
                 },
-                error: function () {
-                    layer.msg("出现意料之外的错误，请检查网络");
-                    layer.closeAll();
+                error: function (obj) {
+                    layer.log("error，也许您的网络有问题");
                 }
             });
-        } else {
-            layer.msg("请填入合法的参数");
         }
+
     };
 
 
-    function clearContent() {
-        $("[name='content']").val('');
-        $("[name='parentComment.id']").val('');
-        $("[name='parentComment.email']").val('');
-        $("[name='content']").attr("placeholder", "欢迎你的评论...");
-    };
+
 
     //评论表单验证reply-form
     $('div[id$="form"]').form({

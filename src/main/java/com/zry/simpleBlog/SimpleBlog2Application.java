@@ -22,8 +22,7 @@ public class SimpleBlog2Application {
         SpringApplication.run(SimpleBlog2Application.class, args);
     }
     @PostConstruct
-    void setDefaultTimezone() {
+    void init() {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
-
     }
 }

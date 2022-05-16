@@ -63,7 +63,7 @@ public class IdempotentAspect {
             log.error("keyStr is null,skip idempotent,execute target class");
             return pjp.proceed();
         }
-        //对key进行一次hash
+        //对key进行一次加密
         String key = MD5Util.md5(keyStr);
         log.info("redis key：{}", key);
         boolean setNxRes = redisService.setNx(key, LOCK_VALUE,  timeout,TimeUnit.SECONDS);

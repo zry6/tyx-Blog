@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
-public class TagDto implements Serializable, BaseDto {
+public class TagDto implements Serializable {
 
     private Long id;
     @NotNull(message = "标签名不能为空")
