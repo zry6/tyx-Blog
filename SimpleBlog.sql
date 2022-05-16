@@ -82,8 +82,7 @@ CREATE TABLE `t_comment` (
   PRIMARY KEY (`id`),
   KEY `FKke3uogd04j4jx316m1p51e05u` (`blog_id`),
   KEY `FK4jj284r3pb7japogvo6h72q95` (`parent_comment_id`),
-  CONSTRAINT `FK4jj284r3pb7japogvo6h72q95` FOREIGN KEY (`parent_comment_id`) REFERENCES `t_comment` (`id`),
-  CONSTRAINT `FKke3uogd04j4jx316m1p51e05u` FOREIGN KEY (`blog_id`) REFERENCES `t_blog` (`id`)
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
