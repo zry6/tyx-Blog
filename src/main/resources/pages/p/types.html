@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>分类</title>
     <link rel="icon" href="/images/logo.ico"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="/lib/semantic/semantic.min.css">
     <link rel="stylesheet" href="/lib/animate/animate.min.css"/>
     <link rel="stylesheet" href="/css/me.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
@@ -92,9 +92,9 @@
             </div>
 
         </div>
-        <div id="blogPage" class="ui top attached segment m-border-radius  m-back-grass-deep animated fadeInUp">
+        <div id="blogPage" class="ui top attached segment m-border-radius  m-back-grass-deep">
               <!-- 做个填充-->
-            <div style="min-height: 200px"></div><h1 class="ui center aligned header" >猫喵喵提示：does not exist</h1>
+            <div style="min-height: 200px"></div><h1 class="ui center aligned header" >猫喵喵...</h1>
             <div style="min-height: 200px"></div>
         </div>
         <div class="ui bottom attached segment">
@@ -125,7 +125,7 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class="ui inverted header"推荐博客</h4>
+                <h4 class="ui inverted header">推荐博客</h4>
                 <div id="recommends" class="ui inverted link list m-text-thin m-text-spaced">
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
@@ -173,10 +173,10 @@
     </meting-js>
 </footer>
 </body>
-<script src="/js/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<script src="/lib/layer/layer.js"></script>
-<script src="/js/showTime.js"></script>
+<script  type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+<script  type="text/javascript" src="/lib/semantic/semantic.min.js"></script>
+<script  type="text/javascript" src="/lib/layer/layer.js"></script>
+<script  type="text/javascript" src="/js/showTime.js"></script>
 <!--comment.js-->
 <script type="text/javascript" src="/js/common.js"></script>
 <!--comment.js-->
@@ -234,7 +234,7 @@
         var page_content = "";//当前页内容
         $.each(blogs, function (index, val) {
             let blogUrl =  "/p/blog.html?article="+val.id;
-            page_content += '<div class="ui padded  segment m-padded-tb-2em m-mobile-clear m-card"><div class="ui middle aligned mobile reversed stackable grid"><div class="eleven wide column"> <h3 class="ui header"><a href="'+blogUrl+'" target="_blank" class="m-black">'
+            page_content += '<div class="ui padded  segment m-padded-tb-2em m-mobile-clear m-card  animated fadeInUp"><div class="ui middle aligned mobile reversed stackable grid"><div class="eleven wide column"> <h3 class="ui header"><a href="'+blogUrl+'" target="_blank" class="m-black">'
                 + val.title
                 + '</a></h3><p class="m-text"><a href="'+blogUrl+'" data-pjax="" class="m-black">'
                 + val.description

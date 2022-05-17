@@ -43,6 +43,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private RedisServiceImpl redisService;
     /**
      * 博客首页和分类的分页展示
      */
@@ -170,11 +172,21 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         if (!blog.getPublished() && user == null) {
             throw new BusinessException(RespBeanEnum.AUTH_ERROR);
         }
+
         BlogDto blogDto = new BlogDto(blog);
         //获取分类
         blogDto.setType(typeMapper.selectById(blogDto.getTypeId()));
         //获取标签
         setTagsByBlogId(blogDto);
+
+        //更新views 博客访问次数 ， 如果是本人不更新
+        if(user == null && ! redisService.isExistVisitor(blog.getId())){
+            Blog b = new Blog();
+            b.setViews(blog.getViews()+1);
+            b.setId(blog.getId());
+            blogMapper.updateById(b);
+            log.debug("updateById==="+b.getViews());
+        }
         return blogDto;
     }
 
@@ -231,7 +243,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             blogTagsMapper.insertBlogTags(blog.getId(), tagList);
         }
     }
-
 
     @CacheEvict(value = {"BlogPage_Tag","BlogPage_Index_Type","TagDto_List","Blog_Archives","Blog_Recommends"},allEntries = true)
     @Transactional(rollbackFor = Exception.class)

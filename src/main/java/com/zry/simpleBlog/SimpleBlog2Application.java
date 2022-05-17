@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
@@ -15,6 +16,7 @@ import java.util.TimeZone;
 @SpringBootApplication
 @MapperScan("com.zry.simpleBlog.mapper")
 @PropertySource("classpath:/globalVariable.properties")
+@EnableAsync
 @EnableCaching
 public class SimpleBlog2Application {
 

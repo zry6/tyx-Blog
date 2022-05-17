@@ -21,12 +21,12 @@ spring:
 
   redis:
     port: 6379
-    host: 127.0.0.1
+    host:
     password: 123
     database: 0
     jedis:
       pool:
-        max-wait: 100000
+        max-wait: 10000
   #jackson
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -34,8 +34,8 @@ spring:
       indent_output: true
     time-zone: GMT+8
   mail:
-    username: 1447051936@qq.com
-    password: 
+    username:
+    password:
     host: smtp.qq.com
     properties:
       mail:

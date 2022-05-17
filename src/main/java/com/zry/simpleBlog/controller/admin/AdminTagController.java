@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
 import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
+import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.dto.TagDto;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -93,7 +95,11 @@ public class AdminTagController {
     @CheckLogin
     @LogWeb(title = "标签管理", action = "按id删除标签")
     public RespBean deleteTag(@PathVariable Long id) {
-        if (!tagService.removeById(id)) {
+        List<BlogTags> list = blogTagsService.list(new QueryWrapper<BlogTags>().select("id").eq("tags_id", id));
+        if ( !list.isEmpty()  ) {
+            throw new BusinessException("删除失败，该标签下还存在文章哦");
+        }
+        if ( !tagService.removeById(id) ) {
             return RespBean.error(RespBeanEnum.DELETE_ERROR);
         }
         blogTagsService.remove(new QueryWrapper<BlogTags>().eq("tags_id", id));

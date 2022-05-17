@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface LogWeb {
     /**
-     * 模块
+     * 所属模块
      */
     String title() default "";
 

@@ -47,4 +47,11 @@ public interface ITypeService extends IService<Type> {
      * @create 2022/4/30
      */
     List<TypeDto> listAndBlogCount();
+    /**
+     * 功能描述: 删除分类
+     *
+     * @author zry
+     * @create 2022/5/17
+     */
+    boolean remove(Long id);
 }

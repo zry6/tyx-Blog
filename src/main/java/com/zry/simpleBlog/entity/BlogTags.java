@@ -38,5 +38,4 @@ public class BlogTags implements Serializable {
 
     private Long tagsId;
 
-
 }

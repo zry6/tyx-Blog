@@ -62,4 +62,12 @@ public interface RedisService {
 
     Object get(final String key);
 
+    /**
+     * 功能描述: 对于访问者ip，判断同一个文章是否重复访问。
+     *
+     * @return true:存在同一个ip重复访问一篇文章
+     * @author zry
+     * @create 2022/5/17
+     */
+    boolean isExistVisitor(Long id);
 }

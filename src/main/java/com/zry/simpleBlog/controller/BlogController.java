@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
 import com.zry.simpleBlog.comment.respBean.RespBean;
+import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.dto.ArchivesDto;
 import com.zry.simpleBlog.dto.BlogDto;
 import com.zry.simpleBlog.dto.BlogQuery;
@@ -13,6 +14,7 @@ import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.service.IBlogService;
 import com.zry.simpleBlog.service.IUserService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,9 +40,14 @@ public class BlogController {
     @Resource
     private IBlogService blogService;
 
-
     @Resource
     private IUserService userService;
+
+    @Value("${init.article.guestbook.id}")
+    private Long guestbookId;
+
+    @Value("${init.user.id}")
+    private Long userId;
     /**
      * 功能描述:根据博客id返回文章
      *
@@ -55,6 +62,10 @@ public class BlogController {
     @GetMapping("blogs/{id}")
     public RespBean getBlog(@PathVariable Integer id) {
         BlogDto blog = blogService.getBlogById(id);
+        if (blog == null) {
+            return RespBean.error(RespBeanEnum.BLOG_NOT_EXISTED);
+        }
+
         return RespBean.success(blog);
     }
 
@@ -84,9 +95,9 @@ public class BlogController {
      *
      * @return mv
      */
+    @Cacheable(value = "Blog_Recommends")
     @ApiOperation(value = "推荐文章列表", notes = "默认推荐文章展示前5个")
     @GetMapping("recommendBlogs")
-    @Cacheable(value = "Blog_Recommends")
     public RespBean recommendBlog(@RequestParam(defaultValue = "5") Integer num) {
         List<Blog> blogList = blogService.list(new QueryWrapper<Blog>().select("id", "title").eq("published", true).eq("recommend", true).orderByAsc("update_time").last("limit " + num));
         return RespBean.success(blogList);
@@ -99,6 +110,48 @@ public class BlogController {
         return RespBean.success(stringListMap);
     }
 
+
+
+    @PostConstruct
+    public void init() {
+        initUser();
+        initBlog();
+    }
+    private void initUser() {
+        User user = userService.getById(1);
+        if (user != null) {
+            return;
+        }
+        user = new User();
+        user.setId(userId);
+        user.setUsername("root");
+        user.setType(1);
+        //两次root加密之后的
+        user.setPassword("b5fb686c5752edd1c337ac7231c6cea5");
+        user.setNickname("tyux");
+        user.setAvatar("/images/avatar/zry.jpg");
+        user.setSalt("1a2b3c4d");
+        userService.save(user);
+    }
+
+
+    private void initBlog() {
+        Blog blog = blogService.getById(1);
+        if (blog != null) {
+            return;
+        }
+        blog = new Blog();
+        blog.setId(guestbookId);
+        blog.setUserId(userId);
+        blog.setTitle("留言板");
+        blog.setContent("畅所欲言吧");
+        blog.setCommentable(true);
+        blog.setPublished(false);
+        blog.setFlag("原创");
+        blog.setCreateTime(new Date());
+        blog.setUpdateTime(new Date());
+        blogService.save(blog);
+    }
 
 //    /**
 //     * 功能描述: 这是一个特殊的方法，主要生成留言板文章数据。留言板是一篇id固定的文章
@@ -126,41 +179,6 @@ public class BlogController {
 //        blogService.save(blog);
 //        return RespBean.success();
 //    }
-
-    @PostConstruct
-    public void init() {
-        User user = userService.getById(1);
-        if(user != null){
-            return;
-        }
-        user = new User();
-        user.setId(1L);
-        user.setUsername("root");
-        user.setType(1);
-        //两次root加密之后的
-        user.setPassword("b5fb686c5752edd1c337ac7231c6cea5");
-        user.setNickname("tyux");
-        user.setAvatar("/images/avatar/zry.jpg");
-        user.setSalt("1a2b3c4d");
-        userService.save(user);
-
-
-        Blog blog = blogService.getById(1);
-        if (blog != null) {
-            return;
-        }
-        blog = new Blog();
-        blog.setId(1L);
-        blog.setUserId(1L);
-        blog.setTitle("留言板");
-        blog.setContent("畅所欲言吧");
-        blog.setCommentable(true);
-        blog.setPublished(false);
-        blog.setFlag("原创");
-        blog.setCreateTime(new Date());
-        blog.setUpdateTime(new Date());
-        blogService.save(blog);
-    }
 
 
 }

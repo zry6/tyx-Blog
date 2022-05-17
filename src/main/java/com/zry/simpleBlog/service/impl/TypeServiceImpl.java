@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.dto.TypeDto;
+import com.zry.simpleBlog.entity.Blog;
 import com.zry.simpleBlog.entity.Type;
 import com.zry.simpleBlog.mapper.BlogMapper;
 import com.zry.simpleBlog.mapper.TypeMapper;
@@ -30,6 +31,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
     private TypeMapper typeMapper;
     @Resource
     private BlogMapper blogMapper;
+
     @Override
     public Page<Type> typePage(Integer pageCurrent, Integer pageSiz) {
         return typeMapper.selectPage(new Page<>(pageCurrent, pageSiz), Wrappers.emptyWrapper());
@@ -64,11 +66,23 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
         List<TypeDto> typeDos = blogMapper.selectCountAndTypesId();
         for (TypeDto typeDto : typeDos) {
             Type type = typeMapper.selectById(typeDto.getId());
-            if(type != null){
+            if (type != null) {
                 typeDto.setName(type.getName());
             }
         }
         return typeDos;
+    }
+    @Override
+    public boolean remove(Long id) {
+        List<Blog> blogs = blogMapper.selectList(new QueryWrapper<Blog>().select("id").eq("type_id", id));
+        if (!blogs.isEmpty()) {
+            throw new BusinessException("删除失败，该分类下还存在文章哦");
+        }
+        int i = typeMapper.deleteById(id);
+        if (i != 1) {
+            return false;
+        }
+        return true;
     }
 
     /**

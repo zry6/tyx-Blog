@@ -49,7 +49,7 @@ public class AdminTypeController {
     }
 
     /**
-     * 功能描述: 获取分类根据id
+     * 功能描述: 根据id获取分类
      *
      * @author zry
      */
@@ -85,8 +85,9 @@ public class AdminTypeController {
     @CheckLogin
     @LogWeb(title = "分类管理", action = "按id删除分类")
     public RespBean deleteType(@PathVariable Long id) {
-        if (!typeService.removeById(id)) {
-            return RespBean.error(RespBeanEnum.DELETE_ERROR);
+        boolean b = typeService.remove(id);
+        if (!b) {
+            RespBean.error(RespBeanEnum.DELETE_ERROR);
         }
         return RespBean.success(RespBeanEnum.DELETE_SUCCESS);
     }

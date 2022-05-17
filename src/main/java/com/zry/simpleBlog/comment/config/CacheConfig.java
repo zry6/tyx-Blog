@@ -23,7 +23,7 @@ public class CacheConfig {
 
         // 配置序列化（解决乱码的问题）,过期时间120秒
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofHours(8))
+                .entryTtl(Duration.ofHours(6))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisTemplate.getKeySerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisTemplate.getValueSerializer()));
 

@@ -7,22 +7,28 @@ import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.comment.utils.UserContext;
 import com.zry.simpleBlog.dto.CommentDto;
+import com.zry.simpleBlog.dto.EmailDto;
 import com.zry.simpleBlog.entity.Blog;
 import com.zry.simpleBlog.entity.Comment;
 import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.mapper.BlogMapper;
 import com.zry.simpleBlog.mapper.CommentMapper;
+import com.zry.simpleBlog.service.EmailService;
 import com.zry.simpleBlog.service.ICommentService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
 
@@ -40,9 +46,13 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Resource
     private BlogMapper blogMapper;
 
-    @Value("${comment.default.avatar}")
-    String avatar;
+    @Resource
+    private EmailService emailService;
 
+    @Value("${comment.default.avatar}")
+    private String avatar;
+    @Value("${init.article.guestbook.id}")
+    private Long guestbookId;
 
     /**
      * 功能描述: 存放迭代找出的所有子代的临时列表  ThreadLocal规避 全局变量的并发问题
@@ -74,8 +84,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         comment.setCreateTime(new Date());
 
         if (comment.getParentComment() != null && !StringUtils.isEmpty(comment.getParentComment().getId())) {
-            Comment comment1 = commentMapper.selectById(comment.getParentComment().getId());
-            if (comment1 == null) {
+            Comment parentComment = commentMapper.selectById(comment.getParentComment().getId());
+            if (parentComment == null) {
                 throw new BusinessException(RespBeanEnum.COMMENT_NOT_EXISTED);
             }
         }
@@ -84,7 +94,25 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         if (i != 1) {
             throw new BusinessException(RespBeanEnum.POST_COMMENT_ERROR);
         }
+        sendEmail(comment, blog);
         return comment;
+    }
+
+    private void sendEmail(CommentDto comment, Blog blog) {
+        EmailDto emailDto = new EmailDto();
+        emailDto.setBlogTitle(blog.getTitle());
+        emailDto.setEmailTo(comment.getParentComment().getEmail());
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
+        if (blog.getId().equals(guestbookId)) {
+            basePath += "p/guestbook.html";
+        } else {
+            basePath += "p/blog.html?article=" + blog.getId();
+        }
+        emailDto.setUrl(basePath);
+        emailDto.setContent(comment.getContent());
+
+        emailService.sendCommentEmail(emailDto);
     }
 
     @Transactional(rollbackFor = Exception.class)

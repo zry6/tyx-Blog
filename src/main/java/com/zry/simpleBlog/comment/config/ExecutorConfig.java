@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 自定义线程池
+ * @author 14470
  */
 @Configuration
 @EnableAsync
@@ -21,13 +22,15 @@ public class ExecutorConfig {
 	private int maxPoolSize = Runtime.getRuntime().availableProcessors();
 	/** Set the capacity for the ThreadPoolExecutor's BlockingQueue. */
 	private int queueCapacity = 10;
-	@Bean
+
+	@Bean("myThreadPool")
 	public Executor mySimpleAsync() {
+
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 		executor.setCorePoolSize(corePoolSize);
 		executor.setMaxPoolSize(maxPoolSize);
 		executor.setQueueCapacity(queueCapacity);
-		executor.setThreadNamePrefix("MySimpleExecutor-");
+		executor.setThreadNamePrefix("MyExecutor-");
 		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 		executor.initialize();
 		return executor;
