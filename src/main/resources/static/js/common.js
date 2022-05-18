@@ -1,5 +1,4 @@
 function browser() {
-
     var browser = {
         versions: function () {
             var u = navigator.userAgent, app = navigator.appVersion;

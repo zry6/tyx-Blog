@@ -21,7 +21,7 @@ spring:
 
   redis:
     port: 6379
-    host:
+    host: 127.0.0.1
     password: 123
     database: 0
     jedis:
@@ -34,7 +34,7 @@ spring:
       indent_output: true
     time-zone: GMT+8
   mail:
-    username:
+    username: 1447051936@qq.com
     password:
     host: smtp.qq.com
     properties:
