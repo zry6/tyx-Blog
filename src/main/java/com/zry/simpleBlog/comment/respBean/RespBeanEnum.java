@@ -48,7 +48,8 @@ public enum RespBeanEnum {
     TAG_EXISTED(400010, "标签已存在"),
     DELETE_CACHE_ERROR(400003, "删除缓存异常"),
     GET_CACHE_ERROR(400011, "获取缓存异常"),
-    SET_CACHE_ERROR(400012, "写缓存异常");
+    SET_CACHE_ERROR(400012, "写缓存异常"),
+    PASSWORD_UPDATE_FAIL(400013, "密码更新失败");
 
 
     /**

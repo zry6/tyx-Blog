@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class BlogDto implements Serializable {
 
     private Boolean commentable;
 
-    @NotNull(message = "内容不能为空")
+    @NotBlank(message = "内容不能为空")
     private String content;
     @JsonFormat(pattern = "yyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date createTime;
@@ -49,7 +50,7 @@ public class BlogDto implements Serializable {
 
     private Boolean shareStatement;
 
-    @NotNull(message = "标题不能为空")
+    @NotBlank(message = "标题不能为空")
     private String title;
     @JsonFormat(pattern = "yyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date updateTime;

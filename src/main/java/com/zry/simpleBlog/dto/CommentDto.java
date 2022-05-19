@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,14 +25,14 @@ public class CommentDto implements Serializable, IdempotentInterface {
     private Long id;
 
     @IdempotentField
-    @NotNull(message = "昵称不能为空")
+    @NotBlank(message = "昵称不能为空")
     private String nickname;
 
     @IdempotentField
     private String email;
 
     @IdempotentField
-    @NotNull(message = "内容不能为空")
+    @NotBlank(message = "内容不能为空")
     private String content;
 
     @IdempotentField

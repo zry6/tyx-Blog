@@ -4,16 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zry.simpleBlog.comment.aop.annotations.IdempotentField;
 import com.zry.simpleBlog.comment.idempotent.IdempotentInterface;
 import com.zry.simpleBlog.entity.Blog;
-import com.zry.simpleBlog.entity.Tag;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /** 添加文章数据
  * @author zry
@@ -32,7 +31,7 @@ public class PostBlogDto implements Serializable, IdempotentInterface {
     private Boolean commentable;
 
     @IdempotentField
-    @NotNull(message = "内容不能为空")
+    @NotBlank(message = "内容不能为空")
     @Size(min = 1,message = "内容不能为空")
     private String content;
 
@@ -53,7 +52,7 @@ public class PostBlogDto implements Serializable, IdempotentInterface {
     private Boolean shareStatement;
 
     @IdempotentField
-    @NotNull(message = "标题不能为空")
+    @NotBlank(message = "标题不能为空")
     @Size(min = 1,message = "标题不能为空")
     private String title;
 
@@ -71,23 +70,23 @@ public class PostBlogDto implements Serializable, IdempotentInterface {
     private String tagIds;
 
 
-    private String tagsToIds(List<Tag> tags) {
-        if (!tags.isEmpty()) {
-            StringBuilder ids = new StringBuilder();
-            boolean flag = false;
-            for (Tag tag : tags) {
-                if (flag) {
-                    ids.append(",");
-                } else {
-                    flag = true;
-                }
-                ids.append(tag.getId());
-            }
-            return ids.toString();
-        } else {
-            return tagIds;
-        }
-    }
+//    private String tagsToIds(List<Tag> tags) {
+//        if (!tags.isEmpty()) {
+//            StringBuilder ids = new StringBuilder();
+//            boolean flag = false;
+//            for (Tag tag : tags) {
+//                if (flag) {
+//                    ids.append(",");
+//                } else {
+//                    flag = true;
+//                }
+//                ids.append(tag.getId());
+//            }
+//            return ids.toString();
+//        } else {
+//            return tagIds;
+//        }
+//    }
 
     public Blog caseToBlog(){
         Blog blog = new Blog();

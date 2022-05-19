@@ -23,6 +23,15 @@ public interface IUserService extends IService<User> {
      */
     RespBean doLogin(LoginDto loginDto);
 
+
+    /**
+     * 更新密码
+     * @param userTicket;
+     * @param password;
+     * @return
+     */
+    RespBean updatePassword(String userTicket, String password);
+
 //    /**
 //     * 功能描述: 根据id更新
 //     *

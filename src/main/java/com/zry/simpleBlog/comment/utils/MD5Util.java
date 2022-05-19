@@ -42,10 +42,10 @@ public class MD5Util {
  */
     public static void main(String[] args) {
 //        b5fb686c5752edd1c337ac7231c6cea5
-        System.out.println(MD5Util.inputPassToDBPass("root", salt));
+        System.out.println(MD5Util.inputPassToDBPass("asdw", salt));
         //85779e93f9bd754d8b2f66cca44a0ab6
-        System.out.println(MD5Util.inputPassToFromPass("root"));
+        System.out.println(MD5Util.inputPassToFromPass("asdw"));
         //b5fb686c5752edd1c337ac7231c6cea5
-        System.out.println(MD5Util.formPassToDBPass("85779e93f9bd754d8b2f66cca44a0ab6", salt));
+        System.out.println(MD5Util.formPassToDBPass("e14c663d3a0cdb0dc4739f0c80f5b5ad", salt));
     }
 }

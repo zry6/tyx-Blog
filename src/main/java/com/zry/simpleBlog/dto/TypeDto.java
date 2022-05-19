@@ -4,7 +4,7 @@ import com.zry.simpleBlog.entity.Type;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class TypeDto implements Serializable {
 
     private Long id;
-    @NotNull(message = "分类名不能为空")
+    @NotBlank(message = "分类名不能为空")
     @Size(message = "分类名应在1-10个字符哦", min = 1, max = 10)
     private String name;
 

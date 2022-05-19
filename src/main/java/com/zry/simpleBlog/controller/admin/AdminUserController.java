@@ -3,15 +3,17 @@ package com.zry.simpleBlog.controller.admin;
 
 import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
 import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
+import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
+import com.zry.simpleBlog.comment.utils.CookieUtil;
+import com.zry.simpleBlog.comment.utils.UserContext;
 import com.zry.simpleBlog.dto.LoginDto;
+import com.zry.simpleBlog.dto.UpdatePswDto;
 import com.zry.simpleBlog.dto.UserDto;
 import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.service.IUserService;
 import com.zry.simpleBlog.service.RedisService;
-import com.zry.simpleBlog.comment.utils.CookieUtil;
-import com.zry.simpleBlog.comment.utils.UserContext;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +39,8 @@ public class AdminUserController {
 
     @Value("${cookie.user.key}")
     private String cookieKey;
-
+    @Value("${cookie.user.surviveTime}")
+    private long surviveTime;
     /**
      * 功能描述: 登录
      *
@@ -73,15 +76,34 @@ public class AdminUserController {
     @PutMapping("user/{id}")
     @CheckLogin
     @LogWeb(title = "用户操作", action = "更新用户信息")
-    public RespBean updateUserInfo(@Valid @RequestBody UserDto userDto, @PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response) {
-        //更新数据库中的用户信息
+    public RespBean updateUserInfo(@Valid @RequestBody UserDto userDto, @PathVariable("id") Integer id, HttpServletRequest request) {
         userDto.setId(Long.valueOf(id));
+        //更新数据库中的用户信息
         userService.updateById(userDto.castUser());
         String ticket = CookieUtil.getCookieValue(request, cookieKey);
-        //根据ticket删除redis中的用户信息 ，让用户重新登录
-        redisService.deleteUser(ticket);
-        CookieUtil.deleteCookie(request,response,cookieKey);
+        User user = userService.getById(id);
+        user.setSalt("你也不知道");
+        user.setPassword("你也不知道");
+
+        redisService.saveUser(ticket, user, surviveTime);
         return RespBean.success(RespBeanEnum.UPDATE_SUCCESS);
+    }
+    /**
+     * 功能描述: 更新用户信息
+     *
+     * @author zry
+     */
+    @ApiOperation(value = "更新用户密码", notes = "更新密码")
+    @PostMapping("updatePassword")
+    @CheckLogin
+    @LogWeb(title = "用户操作", action = "更新密码")
+    public RespBean updatePassword(@RequestBody UpdatePswDto pswDto, HttpServletRequest request) {
+        String password = pswDto.getPassword();
+        if (!password.equals(pswDto.getCheckPassword())){
+            throw  new BusinessException("两次输入密码不一致");
+        }
+        String userTicket = CookieUtil.getCookieValue(request, cookieKey);
+        return userService.updatePassword(userTicket,password);
     }
 
 
@@ -97,7 +119,7 @@ public class AdminUserController {
     public RespBean updateUserInfo(HttpServletRequest request,
                                    HttpServletResponse response) {
         //1.删除redis中的user信息
-        redisService.deleteUser(cookieKey);
+        redisService.deleteUser(CookieUtil.getCookieValue(request, cookieKey));
         //2.删除cookie 中的user Token
         CookieUtil.deleteCookie(request, response, cookieKey);
         return RespBean.success();
