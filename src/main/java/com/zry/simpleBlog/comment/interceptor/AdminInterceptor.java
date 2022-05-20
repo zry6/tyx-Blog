@@ -29,7 +29,7 @@ public class AdminInterceptor implements HandlerInterceptor {
     @Value("${page.path.login}")
     private  String loginPath ;
     /**
-     * 功能描述: 只需要拦截 admin 下的静态页面请求，如果是其他 api 请求的话使用RequiresPermissions注解验证在其它包
+     * 功能描述: 只需要拦截 admin 下的.html静态页面请求，如果是其他 api请求需要登录登录权限 请求的话使用 CheckLogin注解验证
      * 如果登录那么就放行
      */
     @Override
@@ -45,6 +45,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         User user = redisService.getUserByTicket(request, response,ticket);
         if (user == null) {
             response.sendRedirect(loginPath);
+
             return false;
         }
         return true;

@@ -4,12 +4,12 @@ package com.zry.simpleBlog.comment.config;
 import com.zry.simpleBlog.comment.interceptor.AdminInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
- *
  * @author zry
  * @create 2022-04-09 17:31
  */
@@ -20,19 +20,32 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
      * 功能描述: 开放静态资源
      */
     @Override
-        public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        "classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/"
-            //重写这个方法，映射静态资源文件
-            registry.addResourceHandler("/**")
-                    .addResourceLocations("classpath:/resources/")
-                    .addResourceLocations("classpath:/static/")
-                    .addResourceLocations("classpath:/pages/")
-            ;
-            registry.addResourceHandler("swagger-ui.html")
-                    .addResourceLocations("classpath:/META-INF/resources/");
-            registry.addResourceHandler("/webjars/**")
-                    .addResourceLocations("classpath:/META-INF/resources/webjars/");
-            super.addResourceHandlers(registry);
+        //重写这个方法，映射静态资源文件
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/resources/")
+                .addResourceLocations("classpath:/static/")
+                .addResourceLocations("classpath:/pages/")
+        ;
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        super.addResourceHandlers(registry);
+    }
+
+    /**
+     * 解决跨域问题
+     *
+     * @param registry
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH")
+                .allowCredentials(true).maxAge(3600);
     }
 
     /**
@@ -45,7 +58,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addInterceptor(adminInterceptor())
                 //拦截路径
                 .addPathPatterns("/back/*.html")
-                .excludePathPatterns("/back/login.html") ;
+                .excludePathPatterns("/back/login.html");
 
         super.addInterceptors(registry);
     }

@@ -38,10 +38,10 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
 // 设置页面标题
-                .title("retwis-->接口文档")
-                .contact(new Contact("小而美个人博客项目开发", "", "1447051936@qq.com"))
+                .title("个人博客项目-->接口文档")
+                .contact(new Contact("个人博客项目开发", "", "1447051936@qq.com"))
                 // 设置接口描述
-                .description("retwis的Api")
+                .description("个人博客Api")
 // 设置版本
                 .version("1.0")
 // 构建
