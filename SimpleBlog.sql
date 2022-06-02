@@ -69,11 +69,9 @@ CREATE TABLE `t_comment` (
   `blog_id` bigint DEFAULT NULL,
   `parent_comment_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKke3uogd04j4jx316m1p51e05u` (`blog_id`),
-  KEY `FK4jj284r3pb7japogvo6h72q95` (`parent_comment_id`),
-
+ 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `t_tag`
@@ -94,8 +92,7 @@ CREATE TABLE `t_tag` (
 --
 
 DROP TABLE IF EXISTS `t_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `t_type` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -108,8 +105,7 @@ CREATE TABLE `t_type` (
 --
 
 DROP TABLE IF EXISTS `t_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `t_user` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `avatar` varchar(255) DEFAULT NULL,
@@ -130,9 +126,9 @@ CREATE TABLE `t_user` (
 -- 初始用户
 --
 
-INSERT INTO simpleblog.t_user (id, avatar, create_time, email, nickname, password, type, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
+-- INSERT INTO simpleblog.t_user (id, avatar, create_time, email, nickname, password, type, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
 
-update simpleblog.t_user (id, avatar, create_time, email, nickname, password, type, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
+-- update simpleblog.t_user (id, avatar, create_time, email, nickname, password, type, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
 
 
 
