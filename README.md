@@ -3,8 +3,10 @@
 
 看完如果觉得还行，给个star鼓励一下吧👍
 
-# 预览地址 http://www.tyux.top/
-# 接口文档地址  http://www.tyux.top/swagger-ui.html
+## 预览地址 http://www.tyux.top/
+## 后台地址 http://www.tyux.top/back/login.html  
+## 测试用户 用户名：test  密码：1111
+## 接口文档地址  http://www.tyux.top/swagger-ui.html
 
 1.  **后台接口restful风格** 
 
