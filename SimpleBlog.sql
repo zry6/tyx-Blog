@@ -113,7 +113,7 @@ CREATE TABLE `t_user` (
   `email` varchar(255) DEFAULT NULL,
   `nickname` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `type` int DEFAULT NULL,
+  `rank` int DEFAULT NOT NULL,
   `update_time` datetime(6) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `salt` varchar(10) NOT NULL,
@@ -126,9 +126,9 @@ CREATE TABLE `t_user` (
 -- 初始用户
 --
 
--- INSERT INTO simpleblog.t_user (id, avatar, create_time, email, nickname, password, type, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
+-- INSERT INTO simpleblog.t_user (id, avatar, create_time, email, nickname, password, `rank`, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
 
--- update simpleblog.t_user (id, avatar, create_time, email, nickname, password, type, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
+-- update simpleblog.t_user (id, avatar, create_time, email, nickname, password, `rank`, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
 
 
 
