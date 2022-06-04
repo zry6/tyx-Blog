@@ -1,11 +1,11 @@
-package com.zry.simpleBlog.comment.idempotent.strategy.impl;
+package com.zry.simpleBlog.comment.strategy.idempotent.strategy.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zry.simpleBlog.comment.aop.annotations.IdempotentField;
-import com.zry.simpleBlog.comment.aop.annotations.IdempotentStrategy;
-import com.zry.simpleBlog.comment.idempotent.strategy.IdempotentStrategyInterface;
-import com.zry.simpleBlog.comment.idempotent.IdempotentInterface;
+import com.zry.simpleBlog.comment.enums.IdempotentStrategyEnum;
+import com.zry.simpleBlog.comment.strategy.idempotent.strategy.IdempotentStrategyInterface;
+import com.zry.simpleBlog.comment.strategy.idempotent.IdempotentInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
@@ -32,7 +32,7 @@ public class InterfacesIdempotentStrategy implements IdempotentStrategyInterface
 
     @Override
     public String process(ProceedingJoinPoint pjp) throws IllegalAccessException, JsonProcessingException {
-        log.info("idempotent strategy：{}", IdempotentStrategy.IDEMPOTENT_INTERFACE.name());
+        log.info("idempotent strategy：{}", IdempotentStrategyEnum.IDEMPOTENT_INTERFACE.name());
         Object[] args = pjp.getArgs();
         Object dto = null;
         for (Object arg : args) {

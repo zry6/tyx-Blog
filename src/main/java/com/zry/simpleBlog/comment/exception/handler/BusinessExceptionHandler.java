@@ -3,7 +3,7 @@ package com.zry.simpleBlog.comment.exception.handler;
 
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -19,12 +19,12 @@ import javax.servlet.http.HttpServletRequest;
  * 全局异常处理类
  *
  * @author zry
- * @ClassName GlobalExceptionHandler.java
+ * @ClassName BusinessExceptionHandler.java
  * @createTime 2022年01月01日
  */
 @Slf4j
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class BusinessExceptionHandler {
 
     /**
      * 功能描述: 捕获自定义异常 BusinessException

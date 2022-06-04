@@ -3,9 +3,9 @@ package com.zry.simpleBlog.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
+import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
 import com.zry.simpleBlog.dto.ArchivesDto;
 import com.zry.simpleBlog.dto.BlogDto;
 import com.zry.simpleBlog.dto.BlogQuery;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +57,7 @@ public class BlogController {
      * @author zry
      * @create 2022/4/28
      */
-    @CheckLogin(isLogin = false)
+    @AuthCheck(isLogin = false)
     @GetMapping("blogs/{id}")
     public RespBean getBlog(@PathVariable Integer id) {
         BlogDto blog = blogService.getBlogById(id);
@@ -111,12 +110,16 @@ public class BlogController {
     }
 
 
-
-    @PostConstruct
-    public void init() {
-        initUser();
-        initBlog();
-    }
+/**
+ * 功能描述: 初始项目，不需要就去掉
+ *
+ * @create 2022/6/2
+ */
+//    @PostConstruct
+//    public void init() {
+//        initUser();
+//        initBlog();
+//    }
     private void initUser() {
         User user = userService.getById(1);
         if (user != null) {
@@ -125,8 +128,8 @@ public class BlogController {
         user = new User();
         user.setId(userId);
         user.setUsername("root");
-        user.setType(1);
-        //两次root加密之后的
+        user.setRank(1);
+        //root两次加密之后的
         user.setPassword("b5fb686c5752edd1c337ac7231c6cea5");
         user.setNickname("tyux");
         user.setAvatar("/images/avatar/zry.jpg");
@@ -152,33 +155,6 @@ public class BlogController {
         blog.setUpdateTime(new Date());
         blogService.save(blog);
     }
-
-//    /**
-//     * 功能描述: 这是一个特殊的方法，主要生成留言板文章数据。留言板是一篇id固定的文章
-//     *
-//     * @create 2022/5/15
-//     */
-//    @CheckLogin
-//    @ApiOperation(value = "初始化博客", notes = "主要生成留言板文章数据")
-//    @PostMapping("init")
-//    public RespBean init() {
-//        Blog blog;
-//        blog = blogService.getById(1);
-//        if (blog != null) {
-//            return RespBean.success("留言板已存在");
-//        }
-//        blog = new Blog();
-//        blog.setId(1L);
-//        blog.setUserId(1L);
-//        blog.setTitle("留言板");
-//        blog.setContent("畅所欲言吧");
-//        blog.setCommentable(true);
-//        blog.setPublished(false);
-//        blog.setFlag("原创");
-//        blog.setCreateTime(new Date());
-//        blogService.save(blog);
-//        return RespBean.success();
-//    }
 
 
 }

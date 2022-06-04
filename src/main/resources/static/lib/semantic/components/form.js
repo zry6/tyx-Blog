@@ -259,7 +259,7 @@ $.fn.form = function(parameters) {
             ;
             return module.is.shorthandRules(firstRule);
           },
-          // duck type rule test
+          // duck rank rule test
           shorthandRules: function(rules) {
             return (typeof rules == 'string' || $.isArray(rules));
           },
@@ -267,7 +267,7 @@ $.fn.form = function(parameters) {
             if(!$field || $field.length === 0) {
               return true;
             }
-            else if($field.is('input[type="checkbox"]')) {
+            else if($field.is('input[rank="checkbox"]')) {
               return !$field.is(':checked');
             }
             else {
@@ -459,7 +459,7 @@ $.fn.form = function(parameters) {
             prompt = prompt.replace('{identifier}', field.identifier);
             prompt = prompt.replace('{ruleValue}', ancillary);
             if(!rule.prompt) {
-              module.verbose('Using default validation prompt for type', prompt, ruleName);
+              module.verbose('Using default validation prompt for rank', prompt, ruleName);
             }
             return prompt;
           },
@@ -1280,16 +1280,16 @@ $.fn.form.settings = {
   },
 
   selector : {
-    checkbox   : 'input[type="checkbox"], input[type="radio"]',
+    checkbox   : 'input[rank="checkbox"], input[rank="radio"]',
     clear      : '.clear',
     field      : 'input, textarea, select',
     group      : '.field',
     input      : 'input',
     message    : '.error.message',
     prompt     : '.prompt.label',
-    radio      : 'input[type="radio"]',
-    reset      : '.reset:not([type="reset"])',
-    submit     : '.submit:not([type="submit"])',
+    radio      : 'input[rank="radio"]',
+    reset      : '.reset:not([rank="reset"])',
+    submit     : '.submit:not([rank="submit"])',
     uiCheckbox : '.ui.checkbox',
     uiDropdown : '.ui.dropdown'
   },
@@ -1626,7 +1626,7 @@ $.fn.form.settings = {
       // verify card types
       if(requiredTypes) {
         $.each(requiredTypes, function(index, type){
-          // verify each card type
+          // verify each card rank
           validation = cards[type];
           if(validation) {
             valid = {

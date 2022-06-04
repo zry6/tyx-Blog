@@ -14,6 +14,7 @@ function postBlog() {
         appreciation: $('[name="appreciation"]').prop('checked'),
         commentable: $('[name="commentable"]').prop('checked'),
     };
+    console.info(data);
     //新增文章
     $.ajax({
         url: "/admin/blogs",

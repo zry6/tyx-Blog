@@ -28,7 +28,7 @@
         }(), c = function () {
             "string" == typeof n.btn && (n.btn = [n.btn]);
             var e, t = (n.btn || []).length;
-            return 0 !== t && n.btn ? (e = '<span yes type="1">' + n.btn[0] + "</span>", 2 === t && (e = '<span no type="0">' + n.btn[1] + "</span>" + e), '<div class="layui-m-layerbtn">' + e + "</div>") : ""
+            return 0 !== t && n.btn ? (e = '<span yes rank="1">' + n.btn[0] + "</span>", 2 === t && (e = '<span no rank="0">' + n.btn[1] + "</span>" + e), '<div class="layui-m-layerbtn">' + e + "</div>") : ""
         }();
         if (n.fixed || (n.top = n.hasOwnProperty("top") ? n.top : 100, n.style = n.style || "", n.style += " top:" + (t.body.scrollTop + n.top) + "px"), 2 === n.type && (n.content = '<i></i><i class="layui-m-layerload"></i><i></i><p>' + (n.content || "") + "</p>"), n.skin && (n.anim = "up"), "msg" === n.skin && (n.shade = !1), s.innerHTML = (n.shade ? "<div " + ("string" == typeof n.shade ? 'style="' + n.shade + '"' : "") + ' class="layui-m-layershade"></div>' : "") + '<div class="layui-m-layermain" ' + (n.fixed ? "" : 'style="position:static;"') + '><div class="layui-m-layersection"><div class="layui-m-layerchild ' + (n.skin ? "layui-m-layer-" + n.skin + " " : "") + (n.className ? n.className : "") + " " + (n.anim ? "layui-m-anim-" + n.anim : "") + '" ' + (n.style ? 'style="' + n.style + '"' : "") + ">" + l + '<div class="layui-m-layercont">' + n.content + "</div>" + c + "</div></div></div>", !n.type || 2 === n.type) {
             var d = t[i](o[0] + n.type), y = d.length;

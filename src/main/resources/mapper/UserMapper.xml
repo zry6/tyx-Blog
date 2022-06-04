@@ -10,7 +10,7 @@
         <result column="email" property="email" />
         <result column="nickname" property="nickname" />
         <result column="password" property="password" />
-        <result column="type" property="type" />
+        <result column="rank" property="rank" />
         <result column="update_time" property="updateTime" />
         <result column="username" property="username" />
         <result column="salt" property="salt" />

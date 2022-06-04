@@ -1,11 +1,11 @@
 package com.zry.simpleBlog.controller.admin;
 
 
-import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
+import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
 import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.utils.CookieUtil;
 import com.zry.simpleBlog.comment.utils.UserContext;
 import com.zry.simpleBlog.dto.LoginDto;
@@ -60,7 +60,7 @@ public class AdminUserController {
      */
     @ApiOperation(value = "目前登录用户信息")
     @GetMapping("userInfoByTicket")
-    @CheckLogin
+    @AuthCheck
     @LogWeb(title = "用户操作", action = "ThreadLocal或redis中获取用户信息")
     public RespBean userInfo() {
         User user = UserContext.getCurrentUser();
@@ -74,7 +74,7 @@ public class AdminUserController {
      */
     @ApiOperation(value = "更新用户信息", notes = "暂时不包括密码")
     @PutMapping("user/{id}")
-    @CheckLogin
+    @AuthCheck
     @LogWeb(title = "用户操作", action = "更新用户信息")
     public RespBean updateUserInfo(@Valid @RequestBody UserDto userDto, @PathVariable("id") Integer id, HttpServletRequest request) {
         userDto.setId(Long.valueOf(id));
@@ -84,7 +84,6 @@ public class AdminUserController {
         User user = userService.getById(id);
         user.setSalt("你也不知道");
         user.setPassword("你也不知道");
-
         redisService.saveUser(ticket, user, surviveTime);
         return RespBean.success(RespBeanEnum.UPDATE_SUCCESS);
     }
@@ -95,7 +94,7 @@ public class AdminUserController {
      */
     @ApiOperation(value = "更新用户密码", notes = "更新密码")
     @PostMapping("updatePassword")
-    @CheckLogin
+    @AuthCheck
     @LogWeb(title = "用户操作", action = "更新密码")
     public RespBean updatePassword(@RequestBody UpdatePswDto pswDto, HttpServletRequest request) {
         String password = pswDto.getPassword();
@@ -114,7 +113,7 @@ public class AdminUserController {
      */
     @ApiOperation(value = "退出登录", notes = "需要cookie中的key-value,将redis中的用户信息删除")
     @PostMapping("logout")
-    @CheckLogin
+    @AuthCheck
     @LogWeb(title = "用户操作", action = "退出登录")
     public RespBean updateUserInfo(HttpServletRequest request,
                                    HttpServletResponse response) {

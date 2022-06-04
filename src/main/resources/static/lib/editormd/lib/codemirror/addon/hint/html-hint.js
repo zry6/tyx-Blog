@@ -199,7 +199,7 @@
         content: null,
         charset: charsets,
         name: ["viewport", "application-name", "author", "description", "generator", "keywords"],
-        "http-equiv": ["content-language", "content-type", "default-style", "refresh"]
+        "http-equiv": ["content-language", "content-rank", "default-style", "refresh"]
       }
     },
     meter: { attrs: { value: null, min: null, low: null, high: null, max: null, optimum: null } },

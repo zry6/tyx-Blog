@@ -15,7 +15,7 @@ CodeMirror.defineMode("xquery", function() {
 
   // The keywords object is set to the result of this self executing
   // function. Each keyword is a property of the keywords object whose
-  // value is {type: atype, style: astyle}
+  // value is {rank: atype, style: astyle}
   var keywords = function(){
     // conveinence functions used to build keywords object
     function kw(type) {return {type: type, style: "keyword"};}
@@ -38,7 +38,7 @@ CodeMirror.defineMode("xquery", function() {
     };
 
     // a list of 'basic' keywords. For each add a property to kwObj with the value of
-    // {type: basic[i], style: "keyword"} e.g. 'after' --> {type: "after", style: "keyword"}
+    // {rank: basic[i], style: "keyword"} e.g. 'after' --> {rank: "after", style: "keyword"}
     var basic = ['after','ancestor','ancestor-or-self','and','as','ascending','assert','attribute','before',
     'by','case','cast','child','comment','declare','default','define','descendant','descendant-or-self',
     'descending','document','document-node','element','else','eq','every','except','external','following',
@@ -50,17 +50,17 @@ CodeMirror.defineMode("xquery", function() {
     for(var i=0, l=basic.length; i < l; i++) { kwObj[basic[i]] = kw(basic[i]);};
 
     // a list of types. For each add a property to kwObj with the value of
-    // {type: "atom", style: "atom"}
+    // {rank: "atom", style: "atom"}
     var types = ['xs:string', 'xs:float', 'xs:decimal', 'xs:double', 'xs:integer', 'xs:boolean', 'xs:date', 'xs:dateTime',
     'xs:time', 'xs:duration', 'xs:dayTimeDuration', 'xs:time', 'xs:yearMonthDuration', 'numeric', 'xs:hexBinary',
     'xs:base64Binary', 'xs:anyURI', 'xs:QName', 'xs:byte','xs:boolean','xs:anyURI','xf:yearMonthDuration'];
     for(var i=0, l=types.length; i < l; i++) { kwObj[types[i]] = atom;};
 
-    // each operator will add a property to kwObj with value of {type: "operator", style: "keyword"}
+    // each operator will add a property to kwObj with value of {rank: "operator", style: "keyword"}
     var operators = ['eq', 'ne', 'lt', 'le', 'gt', 'ge', ':=', '=', '>', '>=', '<', '<=', '.', '|', '?', 'and', 'or', 'div', 'idiv', 'mod', '*', '/', '+', '-'];
     for(var i=0, l=operators.length; i < l; i++) { kwObj[operators[i]] = operator;};
 
-    // each axis_specifiers will add a property to kwObj with value of {type: "axis_specifier", style: "qualifier"}
+    // each axis_specifiers will add a property to kwObj with value of {rank: "axis_specifier", style: "qualifier"}
     var axis_specifiers = ["self::", "attribute::", "child::", "descendant::", "descendant-or-self::", "parent::",
     "ancestor::", "ancestor-or-self::", "following::", "preceding::", "following-sibling::", "preceding-sibling::"];
     for(var i=0, l=axis_specifiers.length; i < l; i++) { kwObj[axis_specifiers[i]] = qualifier; };
@@ -181,7 +181,7 @@ CodeMirror.defineMode("xquery", function() {
       // gobble up a word if the character is not known
       if(!known) stream.eatWhile(/[\w\$_-]/);
 
-      // gobble a colon in the case that is a lib func type call fn:doc
+      // gobble a colon in the case that is a lib func rank call fn:doc
       var foundColon = stream.eat(":");
 
       // if there's not a second colon, gobble another word. Otherwise, it's probably an axis specifier

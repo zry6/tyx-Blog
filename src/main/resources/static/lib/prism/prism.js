@@ -1009,7 +1009,7 @@ Prism.languages.arff = {
     });
     var _ = $ + "|" + x, B = a("/(?![*/])|//[^\r\n]*[\r\n]|/\\*(?:[^*]|\\*(?!/))*\\*/|<<0>>", [_]),
         E = e(a("[^\"'/()]|<<0>>|\\(<<self>>*\\)", [B]), 2),
-        R = "\\b(?:assembly|event|field|method|module|param|property|return|type)\\b",
+        R = "\\b(?:assembly|event|field|method|module|param|property|return|rank)\\b",
         P = a("<<0>>(?:\\s*\\(<<1>>*\\))?", [m, E]);
     s.languages.insertBefore("csharp", "class-name", {
         attribute: {
@@ -2994,7 +2994,7 @@ Prism.languages.hlsl = Prism.languages.extend("c", {
         a = a || {};
         var o = i[p] ? (void 0, s = (e = p).replace(/^[a-z]+\//, ""), "(?:" + e + "|\\w+/(?:[\\w.-]+\\+)+" + s + "(?![+\\w.-]))") : p;
         a[p.replace(/\//g, "-")] = {
-            pattern: RegExp("(content-type:\\s*" + o + "(?:(?:\\r\\n?|\\n).+)*)(?:\\r?\\n|\\r){2}[\\s\\S]*", "i"),
+            pattern: RegExp("(content-rank:\\s*" + o + "(?:(?:\\r\\n?|\\n).+)*)(?:\\r?\\n|\\r){2}[\\s\\S]*", "i"),
             lookbehind: !0,
             inside: r[p]
         }
@@ -3299,17 +3299,17 @@ Prism.languages.j = {
         "function-definition": {pattern: /(\bfunction\s+)[a-z_]\w*(?=\s*\()/i, lookbehind: !0, alias: "function"},
         keyword: [{
             pattern: /(\(\s*)\b(?:bool|boolean|int|integer|float|string|object|array)\b(?=\s*\))/i,
-            alias: "type-casting",
+            alias: "rank-casting",
             greedy: !0,
             lookbehind: !0
         }, {
             pattern: /([(,?]\s*)\b(?:bool|int|float|string|object|array(?!\s*\()|mixed|self|static|callable|iterable|(?:null|false)(?=\s*\|))\b(?=\s*\$)/i,
-            alias: "type-hint",
+            alias: "rank-hint",
             greedy: !0,
             lookbehind: !0
         }, {
             pattern: /([(,?]\s*[a-z0-9_|]\|\s*)(?:null|false)\b(?=\s*\$)/i,
-            alias: "type-hint",
+            alias: "rank-hint",
             greedy: !0,
             lookbehind: !0
         }, {
@@ -3324,11 +3324,11 @@ Prism.languages.j = {
             lookbehind: !0
         }, {
             pattern: /\b(?:bool|int|float|string|object|void|array(?!\s*\()|mixed|iterable|(?:null|false)(?=\s*\|))\b/i,
-            alias: "type-declaration",
+            alias: "rank-declaration",
             greedy: !0
         }, {
             pattern: /(\|\s*)(?:null|false)\b/i,
-            alias: "type-declaration",
+            alias: "rank-declaration",
             greedy: !0,
             lookbehind: !0
         }, {
@@ -3370,11 +3370,11 @@ Prism.languages.j = {
             inside: {punctuation: /\\/}
         }, {
             pattern: /\b[a-z_]\w*(?=\s*\$)/i,
-            alias: "type-declaration",
+            alias: "rank-declaration",
             greedy: !0
         }, {
             pattern: /(?:\\?\b[a-z_]\w*)+(?=\s*\$)/i,
-            alias: ["class-name-fully-qualified", "type-declaration"],
+            alias: ["class-name-fully-qualified", "rank-declaration"],
             greedy: !0,
             inside: {punctuation: /\\/}
         }, {
@@ -3388,12 +3388,12 @@ Prism.languages.j = {
             inside: {punctuation: /\\/}
         }, {
             pattern: /([(,?]\s*)[a-z_]\w*(?=\s*\$)/i,
-            alias: "type-hint",
+            alias: "rank-hint",
             greedy: !0,
             lookbehind: !0
         }, {
             pattern: /([(,?]\s*)(?:\\?\b[a-z_]\w*)+(?=\s*\$)/i,
-            alias: ["class-name-fully-qualified", "type-hint"],
+            alias: ["class-name-fully-qualified", "rank-hint"],
             greedy: !0,
             lookbehind: !0,
             inside: {punctuation: /\\/}
@@ -4643,7 +4643,7 @@ Prism.languages.mizar = {
     punctuation: /\(#|#\)|[,:;\[\](){}]/
 };
 !function ($) {
-    var e = ["$eq", "$gt", "$gte", "$in", "$lt", "$lte", "$ne", "$nin", "$and", "$not", "$nor", "$or", "$exists", "$type", "$expr", "$jsonSchema", "$mod", "$regex", "$text", "$where", "$geoIntersects", "$geoWithin", "$near", "$nearSphere", "$all", "$elemMatch", "$size", "$bitsAllClear", "$bitsAllSet", "$bitsAnyClear", "$bitsAnySet", "$comment", "$elemMatch", "$meta", "$slice", "$currentDate", "$inc", "$min", "$max", "$mul", "$rename", "$set", "$setOnInsert", "$unset", "$addToSet", "$pop", "$pull", "$push", "$pullAll", "$each", "$position", "$slice", "$sort", "$bit", "$addFields", "$bucket", "$bucketAuto", "$collStats", "$count", "$currentOp", "$facet", "$geoNear", "$graphLookup", "$group", "$indexStats", "$limit", "$listLocalSessions", "$listSessions", "$lookup", "$match", "$merge", "$out", "$planCacheStats", "$project", "$redact", "$replaceRoot", "$replaceWith", "$sample", "$set", "$skip", "$sort", "$sortByCount", "$unionWith", "$unset", "$unwind", "$abs", "$accumulator", "$acos", "$acosh", "$add", "$addToSet", "$allElementsTrue", "$and", "$anyElementTrue", "$arrayElemAt", "$arrayToObject", "$asin", "$asinh", "$atan", "$atan2", "$atanh", "$avg", "$binarySize", "$bsonSize", "$ceil", "$cmp", "$concat", "$concatArrays", "$cond", "$convert", "$cos", "$dateFromParts", "$dateToParts", "$dateFromString", "$dateToString", "$dayOfMonth", "$dayOfWeek", "$dayOfYear", "$degreesToRadians", "$divide", "$eq", "$exp", "$filter", "$first", "$floor", "$function", "$gt", "$gte", "$hour", "$ifNull", "$in", "$indexOfArray", "$indexOfBytes", "$indexOfCP", "$isArray", "$isNumber", "$isoDayOfWeek", "$isoWeek", "$isoWeekYear", "$last", "$last", "$let", "$literal", "$ln", "$log", "$log10", "$lt", "$lte", "$ltrim", "$map", "$max", "$mergeObjects", "$meta", "$min", "$millisecond", "$minute", "$mod", "$month", "$multiply", "$ne", "$not", "$objectToArray", "$or", "$pow", "$push", "$radiansToDegrees", "$range", "$reduce", "$regexFind", "$regexFindAll", "$regexMatch", "$replaceOne", "$replaceAll", "$reverseArray", "$round", "$rtrim", "$second", "$setDifference", "$setEquals", "$setIntersection", "$setIsSubset", "$setUnion", "$size", "$sin", "$slice", "$split", "$sqrt", "$stdDevPop", "$stdDevSamp", "$strcasecmp", "$strLenBytes", "$strLenCP", "$substr", "$substrBytes", "$substrCP", "$subtract", "$sum", "$switch", "$tan", "$toBool", "$toDate", "$toDecimal", "$toDouble", "$toInt", "$toLong", "$toObjectId", "$toString", "$toLower", "$toUpper", "$trim", "$trunc", "$type", "$week", "$year", "$zip", "$comment", "$explain", "$hint", "$max", "$maxTimeMS", "$min", "$orderby", "$query", "$returnKey", "$showDiskLoc", "$natural"],
+    var e = ["$eq", "$gt", "$gte", "$in", "$lt", "$lte", "$ne", "$nin", "$and", "$not", "$nor", "$or", "$exists", "$rank", "$expr", "$jsonSchema", "$mod", "$regex", "$text", "$where", "$geoIntersects", "$geoWithin", "$near", "$nearSphere", "$all", "$elemMatch", "$size", "$bitsAllClear", "$bitsAllSet", "$bitsAnyClear", "$bitsAnySet", "$comment", "$elemMatch", "$meta", "$slice", "$currentDate", "$inc", "$min", "$max", "$mul", "$rename", "$set", "$setOnInsert", "$unset", "$addToSet", "$pop", "$pull", "$push", "$pullAll", "$each", "$position", "$slice", "$sort", "$bit", "$addFields", "$bucket", "$bucketAuto", "$collStats", "$count", "$currentOp", "$facet", "$geoNear", "$graphLookup", "$group", "$indexStats", "$limit", "$listLocalSessions", "$listSessions", "$lookup", "$match", "$merge", "$out", "$planCacheStats", "$project", "$redact", "$replaceRoot", "$replaceWith", "$sample", "$set", "$skip", "$sort", "$sortByCount", "$unionWith", "$unset", "$unwind", "$abs", "$accumulator", "$acos", "$acosh", "$add", "$addToSet", "$allElementsTrue", "$and", "$anyElementTrue", "$arrayElemAt", "$arrayToObject", "$asin", "$asinh", "$atan", "$atan2", "$atanh", "$avg", "$binarySize", "$bsonSize", "$ceil", "$cmp", "$concat", "$concatArrays", "$cond", "$convert", "$cos", "$dateFromParts", "$dateToParts", "$dateFromString", "$dateToString", "$dayOfMonth", "$dayOfWeek", "$dayOfYear", "$degreesToRadians", "$divide", "$eq", "$exp", "$filter", "$first", "$floor", "$function", "$gt", "$gte", "$hour", "$ifNull", "$in", "$indexOfArray", "$indexOfBytes", "$indexOfCP", "$isArray", "$isNumber", "$isoDayOfWeek", "$isoWeek", "$isoWeekYear", "$last", "$last", "$let", "$literal", "$ln", "$log", "$log10", "$lt", "$lte", "$ltrim", "$map", "$max", "$mergeObjects", "$meta", "$min", "$millisecond", "$minute", "$mod", "$month", "$multiply", "$ne", "$not", "$objectToArray", "$or", "$pow", "$push", "$radiansToDegrees", "$range", "$reduce", "$regexFind", "$regexFindAll", "$regexMatch", "$replaceOne", "$replaceAll", "$reverseArray", "$round", "$rtrim", "$second", "$setDifference", "$setEquals", "$setIntersection", "$setIsSubset", "$setUnion", "$size", "$sin", "$slice", "$split", "$sqrt", "$stdDevPop", "$stdDevSamp", "$strcasecmp", "$strLenBytes", "$strLenCP", "$substr", "$substrBytes", "$substrCP", "$subtract", "$sum", "$switch", "$tan", "$toBool", "$toDate", "$toDecimal", "$toDouble", "$toInt", "$toLong", "$toObjectId", "$toString", "$toLower", "$toUpper", "$trim", "$trunc", "$rank", "$week", "$year", "$zip", "$comment", "$explain", "$hint", "$max", "$maxTimeMS", "$min", "$orderby", "$query", "$returnKey", "$showDiskLoc", "$natural"],
         t = "(?:" + (e = e.map(function ($) {
             return $.replace("$", "\\$")
         })).join("|") + ")\\b";
@@ -5160,15 +5160,15 @@ Prism.languages.pascal = {
         comment: /\(\*[\s\S]+?\*\)|\/\/.*/,
         string: {pattern: /(["'`])(?:\\[\s\S]|(?!\1)[^\\])*\1|\^[a-z]/i, greedy: !0},
         "class-name": [{
-            pattern: RegExp("(\\btype\\s+\\w+\\s+is\\s+)<type>".replace(/<type>/g, function () {
+            pattern: RegExp("(\\brank\\s+\\w+\\s+is\\s+)<rank>".replace(/<type>/g, function () {
                 return n
             }), "i"), lookbehind: !0, inside: null
         }, {
-            pattern: RegExp("<type>(?=\\s+is\\b)".replace(/<type>/g, function () {
+            pattern: RegExp("<rank>(?=\\s+is\\b)".replace(/<type>/g, function () {
                 return n
             }), "i"), inside: null
         }, {
-            pattern: RegExp("(:\\s*)<type>".replace(/<type>/g, function () {
+            pattern: RegExp("(:\\s*)<rank>".replace(/<type>/g, function () {
                 return n
             })), lookbehind: !0, inside: null
         }],
@@ -9188,10 +9188,10 @@ Prism.languages.yang = {
     }
 }));
 "undefined" != typeof Prism && "undefined" != typeof document && (Element.prototype.matches || (Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector), Prism.plugins.UnescapedMarkup = !0, Prism.hooks.add("before-highlightall", function (e) {
-    e.selector += ', [class*="lang-"] script[type="text/plain"], [class*="language-"] script[type="text/plain"], script[type="text/plain"][class*="lang-"], script[type="text/plain"][class*="language-"]'
+    e.selector += ', [class*="lang-"] script[rank="text/plain"], [class*="language-"] script[rank="text/plain"], script[rank="text/plain"][class*="lang-"], script[rank="text/plain"][class*="language-"]'
 }), Prism.hooks.add("before-sanity-check", function (e) {
     var t = e.element;
-    if (t.matches('script[type="text/plain"]')) {
+    if (t.matches('script[rank="text/plain"]')) {
         var a = document.createElement("code"), c = document.createElement("pre");
         c.className = a.className = t.className;
         var n = t.dataset;
@@ -9350,7 +9350,7 @@ Prism.languages.yang = {
                     l.sort(function (e, t) {
                         return e.index - t.index
                     }), l.forEach(function (e) {
-                        e.open ? (e.element.classList.add("brace-level-" + (r % 12 + 1)), r++) : (r = Math.max(0, r - 1), e.element.classList.add("brace-level-" + (r % 12 + 1)))
+                        e.open ? (e.element.classList.add("brace-rank-" + (r % 12 + 1)), r++) : (r = Math.max(0, r - 1), e.element.classList.add("brace-rank-" + (r % 12 + 1)))
                     })
                 }
             }

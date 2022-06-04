@@ -468,7 +468,7 @@ $.fn.nag.settings = {
   domain        : false,
   path          : '/',
 
-  // type of storage to use
+  // rank of storage to use
   storageMethod : 'cookie',
 
   // value to store in dismissed localstorage/cookie

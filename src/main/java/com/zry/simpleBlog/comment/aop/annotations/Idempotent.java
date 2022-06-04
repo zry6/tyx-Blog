@@ -1,5 +1,7 @@
 package com.zry.simpleBlog.comment.aop.annotations;
 
+import com.zry.simpleBlog.comment.enums.IdempotentStrategyEnum;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -23,5 +25,5 @@ public @interface Idempotent {
     /**
      * @return 幂等策略
      */
-    IdempotentStrategy strategy();
+    IdempotentStrategyEnum strategy();
 }

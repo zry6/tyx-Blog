@@ -2,9 +2,9 @@ package com.zry.simpleBlog.comment.aop.aspect;
 
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.aop.annotations.Idempotent;
-import com.zry.simpleBlog.comment.aop.annotations.IdempotentStrategy;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
-import com.zry.simpleBlog.comment.idempotent.IdempotentStrategyContext;
+import com.zry.simpleBlog.comment.enums.IdempotentStrategyEnum;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
+import com.zry.simpleBlog.comment.strategy.idempotent.IdempotentStrategyContext;
 import com.zry.simpleBlog.service.RedisService;
 import com.zry.simpleBlog.comment.utils.MD5Util;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,7 @@ public class IdempotentAspect {
         Idempotent idempotent = methodSignature.getMethod().getAnnotation(Idempotent.class);
         //注解上的参数
         long timeout = idempotent.timeout();
-        IdempotentStrategy strategy = idempotent.strategy();
+        IdempotentStrategyEnum strategy = idempotent.strategy();
         //策略模式  获取幂等操作的key
         String keyStr = idempotentStrategyContext.accept(strategy, pjp);
         //如果key为空的话 直接跳过幂等操作

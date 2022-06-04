@@ -16,8 +16,8 @@ spring:
     hibernate:
       ddl-auto: update
     #配置是否打印sql
-    show-sql: true
-    open-in-view: true
+    show-sql: false
+    open-in-view: false
 
   redis:
     port: 6379
@@ -35,7 +35,7 @@ spring:
     time-zone: GMT+8
   mail:
     username: 1447051936@qq.com
-    password:
+    password: uicoqceclcaphahc
     host: smtp.qq.com
     properties:
       mail:

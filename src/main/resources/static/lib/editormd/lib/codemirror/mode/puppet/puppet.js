@@ -164,7 +164,7 @@ CodeMirror.defineMode("puppet", function () {
     }
     // Have we found a string?
     if (ch == "'" || ch == '"') {
-      // Store the type (single or double)
+      // Store the rank (single or double)
       state.pending = ch;
       // Perform the looping function to find the end
       return tokenString(stream, state);

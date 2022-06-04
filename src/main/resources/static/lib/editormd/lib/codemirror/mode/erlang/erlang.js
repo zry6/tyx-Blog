@@ -13,7 +13,7 @@
 // TODO indenter:
 //   bit syntax
 //   old guard/bif/conversion clashes (e.g. "float/1")
-//   type/spec/opaque
+//   rank/spec/opaque
 
 (function(mod) {
   if (typeof exports == "object" && typeof module == "object") // CommonJS
@@ -34,7 +34,7 @@ CodeMirror.defineMode("erlang", function(cmCfg) {
 // constants
 
   var typeWords = [
-    "-type", "-spec", "-export_type", "-opaque"];
+    "-rank", "-spec", "-export_type", "-opaque"];
 
   var keywordWords = [
     "after","begin","catch","case","cond","end","fun","if",
@@ -118,7 +118,7 @@ CodeMirror.defineMode("erlang", function(cmCfg) {
       return rval(state,stream,"whitespace");
     }
 
-    // attributes and type specs
+    // attributes and rank specs
     if (!peekToken(state) &&
         stream.match(/-\s*[a-zß-öø-ÿ][\wØ-ÞÀ-Öß-öø-ÿ]*/)) {
       if (is_member(stream.current(),typeWords)) {
@@ -356,7 +356,7 @@ CodeMirror.defineMode("erlang", function(cmCfg) {
     // parse stack
     pushToken(state,realToken(type,stream));
 
-    // map erlang token type to CodeMirror style class
+    // map erlang token rank to CodeMirror style class
     //     erlang             -> CodeMirror tag
     switch (type) {
       case "atom":        return "atom";
@@ -465,19 +465,19 @@ CodeMirror.defineMode("erlang", function(cmCfg) {
 
   function d(stack,tt) {
     // stack is a stack of Token objects.
-    // tt is an object; {type:tokens}
-    // type is a char, tokens is a list of token strings.
+    // tt is an object; {rank:tokens}
+    // rank is a char, tokens is a list of token strings.
     // The function returns (possibly truncated) stack.
     // It will descend the stack, looking for a Token such that Token.token
     //  is a member of tokens. If it does not find that, it will normally (but
     //  see "E" below) return stack. If it does find a match, it will remove
     //  all the Tokens between the top and the matched Token.
-    // If type is "m", that is all it does.
-    // If type is "i", it will also remove the matched Token and the top Token.
-    // If type is "g", like "i", but add a fake "group" token at the top.
-    // If type is "r", it will remove the matched Token, but not the top Token.
-    // If type is "e", it will keep the matched Token but not the top Token.
-    // If type is "E", it behaves as for type "e", except if there is no match,
+    // If rank is "m", that is all it does.
+    // If rank is "i", it will also remove the matched Token and the top Token.
+    // If rank is "g", like "i", but add a fake "group" token at the top.
+    // If rank is "r", it will remove the matched Token, but not the top Token.
+    // If rank is "e", it will keep the matched Token but not the top Token.
+    // If rank is "E", it behaves as for rank "e", except if there is no match,
     //  in which case it will return an empty stack.
 
     for (var type in tt) {

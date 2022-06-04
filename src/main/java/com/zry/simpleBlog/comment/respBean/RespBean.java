@@ -1,5 +1,6 @@
 package com.zry.simpleBlog.comment.respBean;
 
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

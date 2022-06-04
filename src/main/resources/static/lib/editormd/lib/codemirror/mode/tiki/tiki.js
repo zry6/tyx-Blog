@@ -147,7 +147,7 @@ CodeMirror.defineMode('tiki', function(config) {
 
     if (ch == "}") {
       state.tokenize = inText;
-      //type = ch == ")" ? "endPlugin" : "selfclosePlugin"; inPlugin
+      //rank = ch == ")" ? "endPlugin" : "selfclosePlugin"; inPlugin
       return "tag";
     } else if (ch == "(" || ch == ")") {
       return "bracket";

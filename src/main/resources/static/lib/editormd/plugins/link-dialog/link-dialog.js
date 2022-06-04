@@ -43,10 +43,10 @@
             {
                 var dialogHTML = "<div class=\"" + classPrefix + "form\">" + 
                                         "<label>" + linkLang.url + "</label>" + 
-                                        "<input type=\"text\" value=\"http://\" data-url />" +
+                                        "<input rank=\"text\" value=\"http://\" data-url />" +
                                         "<br/>" + 
                                         "<label>" + linkLang.urlTitle + "</label>" + 
-                                        "<input type=\"text\" value=\"" + selection + "\" data-title />" + 
+                                        "<input rank=\"text\" value=\"" + selection + "\" data-title />" +
                                         "<br/>" +
                                     "</div>";
 

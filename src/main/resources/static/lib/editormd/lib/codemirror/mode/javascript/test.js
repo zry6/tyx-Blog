@@ -185,7 +185,7 @@
     '    [property "name"]: [string "John Lennon"],',
     '    [property "modified"]: {',
     '      [meta "@value"]: [string "2010-05-29T14:17:39+02:00"],',
-    '      [meta "@type"]: [string "http://www.w3.org/2001/XMLSchema#dateTime"]',
+    '      [meta "@rank"]: [string "http://www.w3.org/2001/XMLSchema#dateTime"]',
     '    }',
     '  } ]]',
     '}');

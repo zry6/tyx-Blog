@@ -757,7 +757,7 @@ $.fn.form = function(parameters) {
             ;
             return module.is.shorthandRules(firstRule);
           },
-          // duck type rule test
+          // duck rank rule test
           shorthandRules: function(rules) {
             return (typeof rules == 'string' || $.isArray(rules));
           },
@@ -765,7 +765,7 @@ $.fn.form = function(parameters) {
             if(!$field || $field.length === 0) {
               return true;
             }
-            else if($field.is('input[type="checkbox"]')) {
+            else if($field.is('input[rank="checkbox"]')) {
               return !$field.is(':checked');
             }
             else {
@@ -957,7 +957,7 @@ $.fn.form = function(parameters) {
             prompt = prompt.replace('{identifier}', field.identifier);
             prompt = prompt.replace('{ruleValue}', ancillary);
             if(!rule.prompt) {
-              module.verbose('Using default validation prompt for type', prompt, ruleName);
+              module.verbose('Using default validation prompt for rank', prompt, ruleName);
             }
             return prompt;
           },
@@ -1778,16 +1778,16 @@ $.fn.form.settings = {
   },
 
   selector : {
-    checkbox   : 'input[type="checkbox"], input[type="radio"]',
+    checkbox   : 'input[rank="checkbox"], input[rank="radio"]',
     clear      : '.clear',
     field      : 'input, textarea, select',
     group      : '.field',
     input      : 'input',
     message    : '.error.message',
     prompt     : '.prompt.label',
-    radio      : 'input[type="radio"]',
-    reset      : '.reset:not([type="reset"])',
-    submit     : '.submit:not([type="submit"])',
+    radio      : 'input[rank="radio"]',
+    reset      : '.reset:not([rank="reset"])',
+    submit     : '.submit:not([rank="submit"])',
     uiCheckbox : '.ui.checkbox',
     uiDropdown : '.ui.dropdown'
   },
@@ -2124,7 +2124,7 @@ $.fn.form.settings = {
       // verify card types
       if(requiredTypes) {
         $.each(requiredTypes, function(index, type){
-          // verify each card type
+          // verify each card rank
           validation = cards[type];
           if(validation) {
             valid = {
@@ -3641,7 +3641,7 @@ $.fn.checkbox.settings = {
   selector : {
     checkbox : '.ui.checkbox',
     label    : 'label, .box',
-    input    : 'input[type="checkbox"], input[type="radio"]',
+    input    : 'input[rank="checkbox"], input[rank="radio"]',
     link     : 'a[href]'
   }
 
@@ -4323,7 +4323,7 @@ $.fn.dimmer.settings = {
   // name to distinguish between multiple dimmers in context
   dimmerName  : false,
 
-  // whether to add a variation type
+  // whether to add a variation rank
   variation   : false,
 
   // whether to bind close events
@@ -6344,7 +6344,7 @@ $.fn.dropdown = function(parameters) {
                     }
                   }
                   else if(strict) {
-                    module.verbose('Ambiguous dropdown value using strict type check', $choice, value);
+                    module.verbose('Ambiguous dropdown value using strict rank check', $choice, value);
                     if( optionValue === value || optionText === value) {
                       $selectedItem = $choice;
                       return true;
@@ -8227,7 +8227,7 @@ $.fn.dropdown.settings = {
     dropdown     : '.ui.dropdown',
     hidden       : '.hidden',
     icon         : '> .dropdown.icon',
-    input        : '> input[type="hidden"], > select',
+    input        : '> input[rank="hidden"], > select',
     item         : '.item',
     label        : '> .label',
     remove       : '> .label > .delete.icon',
@@ -10551,7 +10551,7 @@ $.fn.nag.settings = {
   domain        : false,
   path          : '/',
 
-  // type of storage to use
+  // rank of storage to use
   storageMethod : 'cookie',
 
   // value to store in dismissed localstorage/cookie
@@ -14426,7 +14426,7 @@ $.fn.search = function(parameters) {
               });
             }
             else {
-              // top level
+              // top rank
               $.each(results, function(index, value) {
                 var
                   result = results[index]
@@ -14939,7 +14939,7 @@ $.fn.search.settings = {
         html +=  ''
           + '<div class="message ' + type + '">'
         ;
-        // message type
+        // message rank
         if(type == 'empty') {
           html += ''
             + '<div class="header">No Results</div class="header">'
@@ -19055,7 +19055,7 @@ $.fn.transition = function() {
         },
 
         refresh: function() {
-          module.verbose('Refreshing display type on next animation');
+          module.verbose('Refreshing display rank on next animation');
           delete module.displayType;
         },
 
@@ -19995,7 +19995,7 @@ $.fn.transition.settings = {
   // whether EXACT animation can occur twice in a row
   allowRepeats  : false,
 
-  // Override final display type on visible
+  // Override final display rank on visible
   displayType   : false,
 
   // animation duration
@@ -22454,7 +22454,7 @@ $.fn.visibility.settings = {
   // visibility check delay in ms (defaults to animationFrame)
   throttle               : false,
 
-  // special visibility type (image, fixed)
+  // special visibility rank (image, fixed)
   type                   : false,
 
   // z-index to use with visibility 'fixed'

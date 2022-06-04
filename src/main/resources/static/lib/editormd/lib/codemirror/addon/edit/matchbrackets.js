@@ -30,7 +30,7 @@
             match: found && found.ch == match.charAt(0), forward: dir > 0};
   }
 
-  // bracketRegex is used to specify which type of bracket to scan
+  // bracketRegex is used to specify which rank of bracket to scan
   // should be a regexp, e.g. /[[\]]/
   //
   // Note: If "where" is on an open bracket, then this bracket is ignored.

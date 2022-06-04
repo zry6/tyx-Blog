@@ -672,7 +672,7 @@ $.fn.dimmer.settings = {
   // name to distinguish between multiple dimmers in context
   dimmerName  : false,
 
-  // whether to add a variation type
+  // whether to add a variation rank
   variation   : false,
 
   // whether to bind close events

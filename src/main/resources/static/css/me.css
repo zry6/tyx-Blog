@@ -229,7 +229,10 @@ a {
     max-width: 80em !important;
     margin: auto !important;
 }
-
+.m-container-best {
+    max-width: 90em !important;
+    margin: auto !important;
+}
 .m-container-small {
     max-width: 60em !important;
     margin: auto !important;

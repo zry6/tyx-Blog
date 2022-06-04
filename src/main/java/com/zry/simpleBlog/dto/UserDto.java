@@ -26,7 +26,7 @@ public class UserDto implements Serializable {
         this.avatar = user.getAvatar();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
-        this.type = user.getType();
+        this.rank = user.getRank();
         this.username = user.getUsername();
         this.introduction = user.getIntroduction();
         this.createTime = user.getCreateTime();
@@ -40,7 +40,7 @@ public class UserDto implements Serializable {
         user.setEmail(this.email);
         user.setNickname(this.nickname);
         user.setUsername(this.username);
-        user.setType(this.type);
+        user.setRank(this.rank);
         user.setIntroduction(this.introduction);
         user.setCreateTime(this.createTime);
         user.setUpdateTime(this.updateTime);
@@ -56,7 +56,7 @@ public class UserDto implements Serializable {
 
     private String nickname;
 
-    private Integer type;
+    private Integer rank;
 
     private String introduction;
 

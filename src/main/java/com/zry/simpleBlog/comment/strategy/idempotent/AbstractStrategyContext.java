@@ -1,4 +1,4 @@
-package com.zry.simpleBlog.comment.idempotent;
+package com.zry.simpleBlog.comment.strategy.idempotent;
 
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import lombok.Data;

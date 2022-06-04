@@ -1,8 +1,8 @@
-package com.zry.simpleBlog.comment.idempotent;
+package com.zry.simpleBlog.comment.strategy.idempotent;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.zry.simpleBlog.comment.aop.annotations.IdempotentStrategy;
-import com.zry.simpleBlog.comment.idempotent.strategy.IdempotentStrategyInterface;
+import com.zry.simpleBlog.comment.enums.IdempotentStrategyEnum;
+import com.zry.simpleBlog.comment.strategy.idempotent.strategy.IdempotentStrategyInterface;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +17,7 @@ public class IdempotentStrategyContext extends AbstractStrategyContext<Idempoten
     /**
      * 策略转换方法
      */
-    public <T> String accept(IdempotentStrategy idempotentStrategy, ProceedingJoinPoint pjp) throws IllegalAccessException, JsonProcessingException {
+    public <T> String accept(IdempotentStrategyEnum idempotentStrategy, ProceedingJoinPoint pjp) throws IllegalAccessException, JsonProcessingException {
         return getStrategy(idempotentStrategy.name()).process(pjp);
     }
-
 }

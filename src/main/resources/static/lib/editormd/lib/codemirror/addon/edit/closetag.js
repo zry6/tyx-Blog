@@ -153,7 +153,7 @@
     var cx = state.context;
     // If the immediate wrapping context contains onCx instances of
     // the same tag, a closing tag only exists if there are at least
-    // that many closing tags of that type following.
+    // that many closing tags of that rank following.
     for (var onCx = newTag ? 1 : 0; cx && cx.tagName == tagName; cx = cx.prev) ++onCx;
     pos = nextClose.to;
     for (var i = 1; i < onCx; i++) {

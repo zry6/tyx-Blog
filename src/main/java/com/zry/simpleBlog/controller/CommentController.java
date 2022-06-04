@@ -2,11 +2,12 @@ package com.zry.simpleBlog.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
+import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
+import com.zry.simpleBlog.comment.enums.AuthEnum;
 import com.zry.simpleBlog.comment.aop.annotations.Idempotent;
-import com.zry.simpleBlog.comment.aop.annotations.IdempotentStrategy;
+import com.zry.simpleBlog.comment.enums.IdempotentStrategyEnum;
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.dto.CommentDto;
 import com.zry.simpleBlog.service.ICommentService;
 import io.swagger.annotations.Api;
@@ -38,25 +39,16 @@ public class CommentController {
     }
 
     @ApiOperation(value = "发表评论", notes = "实现幂等性校验")
-    @Idempotent(timeout = 5, strategy = IdempotentStrategy.IDEMPOTENT_INTERFACE)
-    @CheckLogin(isLogin = false)
+    @Idempotent(timeout = 5, strategy = IdempotentStrategyEnum.IDEMPOTENT_INTERFACE)
+    @AuthCheck(isLogin = false)
     @PostMapping("comments")
     public RespBean post(@RequestBody @Valid CommentDto comment) {
         CommentDto commentDto = commentService.saveComment(comment);
         return RespBean.success(commentDto);
     }
 
-//    @ApiOperation(value = "发送邮件")
-//    @PostMapping("email")
-//    public RespBean email(@RequestBody @Valid EmailDto emailDto,HttpServletRequest request) {
-//        StringBuffer url = request.getRequestURL();
-//        emailDto.setUrl(String.valueOf(url));
-//        emailService.sendCommentEmail(emailDto);
-//        return RespBean.success();
-//    }
-
     @ApiOperation(value = "删除评论")
-    @CheckLogin
+    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
     @DeleteMapping("comments/{id}")
     public RespBean delete(@PathVariable Long id) {
         boolean b = commentService.removeComment(id);

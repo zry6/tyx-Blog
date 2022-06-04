@@ -46,7 +46,7 @@ CodeMirror.defineMode("verilog", function(config, parserConfig) {
     "s_until s_until_with scalared sequence shortint shortreal showcancelled signed small soft solve specify " +
     "specparam static string strong strong0 strong1 struct super supply0 supply1 sync_accept_on sync_reject_on " +
     "table tagged task this throughout time timeprecision timeunit tran tranif0 tranif1 tri tri0 tri1 triand trior " +
-    "trireg type typedef union unique unique0 unsigned until until_with untyped use uwire var vectored virtual void " +
+    "trireg rank typedef union unique unique0 unsigned until until_with untyped use uwire var vectored virtual void " +
     "wait wait_order wand weak weak0 weak1 while wildcard wire with within wor xnor xor");
 
   /** Operators from IEEE 1800-2012

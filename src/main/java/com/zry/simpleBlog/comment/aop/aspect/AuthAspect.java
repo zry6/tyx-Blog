@@ -1,8 +1,8 @@
 package com.zry.simpleBlog.comment.aop.aspect;
 
-import com.zry.simpleBlog.comment.aop.annotations.CheckLogin;
+import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
 import com.zry.simpleBlog.comment.exception.BusinessException;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.utils.CookieUtil;
 import com.zry.simpleBlog.comment.utils.UserContext;
 import com.zry.simpleBlog.entity.User;
@@ -25,7 +25,6 @@ import java.lang.reflect.Method;
 
 /**
  * CheckLogin注解的切面 暂时做方法上的登陆验证
- * <p>
  * 会将登录用户信息存储在UserContext中。
  * 注解属性isLogin=true
  * 没有登陆则抛出 BusinessException(RespBeanEnum.AUTH_ERROR)异常
@@ -37,7 +36,7 @@ import java.lang.reflect.Method;
 @Slf4j
 @Aspect
 @Component
-public class CheckLoginAspect {
+public class AuthAspect {
 
     @Resource
     private HttpServletRequest request;
@@ -49,7 +48,7 @@ public class CheckLoginAspect {
     @Value("${cookie.user.key}")
     private String cookieKey;
 
-    @Pointcut(value = "@annotation(com.zry.simpleBlog.comment.aop.annotations.CheckLogin)")
+    @Pointcut(value = "@annotation(com.zry.simpleBlog.comment.aop.annotations.AuthCheck)")
     public void landerPointCut() {
     }
 
@@ -61,12 +60,17 @@ public class CheckLoginAspect {
     private void handleLogin(JoinPoint point) {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
-        CheckLogin permissions = method.getAnnotation(CheckLogin.class);
+        AuthCheck permissions = method.getAnnotation(AuthCheck.class);
+
         User user = getUser(request, response);
         if (permissions.isLogin()) {
             if (user == null) {
+                throw new BusinessException(RespBeanEnum.TOKEN_ERROR);
+            }
+            if (permissions.rank().getRank() < user.getRank()) {
                 throw new BusinessException(RespBeanEnum.AUTH_ERROR);
             }
+            log.debug("鉴权通过,用户等级为"+user.getRank());
         }
         UserContext.addCurrentUser(user);
     }

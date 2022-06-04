@@ -38,7 +38,7 @@
     return str.length == 2 ? str : null;
   }
 
-  // Project the token type that will exists after the given char is
+  // Project the token rank that will exists after the given char is
   // typed, and use it to determine whether it would cause the start
   // of a string token.
   function enteringString(cm, pos, ch) {

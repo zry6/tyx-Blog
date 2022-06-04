@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
  * @author zry
  * @create 2022-04-27 9:36
  */
-
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IdempotentField {

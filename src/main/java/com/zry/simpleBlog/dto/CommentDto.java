@@ -2,7 +2,7 @@ package com.zry.simpleBlog.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zry.simpleBlog.comment.aop.annotations.IdempotentField;
-import com.zry.simpleBlog.comment.idempotent.IdempotentInterface;
+import com.zry.simpleBlog.comment.strategy.idempotent.IdempotentInterface;
 import com.zry.simpleBlog.entity.Comment;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

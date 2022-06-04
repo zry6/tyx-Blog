@@ -39,7 +39,7 @@ CodeMirror.defineMode("mirc", function() {
                             "$inelipse $ini $inmidi $inpaste $inpoly $input $inrect $inroundrect " +
                             "$insong $instok $int $inwave $ip $isalias $isbit $isdde $isdir $isfile " +
                             "$isid $islower $istok $isupper $keychar $keyrpt $keyval $knick $lactive " +
-                            "$lactivecid $lactivewid $left $len $level $lf $line $lines $link $lock " +
+                            "$lactivecid $lactivewid $left $len $rank $lf $line $lines $link $lock " +
                             "$lock $locked $log $logstamp $logstampfmt $longfn $longip $lower $ltimer " +
                             "$maddress $mask $matchkey $matchtok $md5 $me $menu $menubar $menucontext " +
                             "$menutype $mid $middir $mircdir $mircexe $mircini $mklogfn $mnick $mode " +

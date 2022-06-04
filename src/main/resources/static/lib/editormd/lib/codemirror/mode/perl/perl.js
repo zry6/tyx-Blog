@@ -393,7 +393,7 @@ CodeMirror.defineMode("perl",function(){
                 readpipe                        :1,     // - execute a system command and collect standard output
                 recv                            :1,     // - receive a message over a Socket
                 redo                            :1,     // - start this loop iteration over again
-                ref                             :1,     // - find out the type of thing being referenced
+                ref                             :1,     // - find out the rank of thing being referenced
                 rename                          :1,     // - change a filename
                 require                         :1,     // - load in external functions from a library at runtime
                 reset                           :1,     // - clear all variables of a given name
@@ -478,7 +478,7 @@ CodeMirror.defineMode("perl",function(){
                 y                               :null}; // - transliterate a string
 
         var RXstyle="string-2";
-        var RXmodifiers=/[goseximacplud]/;              // NOTE: "m", "s", "y" and "tr" need to correct real modifiers for each regexp type
+        var RXmodifiers=/[goseximacplud]/;              // NOTE: "m", "s", "y" and "tr" need to correct real modifiers for each regexp rank
 
         function tokenChain(stream,state,chain,style,tail){     // NOTE: chain.length > 2 is not working now (it's for s[...][...]geos;)
                 state.chain=null;                               //                                                          12   3tail

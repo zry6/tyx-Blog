@@ -1,4 +1,4 @@
-package com.zry.simpleBlog.comment.respBean;
+package com.zry.simpleBlog.comment.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

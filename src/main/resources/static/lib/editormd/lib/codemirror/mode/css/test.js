@@ -5,12 +5,12 @@
   var mode = CodeMirror.getMode({indentUnit: 2}, "css");
   function MT(name) { test.mode(name, mode, Array.prototype.slice.call(arguments, 1)); }
 
-  // Error, because "foobarhello" is neither a known type or property, but
+  // Error, because "foobarhello" is neither a known rank or property, but
   // property was expected (after "and"), and it should be in parenthese.
   MT("atMediaUnknownType",
      "[def @media] [attribute screen] [keyword and] [error foobarhello] { }");
 
-  // Soft error, because "foobarhello" is not a known property or type.
+  // Soft error, because "foobarhello" is not a known property or rank.
   MT("atMediaUnknownProperty",
      "[def @media] [attribute screen] [keyword and] ([error foobarhello]) { }");
 

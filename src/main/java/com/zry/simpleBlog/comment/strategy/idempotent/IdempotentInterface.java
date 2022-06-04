@@ -1,4 +1,4 @@
-package com.zry.simpleBlog.comment.idempotent;
+package com.zry.simpleBlog.comment.strategy.idempotent;
 
 /**
  * 一个空接口，用于标注该类需要幂等

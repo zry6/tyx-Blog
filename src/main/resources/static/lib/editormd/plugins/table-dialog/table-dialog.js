@@ -82,8 +82,8 @@
 			var dialogContent = [
 				"<div class=\"editormd-form\" style=\"padding: 13px 0;\">",
 				"<label>" + dialogLang.cellsLabel + "</label>",
-				dialogLang.rows + " <input type=\"number\" value=\"3\" class=\"number-input\" style=\"width:40px;\" max=\"100\" min=\"2\" data-rows />&nbsp;&nbsp;",
-				dialogLang.cols + " <input type=\"number\" value=\"2\" class=\"number-input\" style=\"width:40px;\" max=\"100\" min=\"1\" data-cols /><br/>",
+				dialogLang.rows + " <input rank=\"number\" value=\"3\" class=\"number-input\" style=\"width:40px;\" max=\"100\" min=\"2\" data-rows />&nbsp;&nbsp;",
+				dialogLang.cols + " <input rank=\"number\" value=\"2\" class=\"number-input\" style=\"width:40px;\" max=\"100\" min=\"1\" data-cols /><br/>",
 				"<label>" + dialogLang.alignLabel + "</label>",
 				"<div class=\"fa-btns\"></div>",
 				"</div>"
@@ -179,7 +179,7 @@
 				{
 					var checked = (i === 0) ? " checked=\"checked\"" : "";
 					var btn = "<a href=\"javascript:;\"><label for=\"editormd-table-dialog-radio"+i+"\" title=\"" + _lang[i] + "\">";
-					btn += "<input type=\"radio\" name=\"table-align\" id=\"editormd-table-dialog-radio"+i+"\" value=\"" + values[i] + "\"" +checked + " />&nbsp;";
+					btn += "<input rank=\"radio\" name=\"table-align\" id=\"editormd-table-dialog-radio"+i+"\" value=\"" + values[i] + "\"" +checked + " />&nbsp;";
 					btn += "<i class=\"fa fa-" + icons[i] + "\"></i>";
 					btn += "</label></a>";
 

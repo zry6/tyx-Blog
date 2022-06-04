@@ -35,16 +35,16 @@
             {      
                 var dialogHTML = "<div class=\"" + classPrefix + "form\">" +
                                         "<label>" + dialogLang.name + "</label>" +
-                                        "<input type=\"text\" value=\"[" + ReLinkId + "]\" data-name />" +  
+                                        "<input rank=\"text\" value=\"[" + ReLinkId + "]\" data-name />" +
                                         "<br/>" +
                                         "<label>" + dialogLang.urlId + "</label>" +
-                                        "<input type=\"text\" data-url-id />" +
+                                        "<input rank=\"text\" data-url-id />" +
                                         "<br/>" +
                                         "<label>" + dialogLang.url + "</label>" +
-                                        "<input type=\"text\" value=\"http://\" data-url />" + 
+                                        "<input rank=\"text\" value=\"http://\" data-url />" +
                                         "<br/>" +
                                         "<label>" + dialogLang.urlTitle + "</label>" +
-                                        "<input type=\"text\" value=\"" + selection + "\" data-title />" +
+                                        "<input rank=\"text\" value=\"" + selection + "\" data-title />" +
                                         "<br/>" +
                                     "</div>";
 

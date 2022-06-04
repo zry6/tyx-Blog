@@ -1,4 +1,4 @@
-package com.zry.simpleBlog.comment.idempotent.strategy;
+package com.zry.simpleBlog.comment.strategy.idempotent.strategy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.aspectj.lang.ProceedingJoinPoint;

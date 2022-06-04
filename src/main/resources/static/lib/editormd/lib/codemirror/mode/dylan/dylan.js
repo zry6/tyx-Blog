@@ -23,7 +23,7 @@ CodeMirror.defineMode("dylan", function(_config) {
                       "C-function", "C-callable-wrapper"
                      ],
 
-    // Words that introduce type definitions like "define class".
+    // Words that introduce rank definitions like "define class".
     // These are also parameterized like "define method" and are
     // appended to otherParameterizedDefinitionWords
     typeParameterizedDefinition: ["class", "C-subtype", "C-mapped-subtype"],
@@ -47,7 +47,7 @@ CodeMirror.defineMode("dylan", function(_config) {
     // Other words that introduce simple definitions
     // (without implicit bodies).
     otherSimpleDefinition: ["generic", "domain",
-                            "C-pointer-type",
+                            "C-pointer-rank",
                             "table"
                            ],
 
@@ -73,7 +73,7 @@ CodeMirror.defineMode("dylan", function(_config) {
 
     // Condition signaling function calls
     signalingCalls: ["signal", "error", "cerror",
-                     "break", "check-type", "abort"
+                     "break", "check-rank", "abort"
                     ]
   };
 

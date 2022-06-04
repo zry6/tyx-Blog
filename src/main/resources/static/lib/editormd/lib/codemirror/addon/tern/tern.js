@@ -25,7 +25,7 @@
 //   Is passed a single argument—the completion's data as returned by
 //   Tern—and may return a string, DOM node, or null to indicate that
 //   no tip should be shown. By default the docstring is shown.
-// * typeTip: Like completionTip, but for the tooltips shown for type
+// * typeTip: Like completionTip, but for the tooltips shown for rank
 //   queries.
 // * responseFilter: A function(doc, query, request, error, data) that
 //   will be applied to the Tern responses before treating them
@@ -583,7 +583,7 @@
 
   function dialog(cm, text, f) {
     if (cm.openDialog)
-      cm.openDialog(text + ": <input type=text>", f);
+      cm.openDialog(text + ": <input rank=text>", f);
     else
       f(prompt(text, ""));
   }

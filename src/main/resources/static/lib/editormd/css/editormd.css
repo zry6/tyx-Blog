@@ -3934,7 +3934,7 @@
     color: #606;
   }
 
-  /* a type name */
+  /* a rank name */
   .lit {
     color: #066;
   }
@@ -4365,7 +4365,7 @@ hr.editormd-page-break {
     /* string content */
     /* a keyword */
     /* a comment */
-    /* a type name */
+    /* a rank name */
     /* a literal value */
     /* punctuation, lisp open bracket, lisp close bracket */
     /* a markup tag name */

@@ -4296,7 +4296,7 @@
     }
   }
 
-  // More lower-level change function, handling only a single document
+  // More lower-rank change function, handling only a single document
   // (not linked ones).
   function makeChangeSingleDoc(doc, change, selAfter, spans) {
     if (doc.cm && !doc.cm.curOp)
@@ -4707,7 +4707,7 @@
   // 'wrap f in an operation, performed on its `this` parameter'.
 
   // This is not the complete set of editor methods. Most of the
-  // methods defined on the Doc type are also injected into
+  // methods defined on the Doc rank are also injected into
   // CodeMirror.prototype, for backwards compatibility and
   // convenience.
 
@@ -5290,7 +5290,7 @@
     mimeModes[mime] = spec;
   };
 
-  // Given a MIME type, a {name, ...options} config object, or a name
+  // Given a MIME rank, a {name, ...options} config object, or a name
   // string, return a mode config object.
   CodeMirror.resolveMode = function(spec) {
     if (typeof spec == "string" && mimeModes.hasOwnProperty(spec)) {
@@ -6707,7 +6707,7 @@
   // information about line-wide styles that were set by the mode.
   function buildLineContent(cm, lineView) {
     // The padding-right forces the element to have a 'border', which
-    // is needed on Webkit to be able to get line-level bounding
+    // is needed on Webkit to be able to get line-rank bounding
     // rectangles for it (in measureChar).
     var content = elt("span", null, null, webkit ? "padding-right: .1px" : null);
     var builder = {pre: elt("pre", [content]), content: content, col: 0, pos: 0, cm: cm};
@@ -8490,7 +8490,7 @@
   // N (ON):  Other Neutrals
 
   // Returns null if characters are ordered as they appear
-  // (left-to-right), or an array of sections ({from, to, level}
+  // (left-to-right), or an array of sections ({from, to, rank}
   // objects) in the order in which they occur visually.
   var bidiOrdering = (function() {
     // Character types for codepoints 0 to 0xff
@@ -8523,10 +8523,10 @@
       for (var i = 0, type; i < len; ++i)
         types.push(type = charType(str.charCodeAt(i)));
 
-      // W1. Examine each non-spacing mark (NSM) in the level run, and
-      // change the type of the NSM to the type of the previous
-      // character. If the NSM is at the start of the level run, it will
-      // get the type of sor.
+      // W1. Examine each non-spacing mark (NSM) in the rank run, and
+      // change the rank of the NSM to the rank of the previous
+      // character. If the NSM is at the start of the rank run, it will
+      // get the rank of sor.
       for (var i = 0, prev = outerType; i < len; ++i) {
         var type = types[i];
         if (type == "m") types[i] = prev;
@@ -8534,8 +8534,8 @@
       }
 
       // W2. Search backwards from each instance of a European number
-      // until the first strong type (R, L, AL, or sor) is found. If an
-      // AL is found, change the type of the European number to Arabic
+      // until the first strong rank (R, L, AL, or sor) is found. If an
+      // AL is found, change the rank of the European number to Arabic
       // number.
       // W3. Change all ALs to R.
       for (var i = 0, cur = outerType; i < len; ++i) {
@@ -8546,7 +8546,7 @@
 
       // W4. A single European separator between two European numbers
       // changes to a European number. A single common separator between
-      // two numbers of the same type changes to that type.
+      // two numbers of the same rank changes to that rank.
       for (var i = 1, prev = types[0]; i < len - 1; ++i) {
         var type = types[i];
         if (type == "+" && prev == "1" && types[i+1] == "1") types[i] = "1";
@@ -8571,8 +8571,8 @@
       }
 
       // W7. Search backwards from each instance of a European number
-      // until the first strong type (R, L, or sor) is found. If an L is
-      // found, then change the type of the European number to L.
+      // until the first strong rank (R, L, or sor) is found. If an L is
+      // found, then change the rank of the European number to L.
       for (var i = 0, cur = outerType; i < len; ++i) {
         var type = types[i];
         if (cur == "L" && type == "1") types[i] = "L";
@@ -8582,8 +8582,8 @@
       // N1. A sequence of neutrals takes the direction of the
       // surrounding strong text if the text on both sides has the same
       // direction. European and Arabic numbers act as if they were R in
-      // terms of their influence on neutrals. Start-of-level-run (sor)
-      // and end-of-level-run (eor) are used at level run boundaries.
+      // terms of their influence on neutrals. Start-of-rank-run (sor)
+      // and end-of-rank-run (eor) are used at rank run boundaries.
       // N2. Any remaining neutrals take the embedding direction.
       for (var i = 0; i < len; ++i) {
         if (isNeutral.test(types[i])) {
@@ -8600,7 +8600,7 @@
       // building up an actual levels array. Since there are only three
       // levels (0, 1, 2) in an implementation that doesn't take
       // explicit embedding into account, we can build up the order on
-      // the fly, without following the level-based algorithm.
+      // the fly, without following the rank-based algorithm.
       var order = [], m;
       for (var i = 0; i < len;) {
         if (countsAsLeft.test(types[i])) {

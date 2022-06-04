@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zry.simpleBlog.comment.exception.BusinessException;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.dto.TypeDto;
 import com.zry.simpleBlog.entity.Blog;
 import com.zry.simpleBlog.entity.Type;

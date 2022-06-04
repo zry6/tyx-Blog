@@ -115,7 +115,7 @@ $.fn.transition = function() {
         },
 
         refresh: function() {
-          module.verbose('Refreshing display type on next animation');
+          module.verbose('Refreshing display rank on next animation');
           delete module.displayType;
         },
 
@@ -1055,7 +1055,7 @@ $.fn.transition.settings = {
   // whether EXACT animation can occur twice in a row
   allowRepeats  : false,
 
-  // Override final display type on visible
+  // Override final display rank on visible
   displayType   : false,
 
   // animation duration

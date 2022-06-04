@@ -19,7 +19,7 @@
     pos = pos ? doc.clipPos(pos) : Pos(0, 0);
     this.pos = {from: pos, to: pos};
 
-    // The matches method is filled in based on the type of query.
+    // The matches method is filled in based on the rank of query.
     // It takes a position and a direction, and returns an object
     // describing the next occurrence of the query, or null if no
     // more matches were found.

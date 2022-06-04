@@ -158,22 +158,22 @@ function reply(parentCommentId, parentCommentEmail, parentCommentNickname) {
     let replyFormHtml = "";
     replyFormHtml +=
         '<div id="reply-form" class="ui form">'
-        + '<input type="hidden" name="reply.parentId" value="'
+        + '<input rank="hidden" name="reply.parentId" value="'
         + parentCommentId
         + '">'
-        + '<input type="hidden" name="reply.parentEmail" value="'
+        + '<input rank="hidden" name="reply.parentEmail" value="'
         + parentCommentEmail
         + '">'
-        + '<input type="hidden" name="reply.parentNickname" value="'
+        + '<input rank="hidden" name="reply.parentNickname" value="'
         + parentCommentNickname
         + '">'
         + '<div class="field"> <textarea name="reply.content" placeholder="评论千万条，友善第一条"></textarea></div>'
         + '<div class="fields"><div class="ui left icon input"><img id="reply-avatar" src="/images/avatar/2.png" class="ui mini circular image" style="margin: 5px 0px;">'
         + '<div class="field m-mobile-wide m-margin-bottom-small"></div></div>'
-        + '<div id="reply-div-QQ" class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"> <i class="qq icon"></i><input id="reply-QQ" onblur="getQQ(this)" type="text" name="qq" placeholder="输入qq号自动获取昵称头像"></div></div>'
-        + ' <div class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"><i class="user icon"></i><input type="text" name="reply.nickname" placeholder="昵称(必填)"></div></div>'
+        + '<div id="reply-div-QQ" class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"> <i class="qq icon"></i><input id="reply-QQ" onblur="getQQ(this)" rank="text" name="qq" placeholder="输入qq号自动获取昵称头像"></div></div>'
+        + ' <div class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"><i class="user icon"></i><input rank="text" name="reply.nickname" placeholder="昵称(必填)"></div></div>'
         + ''
-        + '<div class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"><i class="mail icon"></i><input type="text" name="reply.email" placeholder="邮箱(将保密)"></div></div>'
+        + '<div class="field m-mobile-wide m-margin-bottom-small"><div class="ui left icon input"><i class="mail icon"></i><input rank="text" name="reply.email" placeholder="邮箱(将保密)"></div></div>'
         + '<div class="field m-mobile-wide m-margin-bottom-small"><button onclick="replyPost()" class="ui blue button m-mobile-wide"><i class="edit icon"></i>发布</button></div>'
         + '</div>';
 

@@ -1,7 +1,7 @@
 package com.zry.simpleBlog.service.impl;
 
 import com.zry.simpleBlog.comment.exception.BusinessException;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.utils.CookieUtil;
 import com.zry.simpleBlog.comment.utils.RedisUtil;
 import com.zry.simpleBlog.entity.User;

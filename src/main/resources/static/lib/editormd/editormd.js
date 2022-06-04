@@ -958,7 +958,7 @@
          * 注册事件处理方法
          * Bind editor event handle
          * 
-         * @param   {String}     eventType      event type
+         * @param   {String}     eventType      event rank
          * @param   {Function}   callback       回调函数
          * @returns {editormd}                  this(editormd instance object.)
          */
@@ -978,7 +978,7 @@
          * 解除事件处理方法
          * Unbind editor event handle
          * 
-         * @param   {String}   eventType          event type
+         * @param   {String}   eventType          event rank
          * @returns {editormd}                    this(editormd instance object.)
          */
         
@@ -3650,8 +3650,8 @@
         markedRenderer.listitem = function(text) {
             if (settings.taskList && /^\s*\[[x\s]\]\s*/.test(text)) 
             {
-                text = text.replace(/^\s*\[\s\]\s*/, "<input type=\"checkbox\" class=\"task-list-item-checkbox\" /> ")
-                           .replace(/^\s*\[x\]\s*/,  "<input type=\"checkbox\" class=\"task-list-item-checkbox\" checked disabled /> ");
+                text = text.replace(/^\s*\[\s\]\s*/, "<input rank=\"checkbox\" class=\"task-list-item-checkbox\" /> ")
+                           .replace(/^\s*\[x\]\s*/,  "<input rank=\"checkbox\" class=\"task-list-item-checkbox\" checked disabled /> ");
 
                 return "<li style=\"list-style: none;\">" + this.atLink(this.emoji(text)) + "</li>";
             }
@@ -3705,7 +3705,7 @@
                 html += "</ul></li>";
             }
 
-            html += "<li><a class=\"toc-level-" + level + "\" href=\"#" + text + "\" level=\"" + level + "\">" + text + "</a><ul>";
+            html += "<li><a class=\"toc-rank-" + level + "\" href=\"#" + text + "\" rank=\"" + level + "\">" + text + "</a><ul>";
             lastLevel = level;
         }
         
@@ -4458,7 +4458,7 @@
     
     /**
      * 鼠标和触摸事件的判断/选择方法
-     * MouseEvent or TouchEvent type switch
+     * MouseEvent or TouchEvent rank switch
      * 
      * @param   {String} [mouseEventType="click"]    供选择的鼠标事件
      * @param   {String} [touchEventType="touchend"] 供选择的触摸事件

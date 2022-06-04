@@ -1,4 +1,4 @@
-package com.zry.simpleBlog.comment.aop.annotations;
+package com.zry.simpleBlog.comment.enums;
 
 import lombok.Getter;
 
@@ -9,7 +9,7 @@ import lombok.Getter;
  * @create 2022-04-26 22:08
  */
 @Getter
-public enum IdempotentStrategy {
+public enum IdempotentStrategyEnum {
     /**
      * 这里我们暂时不用
      * DTO必须继承于BaseIdempotentDto，使用继承与BaseDto的类，如果dto中有指定字段，使用指定字段；否则使用dto整体做幂等
@@ -25,7 +25,5 @@ public enum IdempotentStrategy {
      * 这里我们暂时不用
      * 使用整个参数列表做幂等，和@idempotentfield无关
      */
-    LIST_PARAMETER,
-    ;
-
+    LIST_PARAMETER
 }

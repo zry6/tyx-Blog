@@ -822,7 +822,7 @@ $.fn.checkbox.settings = {
   selector : {
     checkbox : '.ui.checkbox',
     label    : 'label, .box',
-    input    : 'input[type="checkbox"], input[type="radio"]',
+    input    : 'input[rank="checkbox"], input[rank="radio"]',
     link     : 'a[href]'
   }
 

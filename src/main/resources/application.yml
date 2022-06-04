@@ -21,3 +21,6 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  thymeleaf:
+    check-template: false
+    check-template-location: false

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.comment.respBean.RespBeanEnum;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.utils.CookieUtil;
 import com.zry.simpleBlog.comment.utils.MD5Util;
 import com.zry.simpleBlog.comment.utils.UUIDUtil;
@@ -43,7 +43,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Value("${cookie.user.surviveTime}")
     private long surviveTime;
 
-
     @Override
     public RespBean doLogin(LoginDto loginDto) {
         if (loginDto == null) {
@@ -56,6 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         //从数据库查询用户
         User user = userMapper.selectOne(new QueryWrapper<User>().eq("username", username));
+
         // 1.判断用户是否存在 或者 判断再次MD5加密的密码是否相等
         if (user == null || !MD5Util.formPassToDBPass(password, user.getSalt()).equals(user.getPassword())) {
             throw new BusinessException(RespBeanEnum.LOGIN_ERROR);
@@ -73,7 +73,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         //看看是否已经登录，如果已经登录，就直接返回
         String oldTicket = CookieUtil.getCookieValue(request, cookieKey);
         User userByTicket = redisService.getUserByTicket(request, response, oldTicket);
-        if ( userByTicket!=null && userByTicket.getId().equals(user.getId())) {
+        if (userByTicket != null && userByTicket.getId().equals(user.getId())) {
             return RespBean.success(oldTicket);
         }
         //生成 uuid 当作 用户 ticket
@@ -90,7 +90,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
 
-
     @Override
     public RespBean updatePassword(String userTicket, String password) {
         User currentUser = UserContext.getCurrentUser();
@@ -99,35 +98,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         user.setId(currentUser.getId());
         User user1 = userMapper.selectOne(new QueryWrapper<User>().select("salt").eq("id", user.getId()));
-        user.setPassword(MD5Util.inputPassToDBPass(password,user1.getSalt()));
+        user.setPassword(MD5Util.inputPassToDBPass(password, user1.getSalt()));
 
         int result = userMapper.updateById(user);
-        if(result == 1){
+        if (result == 1) {
             redisService.deleteUser(userTicket);
             return RespBean.success();
         }
         return RespBean.error(RespBeanEnum.PASSWORD_UPDATE_FAIL);
     }
-
-//
-//    @Override
-//    public void updateUser(Integer id, UserVo userVo) {
-//        if (userVo == null) {
-//            throw new BusinessException(RespBeanEnum.DATA_ERROR);
-//        }
-//        if (StringUtils.isEmpty(userVo.getUsername())) {
-//            userVo.setUsername(null);
-//        }
-//        if (StringUtils.isEmpty(userVo.getEmail())) {
-//            userVo.setEmail(null);
-//        }
-//        if (StringUtils.isEmpty(userVo.getNickname())) {
-//            userVo.setNickname(null);
-//        }
-//        User user = userVo.castUser();
-//        //i为1完成更新一个用户
-//        userMapper.update(user, new QueryWrapper<User>().eq("id", id));
-//    }
 
 
 }

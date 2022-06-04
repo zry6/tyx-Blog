@@ -861,7 +861,7 @@ $.fn.search = function(parameters) {
               });
             }
             else {
-              // top level
+              // top rank
               $.each(results, function(index, value) {
                 var
                   result = results[index]
@@ -1374,7 +1374,7 @@ $.fn.search.settings = {
         html +=  ''
           + '<div class="message ' + type + '">'
         ;
-        // message type
+        // message rank
         if(type == 'empty') {
           html += ''
             + '<div class="header">No Results</div class="header">'

@@ -128,7 +128,6 @@ function getRecommends() {
     });
 }
 
-
 function setUserInfo(obj) {
     $('#userId').val(obj.id);
     $('#username').val(obj.username);
@@ -140,8 +139,12 @@ function setUserInfo(obj) {
     $('#email').text(obj.email);
     $('#avatar').attr('src', obj.avatar);
     $('#avatar2').attr('src', obj.avatar);
-    if (obj.type == '1') {
-        $('#userType').text("superman");
+    switch (obj.rank) {
+        case 1: $('#userType').text("超级管理员");break;
+        case 2: $('#userType').text("VIP");break;
+        case 3: $('#userType').text("普通用户");break;
+        case 4: $('#userType').text("游客");break;
+        default : $('#userType').text("未知");
     }
 }
 

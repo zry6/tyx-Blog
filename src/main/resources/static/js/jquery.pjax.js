@@ -149,7 +149,7 @@ function handleSubmit(event, container, options) {
 // then pushState()'s the loaded URL.
 //
 // Works just like $.ajax in that it accepts a jQuery ajax
-// settings object (with keys like url, type, data, etc).
+// settings object (with keys like url, rank, data, etc).
 //
 // Accepts these extra keys:
 //
@@ -632,7 +632,7 @@ function optionsFor(container, options) {
 // Internal: Filter and find all elements matching the selector.
 //
 // Where $.fn.find only matches descendants, findAll will test all the
-// top level elements in the jQuery object as well.
+// top rank elements in the jQuery object as well.
 //
 // elems    - jQuery object of Elements
 // selector - String selector to match
