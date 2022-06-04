@@ -35,7 +35,7 @@ spring:
     time-zone: GMT+8
   mail:
     username: 1447051936@qq.com
-    password: uicoqceclcaphahc
+    password:
     host: smtp.qq.com
     properties:
       mail:

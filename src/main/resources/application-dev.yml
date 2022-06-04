@@ -18,7 +18,7 @@ spring:
     open-in-view: true
   redis:
     port: 6379
-    host: 1.117.229.251
+    host:
     password: 123
     database: 0
     jedis:
@@ -32,7 +32,7 @@ spring:
     time-zone: GMT+8
   mail:
     username: 1447051936@qq.com
-    password: uicoqceclcaphahc
+    password:
     host: smtp.qq.com
     properties:
       mail:
