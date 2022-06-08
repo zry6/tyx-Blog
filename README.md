@@ -3,8 +3,10 @@
 
 看完如果觉得还行，给个star鼓励一下吧👍
 
-# 预览地址 http://www.tyux.top/
-# 接口文档地址  http://www.tyux.top/swagger-ui.html
+## 预览地址 http://www.tyux.top/
+## 后台地址 http://www.tyux.top/back/login.html  
+## 测试用户 用户名：test  密码：1111
+## 接口文档地址  http://www.tyux.top/swagger-ui.html
 
 1.  **后台接口restful风格** 
 
@@ -73,7 +75,6 @@
 ![输入图片说明](assets/login.png)
 
 
-
 ### 主要功能
 
 博客前台
@@ -93,7 +94,8 @@
 - 分类管理
 - 个人信息管理
 # 3.文件结构
-![输入图片说明](assets/%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png)
+![输入图片说明](assets/wenjianjg.png)
+
 # 4.预览图：
 ## 前台：
 ### 主页

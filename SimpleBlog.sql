@@ -31,33 +31,30 @@ CREATE TABLE `t_blog` (
   `type_id` bigint DEFAULT NULL,
   `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK8ky5rrsxh01nkhctmo7d48p82` (`user_id`),
-  CONSTRAINT `FK8ky5rrsxh01nkhctmo7d48p82` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+  KEY `FK8ky5rrsxh01nkhctmo7d48p82` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `t_blog_tags`
 --
 
 DROP TABLE IF EXISTS `t_blog_tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `t_blog_tags` (
   `blogs_id` bigint NOT NULL,
   `tags_id` bigint NOT NULL,
   `id` bigint NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `t_comment`
 --
 
 DROP TABLE IF EXISTS `t_comment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `t_comment` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `admin_comment` bit(1) NOT NULL,
@@ -68,8 +65,7 @@ CREATE TABLE `t_comment` (
   `nickname` varchar(255) DEFAULT NULL,
   `blog_id` bigint DEFAULT NULL,
   `parent_comment_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
- 
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -78,14 +74,13 @@ CREATE TABLE `t_comment` (
 --
 
 DROP TABLE IF EXISTS `t_tag`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `t_tag` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `t_type`
@@ -98,7 +93,6 @@ CREATE TABLE `t_type` (
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `t_user`
@@ -113,7 +107,7 @@ CREATE TABLE `t_user` (
   `email` varchar(255) DEFAULT NULL,
   `nickname` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `type` int DEFAULT NULL,
+  `rank` int  NOT NULL,
   `update_time` datetime(6) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `salt` varchar(10) NOT NULL,
@@ -126,21 +120,7 @@ CREATE TABLE `t_user` (
 -- 初始用户
 --
 
--- INSERT INTO simpleblog.t_user (id, avatar, create_time, email, nickname, password, type, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
+INSERT INTO simpleblog.t_user (id, avatar, create_time, email, nickname, `password`, `rank`, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
 
--- update simpleblog.t_user (id, avatar, create_time, email, nickname, password, type, update_time, username, salt, introduction, qq_email_smtp) VALUES (1, '/images/avatar/zry.jpg', '2022-03-23 18:59:55', '1447051936@qq.com', 'root', 'b5fb686c5752edd1c337ac7231c6cea5', 1, '2022-03-23 18:59:55', 'root', '1a2b3c4d', '这厮我的个人博客，会分享关于编程，思考，随笔相关的内容，欢迎大家访问，希望可以给到这的人有所帮助...', null);
-
-
-
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2022-05-09 22:53:17
