@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.enums.RespBeanEnum;
+import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.dto.TagDto;
 import com.zry.simpleBlog.entity.Tag;
 import com.zry.simpleBlog.mapper.BlogTagsMapper;
@@ -34,8 +35,8 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
     private BlogTagsMapper blogTagsMapper;
 
     @Override
-    public Page<Tag> tagPage(Integer current, Integer size) {
-        return tagMapper.selectPage(new Page<>(current, size), Wrappers.emptyWrapper());
+    public RespBean tagPage(Integer current, Integer size) {
+        return RespBean.success(tagMapper.selectPage(new Page<>(current, size), Wrappers.emptyWrapper()));
     }
 
     @Cacheable(value = "TagDto_List")
@@ -53,7 +54,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
 
     @CacheEvict(value = {"TagDto_List"}, allEntries = true)
     @Override
-    public void updateById(TagDto tagDto) {
+    public RespBean updateById(TagDto tagDto) {
         Tag tag = new Tag();
         tag.setName(tagDto.getName());
         tag.setId(tagDto.getId());
@@ -62,6 +63,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
             throw new BusinessException(RespBeanEnum.TAG_EXISTED);
         }
         tagMapper.updateById(tag);
+        return RespBean.success(RespBeanEnum.UPDATE_SUCCESS);
     }
 
     /**

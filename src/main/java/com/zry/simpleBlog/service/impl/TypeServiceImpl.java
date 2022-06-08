@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.enums.RespBeanEnum;
+import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.dto.TypeDto;
 import com.zry.simpleBlog.entity.Blog;
 import com.zry.simpleBlog.entity.Type;
@@ -38,7 +39,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
     }
 
     @Override
-    public void saveType(TypeDto typeDto) {
+    public RespBean saveType(TypeDto typeDto) {
         Type type = new Type();
         type.setName(typeDto.getName());
         //检查分类是否已经存在
@@ -46,10 +47,11 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
             throw new BusinessException(RespBeanEnum.TYPE_EXISTED);
         }
         typeMapper.insert(type);
+        return RespBean.success(RespBeanEnum.POST_SUCCESS);
     }
 
     @Override
-    public void updateById(TypeDto typeDto) {
+    public RespBean updateById(TypeDto typeDto) {
         Type type = new Type();
         type.setName(typeDto.getName());
         type.setId(typeDto.getId());
@@ -58,10 +60,11 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
             throw new BusinessException(RespBeanEnum.TYPE_EXISTED);
         }
         typeMapper.updateById(type);
+        return RespBean.success(RespBeanEnum.UPDATE_SUCCESS);
     }
 
     @Override
-    public List<TypeDto> listAndBlogCount() {
+    public RespBean listAndBlogCount() {
         //在博客表中查询出分类id和对应文章数量
         List<TypeDto> typeDos = blogMapper.selectCountAndTypesId();
         for (TypeDto typeDto : typeDos) {
@@ -70,19 +73,19 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
                 typeDto.setName(type.getName());
             }
         }
-        return typeDos;
+        return RespBean.success(typeDos);
     }
     @Override
-    public boolean remove(Long id) {
+    public RespBean remove(Long id) {
         List<Blog> blogs = blogMapper.selectList(new QueryWrapper<Blog>().select("id").eq("type_id", id));
         if (!blogs.isEmpty()) {
             throw new BusinessException("删除失败，该分类下还存在文章哦");
         }
         int i = typeMapper.deleteById(id);
         if (i != 1) {
-            return false;
+           return RespBean.error(RespBeanEnum.DELETE_ERROR);
         }
-        return true;
+        return RespBean.success(RespBeanEnum.DELETE_SUCCESS);
     }
 
     /**

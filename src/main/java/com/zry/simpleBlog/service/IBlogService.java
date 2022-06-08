@@ -1,15 +1,10 @@
 package com.zry.simpleBlog.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zry.simpleBlog.dto.ArchivesDto;
-import com.zry.simpleBlog.dto.BlogDto;
+import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.dto.BlogQuery;
 import com.zry.simpleBlog.dto.PostBlogDto;
 import com.zry.simpleBlog.entity.Blog;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -26,8 +21,9 @@ public interface IBlogService extends IService<Blog> {
      * @param blog ;
      * @author zry
      * @create 2022/4/20
+     * @return
      */
-    Long saveBlog(PostBlogDto blog);
+    RespBean saveBlog(PostBlogDto blog);
 
     /**
      * 功能描述: 更新文章
@@ -35,8 +31,9 @@ public interface IBlogService extends IService<Blog> {
      * @param blogVo ;
      * @author zry
      * @create 2022/4/20
+     * @return
      */
-    void updateBlog(PostBlogDto blogVo);
+    RespBean updateBlog(PostBlogDto blogVo);
 
     /**
      * 功能描述: 博客分页 ，不用查询文章内容还可能有查询条件，所以为重写一下sql
@@ -46,7 +43,7 @@ public interface IBlogService extends IService<Blog> {
      * @author zry
      * @create 2022/4/25
      */
-    Page<BlogDto> blogPage(Integer current, Integer size, BlogQuery query);
+    RespBean blogPage(Integer current, Integer size, BlogQuery query);
     /**
      * 功能描述: 博客分页 ，不用查询文章内容还可能有查询条件，所以为重写一下sql
      *
@@ -55,7 +52,7 @@ public interface IBlogService extends IService<Blog> {
      * @author zry
      * @create 2022/4/25
      */
-    Page<BlogDto> blogPage(Integer current, Integer size,  Long tagId);
+    RespBean blogPage(Integer current, Integer size,  Long tagId);
 
     /**
      * 功能描述: 获得填充好的文章内容
@@ -65,7 +62,7 @@ public interface IBlogService extends IService<Blog> {
      * @author zry
      * @create 2022/4/28
      */
-    BlogDto getBlogById(Integer id);
+    RespBean getBlogById(Integer id);
     /**
      * 功能描述: 删除博客
      *
@@ -77,7 +74,7 @@ public interface IBlogService extends IService<Blog> {
     void deleteById(Long id);
 
 
-    Page<BlogDto> adminBlogPage(Integer current, Integer size, BlogQuery query);
+    RespBean adminBlogPage(Integer current, Integer size, BlogQuery query);
 
-    Map<String, List<ArchivesDto>> mapArchives();
+    RespBean mapArchives();
 }

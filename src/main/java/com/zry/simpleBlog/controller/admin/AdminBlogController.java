@@ -1,12 +1,12 @@
 package com.zry.simpleBlog.controller.admin;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zry.simpleBlog.comment.aop.annotations.*;
+import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
+import com.zry.simpleBlog.comment.aop.annotations.Idempotent;
+import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
 import com.zry.simpleBlog.comment.enums.AuthEnum;
-import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.enums.IdempotentStrategyEnum;
-import com.zry.simpleBlog.dto.BlogDto;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
+import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.dto.BlogQuery;
 import com.zry.simpleBlog.dto.PostBlogDto;
 import com.zry.simpleBlog.service.IBlogService;
@@ -41,8 +41,7 @@ public class AdminBlogController {
     @ApiOperation(value = "后台文章分页", notes = "可按条件查询")
     @GetMapping("/blogs")
     public RespBean blogs(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer pageSize, BlogQuery query) {
-        Page<BlogDto> dtoPage = blogService.adminBlogPage(page, pageSize, query);
-        return RespBean.success(dtoPage);
+        return blogService.adminBlogPage(page, pageSize, query);
     }
 
     /**
@@ -51,10 +50,10 @@ public class AdminBlogController {
     @Idempotent(timeout = 100, strategy = IdempotentStrategyEnum.IDEMPOTENT_INTERFACE)
     @ApiOperation(value = "添加文章", notes = "实现幂等性")
     @PostMapping("/blogs")
-    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
+    @AuthCheck(rank = AuthEnum.GOD)
     @LogWeb(title = "博客管理", action = "新增文章")
     public RespBean post(@RequestBody @Valid PostBlogDto blogDto) {
-        return RespBean.success(RespBeanEnum.POST_SUCCESS, blogService.saveBlog(blogDto));
+        return blogService.saveBlog(blogDto);
     }
 
     /**
@@ -62,20 +61,18 @@ public class AdminBlogController {
      */
     @ApiOperation(value = "更新文章")
     @PutMapping("/blogs/{id}")
-    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
+    @AuthCheck(rank = AuthEnum.GOD)
     @LogWeb(title = "博客管理", action = "更新文章")
     public RespBean update(@RequestBody @Valid PostBlogDto blogDto, @PathVariable Long id) {
         blogDto.setId(id);
-        blogService.updateBlog(blogDto);
-        return RespBean.success(RespBeanEnum.UPDATE_SUCCESS);
+        return blogService.updateBlog(blogDto);
     }
 
     /**
      * 删除博客
-     *
      */
     @ApiOperation(value = "删除文章")
-    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
+    @AuthCheck(rank = AuthEnum.GOD)
     @DeleteMapping("/blogs/{id}")
     public RespBean delete(@PathVariable Long id) {
         blogService.deleteById(id);

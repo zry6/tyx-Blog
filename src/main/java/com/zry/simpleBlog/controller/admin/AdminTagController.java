@@ -2,13 +2,12 @@ package com.zry.simpleBlog.controller.admin;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
-import com.zry.simpleBlog.comment.enums.AuthEnum;
 import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
+import com.zry.simpleBlog.comment.enums.AuthEnum;
+import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.dto.TagDto;
 import com.zry.simpleBlog.entity.BlogTags;
 import com.zry.simpleBlog.entity.Tag;
@@ -38,6 +37,7 @@ public class AdminTagController {
     private ITagService tagService;
     @Resource
     private IBlogTagsService blogTagsService;
+
     /**
      * 功能描述: 获取标签分页
      * page.class
@@ -52,8 +52,7 @@ public class AdminTagController {
     @GetMapping("/tagPage")
     @LogWeb(title = "标签管理", action = "获取标签分页")
     public RespBean tagPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer pageSize) {
-        Page<Tag> pageVo = tagService.tagPage(page, pageSize);
-        return RespBean.success(pageVo);
+        return tagService.tagPage(page, pageSize);
     }
 
     /**
@@ -79,7 +78,7 @@ public class AdminTagController {
      */
     @ApiOperation(value = "添加标签")
     @PostMapping("/tags")
-    @AuthCheck(rank = AuthEnum.VIP)
+    @AuthCheck(rank = AuthEnum.GOD)
     @LogWeb(title = "标签管理", action = "新增标签")
     public RespBean postTag(@RequestBody @Valid TagDto tagDto) {
         tagService.saveTag(tagDto);
@@ -93,14 +92,14 @@ public class AdminTagController {
      */
     @ApiOperation(value = "按id删除标签")
     @DeleteMapping("/tags/{id}")
-    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
+    @AuthCheck(rank = AuthEnum.GOD)
     @LogWeb(title = "标签管理", action = "按id删除标签")
     public RespBean deleteTag(@PathVariable Long id) {
         List<BlogTags> list = blogTagsService.list(new QueryWrapper<BlogTags>().select("id").eq("tags_id", id));
-        if ( !list.isEmpty()  ) {
+        if (!list.isEmpty()) {
             throw new BusinessException("删除失败，该标签下还存在文章哦");
         }
-        if ( !tagService.removeById(id) ) {
+        if (!tagService.removeById(id)) {
             return RespBean.error(RespBeanEnum.DELETE_ERROR);
         }
         blogTagsService.remove(new QueryWrapper<BlogTags>().eq("tags_id", id));
@@ -114,11 +113,10 @@ public class AdminTagController {
      */
     @ApiOperation(value = "按id更新标签")
     @PutMapping("/tags/{id}")
-    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
+    @AuthCheck(rank = AuthEnum.GOD)
     @LogWeb(title = "标签管理", action = "按id更新标签")
     public RespBean updateTag(@RequestBody @Valid TagDto tagDto, @PathVariable Long id) {
         tagDto.setId(id);
-        tagService.updateById(tagDto);
-        return RespBean.success(RespBeanEnum.UPDATE_SUCCESS);
+        return tagService.updateById(tagDto);
     }
 }

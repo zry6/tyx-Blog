@@ -3,9 +3,8 @@ package com.zry.simpleBlog.controller.admin;
 
 import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
 import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
-import com.zry.simpleBlog.comment.exception.BusinessException;
-import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.enums.RespBeanEnum;
+import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.utils.CookieUtil;
 import com.zry.simpleBlog.comment.utils.UserContext;
 import com.zry.simpleBlog.dto.LoginDto;
@@ -41,6 +40,7 @@ public class AdminUserController {
     private String cookieKey;
     @Value("${cookie.user.surviveTime}")
     private long surviveTime;
+
     /**
      * 功能描述: 登录
      *
@@ -87,6 +87,7 @@ public class AdminUserController {
         redisService.saveUser(ticket, user, surviveTime);
         return RespBean.success(RespBeanEnum.UPDATE_SUCCESS);
     }
+
     /**
      * 功能描述: 更新用户信息
      *
@@ -97,12 +98,7 @@ public class AdminUserController {
     @AuthCheck
     @LogWeb(title = "用户操作", action = "更新密码")
     public RespBean updatePassword(@RequestBody UpdatePswDto pswDto, HttpServletRequest request) {
-        String password = pswDto.getPassword();
-        if (!password.equals(pswDto.getCheckPassword())){
-            throw  new BusinessException("两次输入密码不一致");
-        }
-        String userTicket = CookieUtil.getCookieValue(request, cookieKey);
-        return userService.updatePassword(userTicket,password);
+        return userService.updatePassword(pswDto, request);
     }
 
 

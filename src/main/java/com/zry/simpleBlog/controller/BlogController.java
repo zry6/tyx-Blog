@@ -4,9 +4,7 @@ package com.zry.simpleBlog.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
-import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.dto.ArchivesDto;
 import com.zry.simpleBlog.dto.BlogDto;
 import com.zry.simpleBlog.dto.BlogQuery;
 import com.zry.simpleBlog.entity.Blog;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -47,6 +44,7 @@ public class BlogController {
 
     @Value("${init.user.id}")
     private Long userId;
+
     /**
      * 功能描述:根据博客id返回文章
      *
@@ -60,12 +58,7 @@ public class BlogController {
     @AuthCheck(isLogin = false)
     @GetMapping("blogs/{id}")
     public RespBean getBlog(@PathVariable Integer id) {
-        BlogDto blog = blogService.getBlogById(id);
-        if (blog == null) {
-            return RespBean.error(RespBeanEnum.BLOG_NOT_EXISTED);
-        }
-
-        return RespBean.success(blog);
+        return blogService.getBlogById(id);
     }
 
     /**
@@ -77,16 +70,17 @@ public class BlogController {
     @ApiOperation(value = "文章展示分页", notes = "文章展示分页: 可选参数[分类][标签],并且如果标签参数存在那么按照标签查询")
     @GetMapping("blogs")
     public RespBean blogPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "8") Integer pageSize, @RequestParam(required = false) Long typeId, @RequestParam(required = false) Long tagId) {
+        RespBean respBean;
         //只展示已发布的文章
         Page<BlogDto> pageDto = null;
         if (tagId == null) {
             BlogQuery query = new BlogQuery();
             query.setTypeId(typeId);
-            pageDto = blogService.blogPage(page, pageSize, query);
+            respBean = blogService.blogPage(page, pageSize, query);
         } else {
-            pageDto = blogService.blogPage(page, pageSize, tagId);
+            respBean = blogService.blogPage(page, pageSize, tagId);
         }
-        return RespBean.success(pageDto);
+        return respBean;
     }
 
     /**
@@ -105,16 +99,14 @@ public class BlogController {
     @ApiOperation(value = "时间归档", notes = "按时间倒序Map结构{key : year ，value: List<Blog>}")
     @GetMapping("archives")
     public RespBean archives() {
-        Map<String, List<ArchivesDto>> stringListMap = blogService.mapArchives();
-        return RespBean.success(stringListMap);
+        return blogService.mapArchives();
     }
 
-
-/**
- * 功能描述: 初始项目，不需要就去掉
- *
- * @create 2022/6/2
- */
+    /**
+     * 功能描述: 初始项目，不需要就去掉
+     *
+     * @create 2022/6/2
+     */
 //    @PostConstruct
 //    public void init() {
 //        initUser();

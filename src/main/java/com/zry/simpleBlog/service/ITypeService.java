@@ -2,10 +2,9 @@ package com.zry.simpleBlog.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.dto.TypeDto;
 import com.zry.simpleBlog.entity.Type;
-
-import java.util.List;
 
 /**
  * <p>
@@ -30,28 +29,32 @@ public interface ITypeService extends IService<Type> {
      * 新增分类
      *
      * @param typeDto 类型传输数据
+     * @return
      */
-    void saveType(TypeDto typeDto);
+    RespBean saveType(TypeDto typeDto);
     /**
      * 功能描述: 更新分类
      *
      * @author zry
      * @create 2022/4/17
+     * @return
      */
-    void updateById(TypeDto typeDto);
+    RespBean updateById(TypeDto typeDto);
 
     /**
      * 功能描述: 获取存在对应文章的分类和对应的文章数
      *
      * @author zry
      * @create 2022/4/30
+     * @return
      */
-    List<TypeDto> listAndBlogCount();
+    RespBean listAndBlogCount();
     /**
      * 功能描述: 删除分类
      *
      * @author zry
      * @create 2022/5/17
+     * @return
      */
-    boolean remove(Long id);
+    RespBean remove(Long id);
 }

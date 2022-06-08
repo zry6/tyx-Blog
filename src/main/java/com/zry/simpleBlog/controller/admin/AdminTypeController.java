@@ -70,11 +70,10 @@ public class AdminTypeController {
      * @author zry
      */
     @PostMapping("/types")
-    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
+    @AuthCheck(rank = AuthEnum.GOD)
     @LogWeb(title = "分类管理", action = "新增分类")
     public RespBean postType(@RequestBody @Valid TypeDto typeDto) {
-        typeService.saveType(typeDto);
-        return RespBean.success(RespBeanEnum.POST_SUCCESS);
+        return typeService.saveType(typeDto);
     }
 
     /**
@@ -83,14 +82,10 @@ public class AdminTypeController {
      * @author zry
      */
     @DeleteMapping("/types/{id}")
-    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
+    @AuthCheck(rank = AuthEnum.GOD)
     @LogWeb(title = "分类管理", action = "按id删除分类")
     public RespBean deleteType(@PathVariable Long id) {
-        boolean b = typeService.remove(id);
-        if (!b) {
-            RespBean.error(RespBeanEnum.DELETE_ERROR);
-        }
-        return RespBean.success(RespBeanEnum.DELETE_SUCCESS);
+        return typeService.remove(id);
     }
 
     /**
@@ -99,11 +94,10 @@ public class AdminTypeController {
      * @author zry
      */
     @PutMapping("/types/{id}")
-    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
+    @AuthCheck(rank = AuthEnum.GOD)
     @LogWeb(title = "分类管理", action = "按id更新分类")
     public RespBean updateType(@RequestBody @Valid TypeDto typeDto, @PathVariable Long id) {
         typeDto.setId(id);
-        typeService.updateById(typeDto);
-        return RespBean.success(RespBeanEnum.UPDATE_SUCCESS);
+        return typeService.updateById(typeDto);
     }
 }

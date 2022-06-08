@@ -15,11 +15,7 @@ public enum AuthEnum {
     /**
      * admin 最高权限用户，拥有所有权限
      */
-    ADMINISTRATOR(1),
-    /**
-     * vip 无删除其它博主 博文权限
-     */
-    VIP(2),
+    GOD(1),
     /**
      * user 无更新，删除权限
      */

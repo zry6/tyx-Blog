@@ -1,7 +1,7 @@
 package com.zry.simpleBlog.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.dto.TagDto;
 import com.zry.simpleBlog.entity.Tag;
 
@@ -17,11 +17,11 @@ import java.util.List;
  */
 public interface ITagService extends IService<Tag> {
 
-    void updateById(TagDto tagDto);
+    RespBean updateById(TagDto tagDto);
 
     void saveTag(TagDto tagDto);
 
-    Page<Tag> tagPage(Integer current, Integer size);
+    RespBean tagPage(Integer current, Integer size);
 
     /**
      * 功能描述: 获取全部标签包含对应的博客数量

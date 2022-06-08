@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.enums.RespBeanEnum;
+import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.utils.UserContext;
 import com.zry.simpleBlog.dto.CommentDto;
 import com.zry.simpleBlog.dto.EmailDto;
@@ -64,7 +65,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public CommentDto saveComment(CommentDto comment) {
+    public RespBean saveComment(CommentDto comment) {
         User user = UserContext.getCurrentUser();
         comment.setAdminComment(false);
         if (user != null) {
@@ -95,7 +96,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             throw new BusinessException(RespBeanEnum.POST_COMMENT_ERROR);
         }
         sendEmail(comment, blog);
-        return comment;
+        return RespBean.success();
     }
 
     private void sendEmail(CommentDto comment, Blog blog) {
@@ -117,30 +118,28 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean removeComment(Long id) {
+    public RespBean removeComment(Long id) {
 
         List<Comment> commentList = commentMapper.selectList(new QueryWrapper<Comment>().eq("parent_comment_id", id));
         if (commentList != null && !commentList.isEmpty()) {
-            return false;
+            return RespBean.error(RespBeanEnum.DELETE_ERROR);
         }
         int i = commentMapper.deleteById(id);
         if (i != 1) {
-            return false;
+            return RespBean.error(RespBeanEnum.DELETE_ERROR);
         }
-        return true;
+        return RespBean.success();
     }
 
     @Override
-    public Page<CommentDto> pageCommentByBlogId(Integer page, Integer pageSize, Long blogId) {
+    public RespBean pageCommentByBlogId(Integer page, Integer pageSize, Long blogId) {
         //找出所有的一级评论
         Page<Comment> commentsPage = commentMapper.selectPage(new Page<>(page, pageSize), new QueryWrapper<Comment>().eq("blog_id", blogId).isNull("parent_comment_id").orderByDesc("create_time"));
         Page<CommentDto> commentDtoPage = (Page<CommentDto>) commentsPage.convert(this::apply);
-
         COMMENT_TEMP_CONTENT.set(new ArrayList<>());
         combineChildren(commentDtoPage);
         COMMENT_TEMP_CONTENT.remove();
-
-        return commentDtoPage;
+        return RespBean.success(commentDtoPage);
     }
 
 

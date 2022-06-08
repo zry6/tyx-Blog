@@ -2,7 +2,6 @@ package com.zry.simpleBlog.controller;
 
 
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.dto.TypeDto;
 import com.zry.simpleBlog.entity.Type;
 import com.zry.simpleBlog.service.ITypeService;
 import io.swagger.annotations.Api;
@@ -38,7 +37,6 @@ public class TypeController {
      */
     @GetMapping("types/blogCount")
     private RespBean getTypesAndBlogCount() {
-        List<TypeDto> list = typeService.listAndBlogCount();
-        return RespBean.success(list);
+        return typeService.listAndBlogCount();
     }
 }

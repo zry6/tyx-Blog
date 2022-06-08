@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.enums.RespBeanEnum;
+import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.utils.StringUtil;
 import com.zry.simpleBlog.comment.utils.UserContext;
 import com.zry.simpleBlog.dto.*;
@@ -51,13 +52,13 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
      */
     @Cacheable(value = "BlogPage_Index_Type")
     @Override
-    public Page<BlogDto> blogPage(Integer current, Integer size, BlogQuery query) {
+    public RespBean blogPage(Integer current, Integer size, BlogQuery query) {
         Page<Blog> blogVoPage = blogMapper.selectPageByBlogQuery(new Page<>(current, size), query);
         //pageClassConvert类型转换
-        Page<BlogDto> page = pageClassConvert(blogVoPage);
+        Page<BlogDto> pageDto = pageClassConvert(blogVoPage);
         //填充分类和博主信息
-        page = setTypeAndUSerInfo(page);
-        return page;
+        pageDto = setTypeAndUSerInfo(pageDto);
+        return RespBean.success(pageDto);
     }
 
     /**
@@ -78,10 +79,11 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     /**
      * 博客标签页的分页展示
+     * @return
      */
     @Cacheable(value = "BlogPage_Tag")
     @Override
-    public Page<BlogDto> blogPage(Integer current, Integer size, Long tagId) {
+    public RespBean blogPage(Integer current, Integer size, Long tagId) {
         List<BlogTags> blogTagsList = blogTagsMapper.selectList(new QueryWrapper<BlogTags>().eq("tags_id", tagId));
         if (blogTagsList == null || blogTagsList.size() == 0) {
             return null;
@@ -94,9 +96,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
         Page<Blog> blogVoPage = blogMapper.selectPage(new Page<>(current, size), new QueryWrapper<Blog>().eq("published", true).in("id", resultList));
         //pageClassConvert类型转换
-        Page<BlogDto> page = pageClassConvert(blogVoPage);
+        Page<BlogDto> pageDto = pageClassConvert(blogVoPage);
         // 填充分类和博主信息，标签
-        List<BlogDto> blogVos = page.getRecords();
+        List<BlogDto> blogVos = pageDto.getRecords();
 
         for (BlogDto blog : blogVos) {
             blog.setUser(new UserDto(userMapper.selectOne(new QueryWrapper<User>().select("id", "avatar", "nickname").eq("id", blog.getUserId()))));
@@ -105,7 +107,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             setTagsByBlogId(blog);
         }
 
-        return page;
+        return RespBean.success(pageDto);
     }
 
     /**
@@ -125,9 +127,10 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     /**
      * 后台管理博客列表分页
+     * @return
      */
     @Override
-    public Page<BlogDto> adminBlogPage(Integer current, Integer size, BlogQuery query) {
+    public RespBean adminBlogPage(Integer current, Integer size, BlogQuery query) {
         query.setUserId(UserContext.getCurrentUser().getId());
         Page<Blog> blogVoPage = blogMapper.selectAdminPage(new Page<>(current, size), query);
         //pageClassConvert类型转换
@@ -137,19 +140,19 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         for (BlogDto blogVo : blogVos) {
             blogVo.setType(typeMapper.selectById(blogVo.getTypeId()));
         }
-        return page;
+        return RespBean.success(page);
     }
 
     @Cacheable(value = "Blog_Archives")
     @Override
-    public Map<String, List<ArchivesDto>> mapArchives() {
+    public RespBean mapArchives() {
         List<String> years = blogMapper.findGroupYear();
         Map<String, List<ArchivesDto>> map = new HashMap<>(64);
         for (String year : years) {
             map.put(year, blogMapper.findBlogByYear(year));
         }
         log.debug(map.toString());
-        return map;
+        return RespBean.success(map);
     }
 
     /**
@@ -165,11 +168,11 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
     @Override
-    public BlogDto getBlogById(Integer id) {
+    public RespBean getBlogById(Integer id) {
         User user = UserContext.getCurrentUser();
         Blog blog = blogMapper.selectById(id);
         if (null == blog) {
-            return null;
+            return RespBean.error(RespBeanEnum.BLOG_NOT_EXISTED);
         }
         //未登录状态不能看未发布的 和 不能看不是自己写的
         if (!blog.getPublished() && user == null) {
@@ -190,13 +193,13 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             blogMapper.updateById(b);
             log.debug("updateById===" + b.getViews());
         }
-        return blogDto;
+        return RespBean.success(blogDto);
     }
 
     @CacheEvict(value = {"BlogPage_Tag", "BlogPage_Index_Type", "TagDto_List", "Blog_Archives"}, allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Long saveBlog(PostBlogDto blogDto) {
+    public RespBean saveBlog(PostBlogDto blogDto) {
         User user = UserContext.getCurrentUser();
         if (user == null) {
             throw new BusinessException(RespBeanEnum.TOKEN_ERROR);
@@ -219,13 +222,13 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         if (!tagList.isEmpty()) {
             blogTagsMapper.insertBlogTags(blog.getId(), tagList);
         }
-        return blog.getId();
+        return RespBean.success(RespBeanEnum.POST_SUCCESS,blog.getId());
     }
 
     @CacheEvict(value = {"BlogPage_Tag", "BlogPage_Index_Type", "TagDto_List", "Blog_Archives"}, allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void updateBlog(PostBlogDto blog) {
+    public RespBean updateBlog(PostBlogDto blog) {
         User user = UserContext.getCurrentUser();
         if (user == null) {
             throw new BusinessException(RespBeanEnum.AUTH_ERROR);
@@ -245,6 +248,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         if (!tagList.isEmpty()) {
             blogTagsMapper.insertBlogTags(blog.getId(), tagList);
         }
+        return RespBean.success(RespBeanEnum.UPDATE_SUCCESS);
     }
 
     @CacheEvict(value = {"BlogPage_Tag", "BlogPage_Index_Type", "TagDto_List", "Blog_Archives", "Blog_Recommends"}, allEntries = true)

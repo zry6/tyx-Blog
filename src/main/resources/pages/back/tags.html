@@ -12,7 +12,6 @@
 </head>
 <body class="m-back-img1">
 <!--导航-->
-<!--导航-->
 <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small animated fadeInDown m-opacity"
      style="z-index: 99 !important;">
     <div class="ui container">
@@ -172,6 +171,7 @@
         });
 
         function setPage(obj) {
+            console.log(obj);
             //每页的大小
             var pageSiz = obj.size;
             //数据
@@ -179,10 +179,8 @@
             //数据总数
             var total = obj.total;
             //计算当前页的数据量
-            console.log(tags.length);
             //当前页
             let current = obj.current;
-
             //总页数
             var pages = obj.pages;
 

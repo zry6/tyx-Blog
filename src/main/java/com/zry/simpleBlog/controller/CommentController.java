@@ -1,13 +1,11 @@
 package com.zry.simpleBlog.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
-import com.zry.simpleBlog.comment.enums.AuthEnum;
 import com.zry.simpleBlog.comment.aop.annotations.Idempotent;
+import com.zry.simpleBlog.comment.enums.AuthEnum;
 import com.zry.simpleBlog.comment.enums.IdempotentStrategyEnum;
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.dto.CommentDto;
 import com.zry.simpleBlog.service.ICommentService;
 import io.swagger.annotations.Api;
@@ -34,8 +32,7 @@ public class CommentController {
 
     @GetMapping("comments/{blogId}")
     public RespBean comments(@RequestParam(defaultValue = "-1") Integer page, @RequestParam(defaultValue = "-1") Integer pageSize, @PathVariable Long blogId) {
-        Page<CommentDto> comments = commentService.pageCommentByBlogId(page, pageSize, blogId);
-        return RespBean.success(comments);
+        return commentService.pageCommentByBlogId(page, pageSize, blogId);
     }
 
     @ApiOperation(value = "发表评论", notes = "实现幂等性校验")
@@ -43,18 +40,13 @@ public class CommentController {
     @AuthCheck(isLogin = false)
     @PostMapping("comments")
     public RespBean post(@RequestBody @Valid CommentDto comment) {
-        CommentDto commentDto = commentService.saveComment(comment);
-        return RespBean.success(commentDto);
+        return commentService.saveComment(comment);
     }
 
     @ApiOperation(value = "删除评论")
-    @AuthCheck(rank = AuthEnum.ADMINISTRATOR)
+    @AuthCheck(rank = AuthEnum.GOD)
     @DeleteMapping("comments/{id}")
     public RespBean delete(@PathVariable Long id) {
-        boolean b = commentService.removeComment(id);
-        if (!b) {
-            return RespBean.error(RespBeanEnum.DELETE_ERROR);
-        }
-        return RespBean.success();
+        return commentService.removeComment(id);
     }
 }

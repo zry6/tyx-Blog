@@ -4,8 +4,6 @@ spring:
     name: SimpleBlog
   profiles:
     active: dev
-  messages:
-    basename: i18n/messages
 #    静态资源缓存
   resources:
     cache:

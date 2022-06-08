@@ -10,6 +10,7 @@ import com.zry.simpleBlog.comment.utils.MD5Util;
 import com.zry.simpleBlog.comment.utils.UUIDUtil;
 import com.zry.simpleBlog.comment.utils.UserContext;
 import com.zry.simpleBlog.dto.LoginDto;
+import com.zry.simpleBlog.dto.UpdatePswDto;
 import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.mapper.UserMapper;
 import com.zry.simpleBlog.service.IUserService;
@@ -91,7 +92,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
 
     @Override
-    public RespBean updatePassword(String userTicket, String password) {
+    public RespBean updatePassword(UpdatePswDto pswDto, HttpServletRequest request) {
+        String password = pswDto.getPassword();
+        if (!password.equals(pswDto.getCheckPassword())) {
+            throw new BusinessException("两次输入密码不一致");
+        }
+        String userTicket = CookieUtil.getCookieValue(request, cookieKey);
+
         User currentUser = UserContext.getCurrentUser();
         User user = new User();
 
