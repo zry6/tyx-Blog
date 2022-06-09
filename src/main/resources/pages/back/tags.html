@@ -150,10 +150,10 @@
     });
 
 
-    function getPage(current) {
+    function getPage(pageNum) {
 
         $.ajax({
-            url: "/admin/tagPage?page=" + current + "&pageSize=6",
+            url: "/admin/tagPage?pageNum=" + pageNum + "&pageSize=6",
             type: "GET",
             success: function (res) {
                 layer.closeAll();

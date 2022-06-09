@@ -34,8 +34,8 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
     private BlogMapper blogMapper;
 
     @Override
-    public Page<Type> typePage(Integer pageCurrent, Integer pageSiz) {
-        return typeMapper.selectPage(new Page<>(pageCurrent, pageSiz), Wrappers.emptyWrapper());
+    public Page<Type> typePage(Integer pageNum, Integer pageSiz) {
+        return typeMapper.selectPage(new Page<>(pageNum, pageSiz), Wrappers.emptyWrapper());
     }
 
     @Override

@@ -52,8 +52,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
      */
     @Cacheable(value = "BlogPage_Index_Type")
     @Override
-    public RespBean blogPage(Integer current, Integer size, BlogQuery query) {
-        Page<Blog> blogVoPage = blogMapper.selectPageByBlogQuery(new Page<>(current, size), query);
+    public RespBean blogPage(Integer pageNum, Integer pageSize, BlogQuery query) {
+        Page<Blog> blogVoPage = blogMapper.selectPageByBlogQuery(new Page<>(pageNum, pageSize), query);
         //pageClassConvert类型转换
         Page<BlogDto> pageDto = pageClassConvert(blogVoPage);
         //填充分类和博主信息
@@ -83,10 +83,10 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
      */
     @Cacheable(value = "BlogPage_Tag")
     @Override
-    public RespBean blogPage(Integer current, Integer size, Long tagId) {
+    public RespBean blogPage(Integer pageNum, Integer pageSize, Long tagId) {
         List<BlogTags> blogTagsList = blogTagsMapper.selectList(new QueryWrapper<BlogTags>().eq("tags_id", tagId));
         if (blogTagsList == null || blogTagsList.size() == 0) {
-            return null;
+            throw new BusinessException(RespBeanEnum.BLOG_NOT_EXISTED);
         }
         List<Long> resultList = new ArrayList<>();
         //遍历集合取值
@@ -94,7 +94,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             resultList.add(item.getBlogsId());
         });
 
-        Page<Blog> blogVoPage = blogMapper.selectPage(new Page<>(current, size), new QueryWrapper<Blog>().eq("published", true).in("id", resultList));
+        Page<Blog> blogVoPage = blogMapper.selectPage(new Page<>(pageNum, pageSize), new QueryWrapper<Blog>().eq("published", true).in("id", resultList));
         //pageClassConvert类型转换
         Page<BlogDto> pageDto = pageClassConvert(blogVoPage);
         // 填充分类和博主信息，标签
@@ -130,9 +130,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
      * @return
      */
     @Override
-    public RespBean adminBlogPage(Integer current, Integer size, BlogQuery query) {
+    public RespBean adminBlogPage(Integer pageNum, Integer pageSize, BlogQuery query) {
         query.setUserId(UserContext.getCurrentUser().getId());
-        Page<Blog> blogVoPage = blogMapper.selectAdminPage(new Page<>(current, size), query);
+        Page<Blog> blogVoPage = blogMapper.selectAdminPage(new Page<>(pageNum, pageSize), query);
         //pageClassConvert类型转换
         Page<BlogDto> page = pageClassConvert(blogVoPage);
         //填充分类
@@ -267,7 +267,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
      * 功能描述: 更新或添加文章时，检查并获取Tags
      */
     private List<Long> getAndCheckTags(String tagIds) {
+
         List<Long> tagList = StringUtil.convertToList(tagIds);
+
         for (Long tagId : tagList) {
             Tag tag = tagMapper.selectById(tagId);
             if (tag == null) {

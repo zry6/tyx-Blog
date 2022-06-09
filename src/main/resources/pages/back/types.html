@@ -148,9 +148,9 @@
         getPage(1);
     });
 
-    function getPage(current) {
+    function getPage(pageNum) {
         $.ajax({
-            url: "/admin/types?page=" + current + "&pageSize=6",
+            url: "/admin/types?pageNum=" + pageNum + "&pageSize=6",
             type: "GET",
             success: function (result) {
                 layer.closeAll();
@@ -168,7 +168,6 @@
         });
 
         function setPage(obj) {
-            console.log(obj);
             //每页的大小
             var pageSiz = obj.size;
             //数据

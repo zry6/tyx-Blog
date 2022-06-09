@@ -35,8 +35,8 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
     private BlogTagsMapper blogTagsMapper;
 
     @Override
-    public RespBean tagPage(Integer current, Integer size) {
-        return RespBean.success(tagMapper.selectPage(new Page<>(current, size), Wrappers.emptyWrapper()));
+    public RespBean tagPage(Integer pageNum, Integer pageSize) {
+        return RespBean.success(tagMapper.selectPage(new Page<>(pageNum, pageSize), Wrappers.emptyWrapper()));
     }
 
     @Cacheable(value = "TagDto_List")

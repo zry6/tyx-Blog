@@ -12,6 +12,7 @@ import com.zry.simpleBlog.dto.PostBlogDto;
 import com.zry.simpleBlog.service.IBlogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -40,8 +41,10 @@ public class AdminBlogController {
     @AuthCheck(rank = AuthEnum.USER)
     @ApiOperation(value = "后台文章分页", notes = "可按条件查询")
     @GetMapping("/blogs")
-    public RespBean blogs(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer pageSize, BlogQuery query) {
-        return blogService.adminBlogPage(page, pageSize, query);
+    public RespBean blogs(@ApiParam(name = "pageSize", value = "页大小") @RequestParam(value = "pageSize", defaultValue = "8") Integer pageSize,
+                          @ApiParam(name = "pageNum", value = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                          BlogQuery query) {
+        return blogService.adminBlogPage(pageNum, pageSize, query);
     }
 
     /**

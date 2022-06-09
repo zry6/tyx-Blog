@@ -43,7 +43,7 @@ public interface IBlogService extends IService<Blog> {
      * @author zry
      * @create 2022/4/25
      */
-    RespBean blogPage(Integer current, Integer size, BlogQuery query);
+    RespBean blogPage(Integer pageNum, Integer pageSize, BlogQuery query);
     /**
      * 功能描述: 博客分页 ，不用查询文章内容还可能有查询条件，所以为重写一下sql
      *
@@ -52,7 +52,7 @@ public interface IBlogService extends IService<Blog> {
      * @author zry
      * @create 2022/4/25
      */
-    RespBean blogPage(Integer current, Integer size,  Long tagId);
+    RespBean blogPage(Integer pageNum, Integer pageSize,  Long tagId);
 
     /**
      * 功能描述: 获得填充好的文章内容
@@ -74,7 +74,7 @@ public interface IBlogService extends IService<Blog> {
     void deleteById(Long id);
 
 
-    RespBean adminBlogPage(Integer current, Integer size, BlogQuery query);
+    RespBean adminBlogPage(Integer pageNum, Integer pageSize, BlogQuery query);
 
     RespBean mapArchives();
 }

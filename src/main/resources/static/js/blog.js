@@ -1,5 +1,5 @@
-function getBlogs(page, typeId, tagId) {
-    let url = "/blogs?page=" + page;
+function getBlogs(pageNum, typeId, tagId) {
+    let url = "/blogs?pageNum=" + pageNum;
     if (typeId != '' && typeId != null) {
         url += "&typeId=" + typeId;
         $("[name='typeId']").val(typeId);

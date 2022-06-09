@@ -243,8 +243,7 @@
 
     };
 
-    function getPage(current) {
-        console.log(current);
+    function getPage(pageNum) {
         //    获取本文分页
         queryData={
             typeId: $("[name='typeId']").val(),
@@ -252,7 +251,7 @@
             published: $("[ name='published']").prop('checked')
         };
         $.ajax({
-            url: "/admin/blogs?page=" + current + "&pageSize=6",
+            url: "/admin/blogs?pageNum=" + pageNum + "&pageSize=6",
             type: "GET",
             data: queryData,
             success: function (result) {

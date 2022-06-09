@@ -2,16 +2,15 @@ package com.zry.simpleBlog.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
 import com.zry.simpleBlog.comment.respBean.RespBean;
-import com.zry.simpleBlog.dto.BlogDto;
 import com.zry.simpleBlog.dto.BlogQuery;
 import com.zry.simpleBlog.entity.Blog;
 import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.service.IBlogService;
 import com.zry.simpleBlog.service.IUserService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,16 +68,18 @@ public class BlogController {
 
     @ApiOperation(value = "文章展示分页", notes = "文章展示分页: 可选参数[分类][标签],并且如果标签参数存在那么按照标签查询")
     @GetMapping("blogs")
-    public RespBean blogPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "8") Integer pageSize, @RequestParam(required = false) Long typeId, @RequestParam(required = false) Long tagId) {
+    public RespBean blogPage(@ApiParam(name = "pageSize", value = "页大小") @RequestParam(value = "pageSize", defaultValue = "8") Integer pageSize,
+                             @ApiParam(name = "pageNum", value = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                             @RequestParam(required = false) Long typeId,
+                             @RequestParam(required = false) Long tagId) {
         RespBean respBean;
         //只展示已发布的文章
-        Page<BlogDto> pageDto = null;
         if (tagId == null) {
             BlogQuery query = new BlogQuery();
             query.setTypeId(typeId);
-            respBean = blogService.blogPage(page, pageSize, query);
+            respBean = blogService.blogPage(pageNum, pageSize, query);
         } else {
-            respBean = blogService.blogPage(page, pageSize, tagId);
+            respBean = blogService.blogPage(pageNum, pageSize, tagId);
         }
         return respBean;
     }

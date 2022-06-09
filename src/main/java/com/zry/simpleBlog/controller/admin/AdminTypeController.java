@@ -11,6 +11,7 @@ import com.zry.simpleBlog.dto.TypeDto;
 import com.zry.simpleBlog.entity.Type;
 import com.zry.simpleBlog.service.ITypeService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -44,8 +45,9 @@ public class AdminTypeController {
      */
     @GetMapping("/types")
     @LogWeb(title = "分类管理", action = "获取分类分页")
-    public RespBean typePage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer pageSize) {
-        Page<Type> pageVo = typeService.typePage(page, pageSize);
+    public RespBean typePage(@ApiParam(name = "pageSize", value = "页大小") @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                             @ApiParam(name = "pageNum", value = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        Page<Type> pageVo = typeService.typePage(pageNum, pageSize);
         return RespBean.success(pageVo);
     }
 

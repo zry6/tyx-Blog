@@ -23,7 +23,7 @@ public interface ITypeService extends IService<Type> {
      * @author zry
      * @create 2022/4/16
      */
-    Page<Type> typePage(Integer pageCurrent, Integer pageSiz);
+    Page<Type> typePage(Integer pageNum, Integer pageSiz);
 
     /**
      * 新增分类

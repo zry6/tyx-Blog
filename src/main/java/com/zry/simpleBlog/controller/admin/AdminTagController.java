@@ -15,6 +15,7 @@ import com.zry.simpleBlog.service.IBlogTagsService;
 import com.zry.simpleBlog.service.ITagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -51,8 +52,9 @@ public class AdminTagController {
      */
     @GetMapping("/tagPage")
     @LogWeb(title = "标签管理", action = "获取标签分页")
-    public RespBean tagPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer pageSize) {
-        return tagService.tagPage(page, pageSize);
+    public RespBean tagPage(@ApiParam(name = "pageSize", value = "页大小") @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                            @ApiParam(name = "pageNum", value = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        return tagService.tagPage(pageNum, pageSize);
     }
 
     /**

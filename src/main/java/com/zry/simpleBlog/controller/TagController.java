@@ -33,7 +33,7 @@ public class TagController {
         return RespBean.success(list);
     }
     /**
-     * 功能描述: 获取type和对应的文章数量 这不包含未发布的
+     * 功能描述: 获取 tag 和对应的文章数量 这不包含未发布的
      *
      * @create 2022/4/30
      */

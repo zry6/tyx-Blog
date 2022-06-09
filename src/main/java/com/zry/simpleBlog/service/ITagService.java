@@ -21,7 +21,7 @@ public interface ITagService extends IService<Tag> {
 
     void saveTag(TagDto tagDto);
 
-    RespBean tagPage(Integer current, Integer size);
+    RespBean tagPage(Integer pageNum, Integer pageSize);
 
     /**
      * 功能描述: 获取全部标签包含对应的博客数量
