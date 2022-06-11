@@ -83,7 +83,7 @@
                     <div class="ui left active labeled input">
                         <label class="ui compact teal basic label">分类</label>
                         <div class="ui fluid selection dropdown">
-                            <input type="hidden" name="type.id" >
+                            <input type="hidden" name="type.id">
                             <i class="dropdown icon"></i>
                             <div class="default type text">分类</div>
                             <div id="typeContent" class="menu">
@@ -129,7 +129,7 @@
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox"  id="appreciation" name="appreciation"
+                        <input type="checkbox" id="appreciation" name="appreciation"
                                class="hidden">
                         <label for="appreciation">赞赏</label>
                     </div>
@@ -244,10 +244,9 @@
             path: "/lib/editormd/lib/",
 
             // theme : "dark",
-            previewTheme : "lesser-dark",
-            editorTheme : editormd.editorThemes['dark'],
-            pageBreak : true,
-            // path: "../../static/lib/editormd/lib/"
+            previewTheme: "lesser-dark",
+            editorTheme: editormd.editorThemes['dark'],
+            pageBreak: true,
         });
     });
 
@@ -255,61 +254,9 @@
         let id = g_getQueryString("blogId");
         if (id != null && id.length != 0) {
             $('[name="blogId"]').val(id);
-            console.info($('[name="blogId"]').val());
             setEditBlog(id);
         }
-        //获取所有分类
-        $.ajax({
-            url: "/types",
-            type: "GET",
-            success: function (result) {
-                layer.closeAll();
-                if (result.code === 200) {
-                    var typeContent = "";
-                    $.each(result.data, function (index, val) {
-                        typeContent +=
-                            '<div class="item" data-value="'
-                            + val.id
-                            + '" text="'
-                            + val.name
-                            + '"> ' + val.name + '</div>';
-                    });
-                    $('#typeContent').html(typeContent);
-                } else {
-                    layer.msg(result.msg);
-                }
-            },
-            error: function (obj) {
-                layer.closeAll();
-                layer.log("error，也许您的网络有问题");
-            }
-        });
-        //获取所有并标签
-        $.ajax({
-            url: "/tags",
-            type: "GET",
-            success: function (result) {
-                layer.closeAll();
-                if (result.code === 200) {
-                    let tagContent = "";
-                    $.each(result.data, function (index, val) {
-                        tagContent +=
-                            '<div class="item" data-value="'
-                            + val.id
-                            + '" text="'
-                            + val.name
-                            + '"> ' + val.name + '</div>';
-                    });
-                    $('#tagContent').html(tagContent);
-                } else {
-                    layer.msg(result.msg);
-                }
-            },
-            error: function (obj) {
-                layer.closeAll();
-                layer.log("error，也许您的网络有问题");
-            }
-        });
+
     }
 
     function setEditBlog(id) {
@@ -318,16 +265,14 @@
             type: "GET",
             async: false,
             success: function (result) {
-                layer.closeAll();
                 if (result.code === 200) {
                     setBlog(result.data);
-                } else {
-                    layer.msg(result.msg);
+                    setTypesAndTags();
                 }
+                layer.msg(result.msg);
             },
             error: function (obj) {
                 layer.closeAll();
-                console.info(obj);
                 layer.log("error，也许您的网络有问题");
             }
         });
@@ -338,10 +283,10 @@
             $("#content").val(obj.content);
             $('[name="title"]').val(obj.title);
 
-            if(obj.type == null){
+            if (obj.type == null) {
                 $('[name="type.id"]').val("");
                 $('.type.text').text("");
-            }else {
+            } else {
                 $('[name="type.id"]').val(obj.type.id);
                 $('.type.text').text(obj.type.name);
             }
@@ -370,6 +315,59 @@
             $('[name="commentable"]').prop('checked', obj.commentable);
         };
     };
+
+
+    function setTypesAndTags() {
+        $.ajax({
+            url: "/types",
+            type: "GET",
+            success: function (result) {
+                if (result.code === 200) {
+                    var typeContent = "";
+                    $.each(result.data, function (index, val) {
+                        typeContent +=
+                            '<div class="item" data-value="'
+                            + val.id
+                            + '" text="'
+                            + val.name
+                            + '"> ' + val.name + '</div>';
+                    });
+                    $('#typeContent').html(typeContent);
+                } else {
+                    layer.msg(result.msg);
+                }
+            },
+            error: function (obj) {
+                layer.closeAll();
+                layer.log("error，也许您的网络有问题");
+            }
+        });
+        // 获取所有标签
+        $.ajax({
+            url: "/tags",
+            type: "GET",
+            success: function (result) {
+                if (result.code === 200) {
+                    let tagContent = "";
+                    $.each(result.data, function (index, val) {
+                        tagContent +=
+                            '<div class="item" data-value="'
+                            + val.id
+                            + '" text="'
+                            + val.name
+                            + '"> ' + val.name + '</div>';
+                    });
+                    $('#tagContent').html(tagContent);
+                } else {
+                    layer.msg(result.msg);
+                }
+            },
+            error: function (obj) {
+                layer.closeAll();
+                layer.log("error，也许您的网络有问题");
+            }
+        });
+    }
 
     $("#save-btn").click(function () {
         $('[name="published"]').val(false);

@@ -1,5 +1,7 @@
 package com.zry.simpleBlog.comment.utils;
 
+import com.zry.simpleBlog.entity.Tag;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,6 @@ public class StringUtil {
      */
     public static List<Long> convertToList(String ids){
         List<Long> list = new ArrayList();
-
         if(!"".equals(ids) && ids != null){
             String[] idarray = ids.split(COMMA);
             for (String s : idarray) {
@@ -32,4 +33,5 @@ public class StringUtil {
         }
         return list;
     }
+
 }

@@ -1,6 +1,6 @@
 package com.zry.simpleBlog.comment.aop.annotations;
 
-import com.zry.simpleBlog.comment.enums.AuthEnum;
+import com.zry.simpleBlog.comment.enums.AuthRankEnum;
 
 import java.lang.annotation.*;
 
@@ -29,7 +29,7 @@ public @interface AuthCheck {
 
     /**
      * 定义该操作所需用户最低的权限等级
-     * @return AuthEnum
+     * @return AuthRankEnum
      */
-    AuthEnum rank() default AuthEnum.VISITOR;
+    AuthRankEnum rank() default AuthRankEnum.VISITOR;
 }

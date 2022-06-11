@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -108,11 +109,11 @@ public class BlogController {
      *
      * @create 2022/6/2
      */
-//    @PostConstruct
-//    public void init() {
-//        initUser();
-//        initBlog();
-//    }
+    @PostConstruct
+    public void init() {
+        initUser();
+        initBlog();
+    }
     private void initUser() {
         User user = userService.getById(1);
         if (user != null) {

@@ -4,7 +4,7 @@ package com.zry.simpleBlog.controller.admin;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
 import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
-import com.zry.simpleBlog.comment.enums.AuthEnum;
+import com.zry.simpleBlog.comment.enums.AuthRankEnum;
 import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.respBean.RespBean;
@@ -80,7 +80,7 @@ public class AdminTagController {
      */
     @ApiOperation(value = "添加标签")
     @PostMapping("/tags")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @LogWeb(title = "标签管理", action = "新增标签")
     public RespBean postTag(@RequestBody @Valid TagDto tagDto) {
         tagService.saveTag(tagDto);
@@ -94,7 +94,7 @@ public class AdminTagController {
      */
     @ApiOperation(value = "按id删除标签")
     @DeleteMapping("/tags/{id}")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @LogWeb(title = "标签管理", action = "按id删除标签")
     public RespBean deleteTag(@PathVariable Long id) {
         List<BlogTags> list = blogTagsService.list(new QueryWrapper<BlogTags>().select("id").eq("tags_id", id));
@@ -115,7 +115,7 @@ public class AdminTagController {
      */
     @ApiOperation(value = "按id更新标签")
     @PutMapping("/tags/{id}")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @LogWeb(title = "标签管理", action = "按id更新标签")
     public RespBean updateTag(@RequestBody @Valid TagDto tagDto, @PathVariable Long id) {
         tagDto.setId(id);

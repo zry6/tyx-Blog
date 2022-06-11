@@ -1,6 +1,6 @@
 package com.zry.simpleBlog.comment.interceptor;
 
-import com.zry.simpleBlog.comment.enums.AuthEnum;
+import com.zry.simpleBlog.comment.enums.AuthRankEnum;
 import com.zry.simpleBlog.comment.utils.CookieUtil;
 import com.zry.simpleBlog.entity.User;
 import com.zry.simpleBlog.service.RedisService;
@@ -44,7 +44,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         }
         //获取用户信息 登陆状态
         User user = redisService.getUserByTicket(request, response,ticket);
-        if (user == null || user.getRank() > AuthEnum.USER.getRank()) {
+        if (user == null || user.getRank() > AuthRankEnum.USER.getRank()) {
             response.sendRedirect(loginPath);
             return false;
         }

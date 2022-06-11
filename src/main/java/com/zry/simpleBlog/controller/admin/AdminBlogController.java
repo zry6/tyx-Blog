@@ -3,7 +3,7 @@ package com.zry.simpleBlog.controller.admin;
 import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
 import com.zry.simpleBlog.comment.aop.annotations.Idempotent;
 import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
-import com.zry.simpleBlog.comment.enums.AuthEnum;
+import com.zry.simpleBlog.comment.enums.AuthRankEnum;
 import com.zry.simpleBlog.comment.enums.IdempotentStrategyEnum;
 import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.respBean.RespBean;
@@ -38,7 +38,7 @@ public class AdminBlogController {
      *
      * @return mv
      */
-    @AuthCheck(rank = AuthEnum.USER)
+    @AuthCheck(rank = AuthRankEnum.USER)
     @ApiOperation(value = "后台文章分页", notes = "可按条件查询")
     @GetMapping("/blogs")
     public RespBean blogs(@ApiParam(name = "pageSize", value = "页大小") @RequestParam(value = "pageSize", defaultValue = "8") Integer pageSize,
@@ -53,7 +53,7 @@ public class AdminBlogController {
     @Idempotent(timeout = 100, strategy = IdempotentStrategyEnum.IDEMPOTENT_INTERFACE)
     @ApiOperation(value = "添加文章", notes = "实现幂等性")
     @PostMapping("/blogs")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @LogWeb(title = "博客管理", action = "新增文章")
     public RespBean post(@RequestBody @Valid PostBlogDto blogDto) {
         return blogService.saveBlog(blogDto);
@@ -64,7 +64,7 @@ public class AdminBlogController {
      */
     @ApiOperation(value = "更新文章")
     @PutMapping("/blogs/{id}")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @LogWeb(title = "博客管理", action = "更新文章")
     public RespBean update(@RequestBody @Valid PostBlogDto blogDto, @PathVariable Long id) {
         blogDto.setId(id);
@@ -75,7 +75,7 @@ public class AdminBlogController {
      * 删除博客
      */
     @ApiOperation(value = "删除文章")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @DeleteMapping("/blogs/{id}")
     public RespBean delete(@PathVariable Long id) {
         blogService.deleteById(id);

@@ -92,7 +92,6 @@ public class BlogDto implements Serializable {
     }
 
     public BlogDto(Blog blog) {
-        //...
         this.id = blog.getId();
         this.createTime = blog.getCreateTime();
         this.updateTime = blog.getUpdateTime();
@@ -110,27 +109,5 @@ public class BlogDto implements Serializable {
         this.recommend = blog.getRecommend();
         this.published = blog.getPublished();
     }
-
-    public Blog caseToBlog() {
-        Blog blog = new Blog();
-        blog.setId(this.id);
-        blog.setCreateTime(this.createTime);
-        blog.setUpdateTime(this.updateTime);
-        blog.setTypeId(this.typeId);
-        blog.setTitle(this.title);
-        blog.setUserId(this.userId);
-        blog.setViews(this.views);
-        blog.setAppreciation(this.appreciation);
-        blog.setCommentable(this.commentable);
-        blog.setFirstPicture(this.firstPicture);
-        blog.setContent(this.content);
-        blog.setFlag(this.flag);
-        blog.setShareStatement(this.shareStatement);
-        blog.setDescription(this.description);
-        blog.setRecommend(this.recommend);
-        blog.setPublished(this.published);
-        return blog;
-    }
-
 
 }

@@ -3,6 +3,7 @@ package com.zry.simpleBlog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zry.simpleBlog.comment.enums.AuthRankEnum;
 import com.zry.simpleBlog.comment.exception.BusinessException;
 import com.zry.simpleBlog.comment.enums.RespBeanEnum;
 import com.zry.simpleBlog.comment.respBean.RespBean;
@@ -58,6 +59,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         Page<BlogDto> pageDto = pageClassConvert(blogVoPage);
         //填充分类和博主信息
         pageDto = setTypeAndUSerInfo(pageDto);
+
         return RespBean.success(pageDto);
     }
 
@@ -79,6 +81,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     /**
      * 博客标签页的分页展示
+     *
      * @return
      */
     @Cacheable(value = "BlogPage_Tag")
@@ -100,12 +103,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         // 填充分类和博主信息，标签
         List<BlogDto> blogVos = pageDto.getRecords();
 
-        for (BlogDto blog : blogVos) {
+        blogVos.forEach(blog -> {
             blog.setUser(new UserDto(userMapper.selectOne(new QueryWrapper<User>().select("id", "avatar", "nickname").eq("id", blog.getUserId()))));
             blog.setType(typeMapper.selectById(blog.getTypeId()));
             //填充标签
             setTagsByBlogId(blog);
-        }
+        });
 
         return RespBean.success(pageDto);
     }
@@ -127,6 +130,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     /**
      * 后台管理博客列表分页
+     *
      * @return
      */
     @Override
@@ -137,9 +141,10 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         Page<BlogDto> page = pageClassConvert(blogVoPage);
         //填充分类
         List<BlogDto> blogVos = page.getRecords();
-        for (BlogDto blogVo : blogVos) {
+
+        blogVos.forEach(blogVo -> {
             blogVo.setType(typeMapper.selectById(blogVo.getTypeId()));
-        }
+        });
         return RespBean.success(page);
     }
 
@@ -148,10 +153,11 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     public RespBean mapArchives() {
         List<String> years = blogMapper.findGroupYear();
         Map<String, List<ArchivesDto>> map = new HashMap<>(64);
-        for (String year : years) {
+
+        years.forEach(year -> {
             map.put(year, blogMapper.findBlogByYear(year));
-        }
-        log.debug(map.toString());
+        });
+
         return RespBean.success(map);
     }
 
@@ -174,18 +180,25 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         if (null == blog) {
             return RespBean.error(RespBeanEnum.BLOG_NOT_EXISTED);
         }
-        //未登录状态不能看未发布的 和 不能看不是自己写的
-        if (!blog.getPublished() && user == null) {
-            throw new BusinessException(RespBeanEnum.AUTH_ERROR);
+        // 文章未发布的情况
+        if (!blog.getPublished()) {
+            // 未登录状态不能看未发布的
+            if (user == null) {
+                throw new BusinessException(RespBeanEnum.TOKEN_ERROR);
+            }
+            // 用户已登录 1. 自己的文章可以查看 2. 用户为 GOD 权限可以查看
+            if (!user.getId().equals(blog.getUserId()) && user.getRank() > AuthRankEnum.GOD.getRank()) {
+                throw new BusinessException(RespBeanEnum.AUTH_ERROR);
+            }
         }
 
         BlogDto blogDto = new BlogDto(blog);
-        //获取分类
+        // 获取分类
         blogDto.setType(typeMapper.selectById(blogDto.getTypeId()));
-        //获取标签
+        // 获取标签
         setTagsByBlogId(blogDto);
 
-        //更新views 博客访问次数 ， 如果是本人不更新
+        // 更新 views 博客访问次数
         if (user == null && !redisService.isExistVisitor(blog.getId())) {
             Blog b = new Blog();
             b.setViews(blog.getViews() + 1);
@@ -201,28 +214,29 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Override
     public RespBean saveBlog(PostBlogDto blogDto) {
         User user = UserContext.getCurrentUser();
+        // 二次检查用户登录状态
         if (user == null) {
             throw new BusinessException(RespBeanEnum.TOKEN_ERROR);
         }
-        //检查type是否存在
+        // 检查 type 是否存在
         Long typeId = blogDto.getTypeId();
-        getAndCheckType(typeId);
-        //检查tags是否存在  循环查询tag是否存在
-        List<Long> tagList = getAndCheckTags(blogDto.getTagIds());
-        //补充文章属性
+        this.getAndCheckType(typeId);
+        // 检查 tags 是否存在  循环查询 tag 是否存在
+        List<Long> tagList = this.getAndCheckTags(blogDto.getTagIds());
+        // 补充文章属性
         blogDto.setCreateTime(new Date());
         blogDto.setUpdateTime(new Date());
         blogDto.setUserId(user.getId());
         blogDto.setViews(0L);
 
         Blog blog = blogDto.caseToBlog();
-        //插入t_blog
+        // 保存文章主体信息
         blogMapper.insert(blog);
-        //插入t_blog_tags表
+        // 保存文章标签信息
         if (!tagList.isEmpty()) {
             blogTagsMapper.insertBlogTags(blog.getId(), tagList);
         }
-        return RespBean.success(RespBeanEnum.POST_SUCCESS,blog.getId());
+        return RespBean.success(RespBeanEnum.POST_SUCCESS, blog.getId());
     }
 
     @CacheEvict(value = {"BlogPage_Tag", "BlogPage_Index_Type", "TagDto_List", "Blog_Archives"}, allEntries = true)
@@ -231,17 +245,18 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     public RespBean updateBlog(PostBlogDto blog) {
         User user = UserContext.getCurrentUser();
         if (user == null) {
-            throw new BusinessException(RespBeanEnum.AUTH_ERROR);
+            throw new BusinessException(RespBeanEnum.TOKEN_ERROR);
         }
-        //检查type是否存在
+        // 检查type是否存在
         Long typeId = blog.getTypeId();
-        getAndCheckType(typeId);
-        //插入t_blog
+        this.getAndCheckType(typeId);
+
         blog.setUserId(user.getId());
         blog.setUpdateTime(new Date());
+        // 更新文章主体
         blogMapper.update(blog.caseToBlog(), new QueryWrapper<Blog>().eq("id", blog.getId()));
-        //检查tags是否存在  循环查询tag是否存在
-        List<Long> tagList = getAndCheckTags(blog.getTagIds());
+        //检查所的有标签是否存在
+        List<Long> tagList = this.getAndCheckTags(blog.getTagIds());
         //修改t_blog_tags表
         blogTagsMapper.delete(new QueryWrapper<BlogTags>().eq("blogs_id", blog.getId()));
         //插入t_blog_tags表

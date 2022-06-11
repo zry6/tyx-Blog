@@ -180,21 +180,19 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
 
     /**
-     * 功能描述: 以为二级评论还会有回复者所有我们要，递归的查找所有评论子级的回复者
+     * 功能描述: 因为二级评论还会有回复者所以我们要递归的查找所有二级评论的回复者
      *
      * @create 2022/5/12
      */
     private void recursively(@NotNull CommentDto comment) {
-        //查出父级注入父级
-//        comment.setParentComment(apply(commentMapper.selectById(comment.getParentComment().getId())));
+        // 查出父级注入父级
         comment.setReplyComments(commentMapper.selectReplyList(comment.getId()));
-        //顶节点添加到临时存放集合
+        // 顶节点添加到临时存放集合
         COMMENT_TEMP_CONTENT.get().add(comment);
         if (comment.getReplyComments().size() > 0) {
             List<CommentDto> replies = comment.getReplyComments();
             for (CommentDto reply : replies) {
                 // 查出父级 注入父级
-//                reply.setParentComment(apply(commentMapper.selectById(comment.getParentComment().getId())));
                 reply.setReplyComments(commentMapper.selectReplyList(reply.getId()));
                 COMMENT_TEMP_CONTENT.get().add(reply);
                 if (reply.getReplyComments().size() > 0) {

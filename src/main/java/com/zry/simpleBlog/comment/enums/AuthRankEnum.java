@@ -11,13 +11,13 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum AuthEnum {
+public enum AuthRankEnum {
     /**
      * admin 最高权限用户，拥有所有权限
      */
     GOD(1),
     /**
-     * user 无更新，删除权限
+     * user 无更新，删除权限 ,无查看别人未发布的文章权限
      */
     USER(3),
     /**

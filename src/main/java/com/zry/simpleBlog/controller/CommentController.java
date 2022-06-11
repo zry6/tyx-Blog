@@ -3,7 +3,7 @@ package com.zry.simpleBlog.controller;
 
 import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
 import com.zry.simpleBlog.comment.aop.annotations.Idempotent;
-import com.zry.simpleBlog.comment.enums.AuthEnum;
+import com.zry.simpleBlog.comment.enums.AuthRankEnum;
 import com.zry.simpleBlog.comment.enums.IdempotentStrategyEnum;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.dto.CommentDto;
@@ -44,7 +44,7 @@ public class CommentController {
     }
 
     @ApiOperation(value = "删除评论")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @DeleteMapping("comments/{id}")
     public RespBean delete(@PathVariable Long id) {
         return commentService.removeComment(id);

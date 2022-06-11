@@ -31,7 +31,7 @@ public enum RespBeanEnum {
 
     //4xx 状态码表示客户端错误
     ERROR(400, "客户端请求错误"),
-    TOKEN_ERROR(400101, "登录凭证已过期，请重新登录"),
+    TOKEN_ERROR(400101, "请先登录"),
     AUTH_ERROR(403, "权限不足"),
     NOT_FOUND_ERROR(404, "请求的资源不存在"),
 

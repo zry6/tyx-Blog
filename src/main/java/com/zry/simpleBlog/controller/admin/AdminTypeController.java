@@ -3,7 +3,7 @@ package com.zry.simpleBlog.controller.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zry.simpleBlog.comment.aop.annotations.AuthCheck;
-import com.zry.simpleBlog.comment.enums.AuthEnum;
+import com.zry.simpleBlog.comment.enums.AuthRankEnum;
 import com.zry.simpleBlog.comment.aop.annotations.LogWeb;
 import com.zry.simpleBlog.comment.respBean.RespBean;
 import com.zry.simpleBlog.comment.enums.RespBeanEnum;
@@ -72,7 +72,7 @@ public class AdminTypeController {
      * @author zry
      */
     @PostMapping("/types")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @LogWeb(title = "分类管理", action = "新增分类")
     public RespBean postType(@RequestBody @Valid TypeDto typeDto) {
         return typeService.saveType(typeDto);
@@ -84,7 +84,7 @@ public class AdminTypeController {
      * @author zry
      */
     @DeleteMapping("/types/{id}")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @LogWeb(title = "分类管理", action = "按id删除分类")
     public RespBean deleteType(@PathVariable Long id) {
         return typeService.remove(id);
@@ -96,7 +96,7 @@ public class AdminTypeController {
      * @author zry
      */
     @PutMapping("/types/{id}")
-    @AuthCheck(rank = AuthEnum.GOD)
+    @AuthCheck(rank = AuthRankEnum.GOD)
     @LogWeb(title = "分类管理", action = "按id更新分类")
     public RespBean updateType(@RequestBody @Valid TypeDto typeDto, @PathVariable Long id) {
         typeDto.setId(id);
